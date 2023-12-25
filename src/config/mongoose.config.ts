@@ -1,0 +1,23 @@
+import mongoose from "mongoose";
+
+export function connectMongoDB(DB_URL: string | undefined): void {
+  mongoose
+    .connect(`mongodb://127.0.0.1:27017/${DB_URL}`)
+    .then(() => console.log("connected To node-ts DB!"))
+    .catch((err) => console.log(err.message));
+
+  mongoose.connection.on("connected", () => {
+    console.log("mongoose connected To DB");
+  });
+
+  mongoose.connection.on("disconnected", () => {
+    console.log("mongoose connection is disconnected");
+  });
+
+  process.on("SIGINT", async () => {
+    await mongoose.connection.close();
+    console.log("disconnected");
+
+    process.exit(0);
+  });
+}
