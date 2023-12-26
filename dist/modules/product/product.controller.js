@@ -1,0 +1,85 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProductController = void 0;
+const product_dto_1 = require("./product.dto");
+const class_transformer_1 = require("class-transformer");
+const http_status_codes_1 = require("http-status-codes");
+const product_service_1 = __importDefault(require("./product.service"));
+const product_message_1 = require("./product.message");
+const auto_bind_1 = __importDefault(require("auto-bind"));
+class ProductController {
+    constructor() {
+        this.service = product_service_1.default;
+        (0, auto_bind_1.default)(this);
+    }
+    async createProduct(req, res, next) {
+        try {
+            console.log(req.body);
+            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
+            await this.service.create(productDto);
+            res.status(http_status_codes_1.StatusCodes.CREATED).json({
+                message: product_message_1.ProductMessage.CREATED,
+            });
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async getProdcut(req, res, next) {
+        try {
+            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
+            await this.service.create(productDto);
+            res.status(http_status_codes_1.StatusCodes.CREATED).json({
+                message: product_message_1.ProductMessage.CREATED,
+            });
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async getProdcuts(req, res, next) {
+        try {
+            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
+            await this.service.create(productDto);
+            res.status(http_status_codes_1.StatusCodes.CREATED).json({
+                message: product_message_1.ProductMessage.CREATED,
+            });
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async updateProduct(req, res, next) {
+        try {
+            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
+            await this.service.create(productDto);
+            res.status(http_status_codes_1.StatusCodes.CREATED).json({
+                message: product_message_1.ProductMessage.CREATED,
+            });
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async deleteProduct(req, res, next) {
+        try {
+            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
+            await this.service.create(productDto);
+            res.status(http_status_codes_1.StatusCodes.CREATED).json({
+                message: product_message_1.ProductMessage.CREATED,
+            });
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+}
+exports.ProductController = ProductController;

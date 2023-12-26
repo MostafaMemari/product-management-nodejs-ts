@@ -1,3 +1,3 @@
 export enum ProductMessage {
-  Created = "product created successfully",
+  CREATED = "product created successfully",
 }

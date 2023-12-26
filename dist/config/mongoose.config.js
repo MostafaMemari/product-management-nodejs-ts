@@ -7,12 +7,12 @@ exports.connectMongoDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 function connectMongoDB(DB_URL) {
     mongoose_1.default
-        .connect(`mongodb://127.0.0.1:27017/${DB_URL}`)
-        .then(() => console.log("connected To node-ts DB!"))
+        .connect(`${DB_URL}`)
+        .then(() => console.log("connected to DB!"))
         .catch((err) => console.log(err.message));
-    mongoose_1.default.connection.on("connected", () => {
-        console.log("mongoose connected To DB");
-    });
+    // mongoose.connection.on("connected", () => {
+    //   console.log("mongoose connected To DB");
+    // });
     mongoose_1.default.connection.on("disconnected", () => {
         console.log("mongoose connection is disconnected");
     });

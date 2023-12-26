@@ -1,5 +1,5 @@
-import { Expose } from "class-transformer";
-import { IsDefined, Matches, isString, IsEmpty, IsString, IsNumber, IsInt, Min } from "class-validator";
+import { Expose, Transform, Type } from "class-transformer";
+import { IsDefined, IsString, IsNumber } from "class-validator";
 
 export class ProductDTO {
   @IsDefined()
@@ -9,22 +9,22 @@ export class ProductDTO {
 
   @IsDefined()
   @Expose()
-  @IsInt()
+  @IsNumber()
   dkp: number;
 
   @IsDefined()
   @Expose()
-  @IsInt()
+  @IsNumber()
   dkpc: number;
 
   @IsDefined()
   @Expose()
-  @IsInt()
+  @IsNumber()
   price: number;
 
   @IsDefined()
   @Expose()
-  @IsInt()
+  @IsNumber()
   count: number;
 
   @Expose()

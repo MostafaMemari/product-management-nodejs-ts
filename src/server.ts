@@ -6,6 +6,7 @@ import { connectMongoDB } from "./config/mongoose.config";
 import { AllRouter } from "./app.routes";
 import { ApiErrorHandler, NotFoundErrorHandler } from "./common/exception/error.handler";
 import * as http from "http";
+import { SwaggerConfig } from "./config/swagger.config";
 
 export class Application {
   private app = express();
@@ -15,9 +16,10 @@ export class Application {
     this.PORT = PORT;
 
     this.configApplication();
-    this.connectToMongoDB();
+    connectMongoDB(this.DB_URL);
     this.createServer();
     this.createRoute();
+    SwaggerConfig(this.app);
     this.errorHandler();
   }
   configApplication(): void {
@@ -27,9 +29,7 @@ export class Application {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.static(path.join(__dirname, "..", "public")));
   }
-  connectToMongoDB(): void {
-    connectMongoDB(this.DB_URL);
-  }
+
   createServer(): void {
     this.server = http.createServer(this.app);
     this.server.listen(this.PORT, () => {

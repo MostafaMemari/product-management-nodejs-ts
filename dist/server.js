@@ -35,6 +35,7 @@ const mongoose_config_1 = require("./config/mongoose.config");
 const app_routes_1 = require("./app.routes");
 const error_handler_1 = require("./common/exception/error.handler");
 const http = __importStar(require("http"));
+const swagger_config_1 = require("./config/swagger.config");
 class Application {
     constructor(PORT, DB_URL) {
         this.PORT = PORT;
@@ -43,9 +44,10 @@ class Application {
         this.DB_URL = DB_URL;
         this.PORT = PORT;
         this.configApplication();
-        this.connectToMongoDB();
+        (0, mongoose_config_1.connectMongoDB)(this.DB_URL);
         this.createServer();
         this.createRoute();
+        (0, swagger_config_1.SwaggerConfig)(this.app);
         this.errorHandler();
     }
     configApplication() {
@@ -55,9 +57,6 @@ class Application {
         this.app.use(express_1.default.urlencoded({ extended: true }));
         this.app.use(express_1.default.static(path_1.default.join(__dirname, "..", "public")));
     }
-    connectToMongoDB() {
-        (0, mongoose_config_1.connectMongoDB)(this.DB_URL);
-    }
     createServer() {
         this.server = http.createServer(this.app);
         this.server.listen(this.PORT, () => {
@@ -65,7 +64,7 @@ class Application {
         });
     }
     createRoute() {
-        this.app.use(app_routes_1.AllRouter);
+        this.app.use("/api/v1", app_routes_1.AllRouter);
     }
     errorHandler() {
         this.app.use(error_handler_1.NotFoundErrorHandler);
