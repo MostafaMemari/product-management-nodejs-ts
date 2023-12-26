@@ -36,7 +36,7 @@
  */
 /**
  * @swagger
- * /api/v1/product/create:
+ * /api/v1/products:
  *  post:
  *    summary: create new product
  *    tags:
@@ -52,4 +52,19 @@
  *    responses:
  *      201:
  *        description: created
+ */
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *  get:
+ *    summary: get one product
+ *    tags:
+ *      - Product
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: success
  */

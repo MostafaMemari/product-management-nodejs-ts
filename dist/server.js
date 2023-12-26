@@ -44,8 +44,8 @@ class Application {
         this.DB_URL = DB_URL;
         this.PORT = PORT;
         this.configApplication();
-        (0, mongoose_config_1.connectMongoDB)(this.DB_URL);
         this.createServer();
+        (0, mongoose_config_1.connectMongoDB)(this.DB_URL);
         this.createRoute();
         (0, swagger_config_1.SwaggerConfig)(this.app);
         this.errorHandler();

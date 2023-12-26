@@ -7,6 +7,7 @@ import { StatusCodes } from "http-status-codes";
 import productService from "./product.service";
 import { ProductMessage } from "./product.message";
 import autoBind from "auto-bind";
+import { ObjectIdDTO } from "../../types/public.types";
 
 export class ProductController {
   private service = productService;
@@ -29,11 +30,12 @@ export class ProductController {
   }
   async getProdcut(req: Request, res: Response, next: NextFunction) {
     try {
-      const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
+      const productDto: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
 
-      await this.service.create(productDto);
-      res.status(StatusCodes.CREATED).json({
-        message: ProductMessage.CREATED,
+      const product = await this.service.getProduct(productDto);
+      res.status(StatusCodes.OK).json({
+        message: ProductMessage.SUCCESSFULLY,
+        data: { product },
       });
     } catch (error) {
       console.log(error);

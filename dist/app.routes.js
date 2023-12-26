@@ -8,4 +8,4 @@ const express_1 = require("express");
 const product_routes_1 = __importDefault(require("./modules/product/product.routes"));
 const AllRouter = (0, express_1.Router)();
 exports.AllRouter = AllRouter;
-AllRouter.use("/product", product_routes_1.default);
+AllRouter.use("/products", product_routes_1.default);

@@ -16,8 +16,8 @@ export class Application {
     this.PORT = PORT;
 
     this.configApplication();
-    connectMongoDB(this.DB_URL);
     this.createServer();
+    connectMongoDB(this.DB_URL);
     this.createRoute();
     SwaggerConfig(this.app);
     this.errorHandler();

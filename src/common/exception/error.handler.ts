@@ -1,6 +1,6 @@
 import { ValidationError, validateSync } from "class-validator";
 import { Application } from "../../server";
-import { HttpError, ResponseMethod } from "../../types/public";
+import { HttpError, ResponseMethod } from "../../types/public.types";
 import { Request, Response, NextFunction } from "express";
 import createHttpError from "http-errors";
 

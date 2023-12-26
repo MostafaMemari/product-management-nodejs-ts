@@ -10,6 +10,7 @@ const http_status_codes_1 = require("http-status-codes");
 const product_service_1 = __importDefault(require("./product.service"));
 const product_message_1 = require("./product.message");
 const auto_bind_1 = __importDefault(require("auto-bind"));
+const public_types_1 = require("../../types/public.types");
 class ProductController {
     constructor() {
         this.service = product_service_1.default;
@@ -31,10 +32,11 @@ class ProductController {
     }
     async getProdcut(req, res, next) {
         try {
-            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
-            await this.service.create(productDto);
-            res.status(http_status_codes_1.StatusCodes.CREATED).json({
-                message: product_message_1.ProductMessage.CREATED,
+            const productDto = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true });
+            const product = await this.service.getProduct(productDto);
+            res.status(http_status_codes_1.StatusCodes.OK).json({
+                message: product_message_1.ProductMessage.SUCCESSFULLY,
+                data: { product },
             });
         }
         catch (error) {

@@ -1,5 +1,6 @@
 import { Expose, Transform, Type } from "class-transformer";
-import { IsDefined, IsString, IsNumber } from "class-validator";
+import { IsDefined, IsString, IsNumber, Matches } from "class-validator";
+import { ObjectId } from "mongoose";
 
 export class ProductDTO {
   @IsDefined()

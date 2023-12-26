@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObjectIdDTO = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class ObjectIdDTO {
 }
 exports.ObjectIdDTO = ObjectIdDTO;
 __decorate([
+    (0, class_transformer_1.Expose)(),
     (0, class_validator_1.Matches)(RegExp(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)),
     __metadata("design:type", Object)
 ], ObjectIdDTO.prototype, "id", void 0);
