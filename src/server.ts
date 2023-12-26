@@ -37,7 +37,7 @@ export class Application {
     });
   }
   createRoute(): void {
-    this.app.use(AllRouter);
+    this.app.use("/api/v1", AllRouter);
   }
   errorHandler(): void {
     this.app.use(NotFoundErrorHandler);

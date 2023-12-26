@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 export function connectMongoDB(DB_URL: string | undefined): void {
   mongoose
-    .connect(`mongodb://127.0.0.1:27017/${DB_URL}`)
-    .then(() => console.log("connected To node-ts DB!"))
+    .connect(`${DB_URL}`)
+    .then(() => console.log("connected to DB!"))
     .catch((err) => console.log(err.message));
 
-  mongoose.connection.on("connected", () => {
-    console.log("mongoose connected To DB");
-  });
+  // mongoose.connection.on("connected", () => {
+  //   console.log("mongoose connected To DB");
+  // });
 
   mongoose.connection.on("disconnected", () => {
     console.log("mongoose connection is disconnected");

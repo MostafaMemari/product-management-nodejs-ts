@@ -1,3 +1,4 @@
+import { ValidationError, validateSync } from "class-validator";
 import { Application } from "../../server";
 import { HttpError, ResponseMethod } from "../../types/public";
 import { Request, Response, NextFunction } from "express";
@@ -18,4 +19,16 @@ export function NotFoundErrorHandler(req: Request, res: Response, next: NextFunc
     status: errorCode,
     message,
   });
+}
+
+export function errorHandler(dto: any) {
+  const errors: ValidationError[] = validateSync(dto);
+
+  let errorTexts: any[] = [];
+  for (const errorItem of errors) {
+    errorTexts = errorTexts.concat(errorItem.constraints);
+  }
+  if (errorTexts.length > 0) throw { status: 400, message: "validation Error", errorTexts };
+
+  return errorTexts;
 }
