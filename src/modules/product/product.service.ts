@@ -11,9 +11,12 @@ class ProductService {
     return product;
   }
   async getProduct(productIdDto: ObjectIdDTO): Promise<FindDoc<IProduct>> {
-    // errorHandler(productIdDto);
-    console.log(productIdDto);
+    errorHandler(productIdDto);
     const product: FindDoc<IProduct> = await ProductModel.findById(productIdDto.id);
+    return product;
+  }
+  async getProducts(): Promise<IProduct[]> {
+    const product: IProduct[] = await ProductModel.find({});
     return product;
   }
 }

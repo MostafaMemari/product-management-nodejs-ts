@@ -21,6 +21,7 @@ export class ProductController {
 
       await this.service.create(productDto);
       res.status(StatusCodes.CREATED).json({
+        statusCode: StatusCodes.CREATED,
         message: ProductMessage.CREATED,
       });
     } catch (error) {
@@ -34,7 +35,6 @@ export class ProductController {
 
       const product = await this.service.getProduct(productDto);
       res.status(StatusCodes.OK).json({
-        message: ProductMessage.SUCCESSFULLY,
         data: { product },
       });
     } catch (error) {
@@ -44,11 +44,10 @@ export class ProductController {
   }
   async getProdcuts(req: Request, res: Response, next: NextFunction) {
     try {
-      const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
+      const products: IProduct[] = await this.service.getProducts();
 
-      await this.service.create(productDto);
-      res.status(StatusCodes.CREATED).json({
-        message: ProductMessage.CREATED,
+      res.status(StatusCodes.OK).json({
+        data: { products },
       });
     } catch (error) {
       console.log(error);

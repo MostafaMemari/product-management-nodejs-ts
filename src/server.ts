@@ -33,7 +33,7 @@ export class Application {
   createServer(): void {
     this.server = http.createServer(this.app);
     this.server.listen(this.PORT, () => {
-      console.log(`Server listen on Port : http://localhost:${this.PORT}`);
+      console.log(`Server listen on Port : http://localhost:${this.PORT}/api-docs`);
     });
   }
   createRoute(): void {

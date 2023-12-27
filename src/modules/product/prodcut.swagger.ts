@@ -70,3 +70,15 @@
  *      200:
  *        description: success
  */
+
+/**
+ * @swagger
+ * /api/v1/products/:
+ *  get:
+ *    summary: get all product
+ *    tags:
+ *      - Product
+ *    responses:
+ *      200:
+ *        description: success
+ */
