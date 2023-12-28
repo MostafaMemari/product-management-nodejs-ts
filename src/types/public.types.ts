@@ -13,7 +13,9 @@ export interface HttpError extends ErrorEvent {
 }
 export class ObjectIdDTO {
   @Expose()
-  @Matches(RegExp(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i))
+  @Matches(RegExp(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i), {
+    message: "object id is not valid",
+  })
   id: ObjectId;
 }
 

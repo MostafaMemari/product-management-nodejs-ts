@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { ProductDTO } from "./product.dto";
+import { ProductDTO, ProductUpdateDTO } from "./product.dto";
 import { plainToClass } from "class-transformer";
 import { IProduct } from "./product.types";
 import { StatusCodes } from "http-status-codes";
@@ -14,7 +14,7 @@ export class ProductController {
   constructor() {
     autoBind(this);
   }
-  async createProduct(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction) {
     try {
       console.log(req.body);
       const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
@@ -22,18 +22,35 @@ export class ProductController {
       await this.service.create(productDto);
       res.status(StatusCodes.CREATED).json({
         statusCode: StatusCodes.CREATED,
-        message: ProductMessage.CREATED,
+        message: ProductMessage.Created,
       });
     } catch (error) {
       console.log(error);
       next(error);
     }
   }
-  async getProdcut(req: Request, res: Response, next: NextFunction) {
+  async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const productDto: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
+      const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
+      const productDto: ProductUpdateDTO = plainToClass(ProductUpdateDTO, req.body, {
+        excludeExtraneousValues: true,
+        exposeUnsetFields: false,
+      });
 
-      const product = await this.service.getProduct(productDto);
+      await this.service.update(productID, productDto);
+
+      res.status(StatusCodes.OK).json({
+        message: ProductMessage.Updated,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async findByID(req: Request, res: Response, next: NextFunction) {
+    try {
+      const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
+
+      const product = await this.service.findByID(productID);
       res.status(StatusCodes.OK).json({
         data: { product },
       });
@@ -42,9 +59,9 @@ export class ProductController {
       next(error);
     }
   }
-  async getProdcuts(req: Request, res: Response, next: NextFunction) {
+  async find(req: Request, res: Response, next: NextFunction) {
     try {
-      const products: IProduct[] = await this.service.getProducts();
+      const products: IProduct[] = await this.service.find();
 
       res.status(StatusCodes.OK).json({
         data: { products },
@@ -54,25 +71,13 @@ export class ProductController {
       next(error);
     }
   }
-  async updateProduct(req: Request, res: Response, next: NextFunction) {
+  async removeByID(req: Request, res: Response, next: NextFunction) {
     try {
-      const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
+      const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
 
-      await this.service.create(productDto);
-      res.status(StatusCodes.CREATED).json({
-        message: ProductMessage.CREATED,
-      });
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
-  }
-  async deleteProduct(req: Request, res: Response, next: NextFunction) {
-    try {
-      const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
-      await this.service.create(productDto);
-      res.status(StatusCodes.CREATED).json({
-        message: ProductMessage.CREATED,
+      await this.service.removeByID(productID);
+      res.status(StatusCodes.OK).json({
+        message: ProductMessage.Deleted,
       });
     } catch (error) {
       console.log(error);

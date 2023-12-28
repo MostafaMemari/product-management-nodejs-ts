@@ -23,7 +23,11 @@ export function NotFoundErrorHandler(req: Request, res: Response, next: NextFunc
 }
 
 export function errorHandler(dto: any) {
-  const errors: ValidationError[] = validateSync(dto);
+  let errors: ValidationError[] = [];
+  for (const i in dto) {
+    const error: any = validateSync(dto[i]);
+    errors.push(...error);
+  }
 
   let errorTexts: any[] = [];
   for (const errorItem of errors) {
