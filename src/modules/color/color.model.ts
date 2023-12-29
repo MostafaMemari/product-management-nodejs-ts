@@ -1,7 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 import { IColor } from "./color.types";
 
-const ProductSchema = new Schema<IColor>(
+const ColorSchema = new Schema<IColor>(
   {
     name: { type: String, required: true },
   },
@@ -10,4 +10,4 @@ const ProductSchema = new Schema<IColor>(
   }
 );
 
-export const ColorModel = model("color", ProductSchema);
+export const ColorModel = model("color", ColorSchema);
