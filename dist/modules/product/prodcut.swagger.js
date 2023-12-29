@@ -36,6 +36,30 @@
  */
 /**
  * @swagger
+ *  components:
+ *    schemas:
+ *      UpdateProduct:
+ *        type: object
+ *        properties:
+ *          title:
+ *            type: string
+ *          dkp:
+ *            type: number
+ *          dkpc:
+ *            type: number
+ *          price:
+ *            type: number
+ *          count:
+ *            type: number
+ *          color:
+ *            type: string
+ *          category:
+ *            type: string
+ *          seller:
+ *            type: string
+ */
+/**
+ * @swagger
  * /api/v1/products:
  *  post:
  *    summary: create new product
@@ -56,8 +80,57 @@
 /**
  * @swagger
  * /api/v1/products/{id}:
+ *  put:
+ *    summary: update product
+ *    tags:
+ *      - Product
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *    requestBody:
+ *      content:
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: "#/components/schemas/UpdateProduct"
+ *        application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/UpdateProduct"
+ *    responses:
+ *      201:
+ *        description: created
+ */
+/**
+ * @swagger
+ * /api/v1/products/{id}:
  *  get:
  *    summary: get one product
+ *    tags:
+ *      - Product
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: success
+ */
+/**
+ * @swagger
+ * /api/v1/products/:
+ *  get:
+ *    summary: get all product
+ *    tags:
+ *      - Product
+ *    responses:
+ *      200:
+ *        description: success
+ */
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *  delete:
+ *    summary: delete one product
  *    tags:
  *      - Product
  *    parameters:

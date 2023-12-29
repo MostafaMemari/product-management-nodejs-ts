@@ -18,8 +18,8 @@ class ProductService {
 
     await this.checkExistProduct(productID);
 
-    const product: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto });
-    if (!product.modifiedCount) throw createHttpError.InternalServerError();
+    const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto });
+    if (!result.modifiedCount) throw createHttpError.InternalServerError();
     return true;
   }
   async findByID(productID: ObjectIdDTO): Promise<FindDoc<IProduct>> {
@@ -39,7 +39,7 @@ class ProductService {
   }
   async checkExistProduct(productID: ObjectIdDTO): Promise<FindDoc<IProduct>> {
     const product: FindDoc<IProduct> = await ProductModel.findById(productID.id);
-    if (!product) throw createHttpError.NotFound(ProductMessage.AlreadyExist);
+    if (!product) throw createHttpError.NotFound(ProductMessage.NotFound);
     return product;
   }
 }

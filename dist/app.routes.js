@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllRouter = void 0;
 const express_1 = require("express");
 const product_routes_1 = __importDefault(require("./modules/product/product.routes"));
+const color_routes_1 = __importDefault(require("./modules/color/color.routes"));
 const AllRouter = (0, express_1.Router)();
 exports.AllRouter = AllRouter;
 AllRouter.use("/products", product_routes_1.default);
+AllRouter.use("/colors", color_routes_1.default);

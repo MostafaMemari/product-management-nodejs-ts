@@ -9,16 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ObjectIdDTO = void 0;
+exports.ColorUpdateDTO = exports.ColorDTO = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
-class ObjectIdDTO {
+class ColorDTO {
 }
-exports.ObjectIdDTO = ObjectIdDTO;
+exports.ColorDTO = ColorDTO;
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ColorDTO.prototype, "name", void 0);
+class ColorUpdateDTO {
+}
+exports.ColorUpdateDTO = ColorUpdateDTO;
 __decorate([
     (0, class_transformer_1.Expose)(),
-    (0, class_validator_1.Matches)(RegExp(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i), {
-        message: "object id is not valid",
-    }),
-    __metadata("design:type", Object)
-], ObjectIdDTO.prototype, "id", void 0);
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ColorUpdateDTO.prototype, "name", void 0);

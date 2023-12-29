@@ -26,7 +26,11 @@ function NotFoundErrorHandler(req, res, next) {
 }
 exports.NotFoundErrorHandler = NotFoundErrorHandler;
 function errorHandler(dto) {
-    const errors = (0, class_validator_1.validateSync)(dto);
+    let errors = [];
+    for (const i in dto) {
+        const error = (0, class_validator_1.validateSync)(dto[i]);
+        errors.push(...error);
+    }
     let errorTexts = [];
     for (const errorItem of errors) {
         errorTexts = errorTexts.concat(errorItem.constraints);

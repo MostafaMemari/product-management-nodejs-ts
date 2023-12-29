@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductDTO = void 0;
+exports.ProductUpdateDTO = exports.ProductDTO = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class ProductDTO {
@@ -57,3 +57,48 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], ProductDTO.prototype, "seller", void 0);
+class ProductUpdateDTO {
+}
+exports.ProductUpdateDTO = ProductUpdateDTO;
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductUpdateDTO.prototype, "title", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ProductUpdateDTO.prototype, "dkp", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ProductUpdateDTO.prototype, "dkpc", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ProductUpdateDTO.prototype, "price", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ProductUpdateDTO.prototype, "count", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], ProductUpdateDTO.prototype, "color", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], ProductUpdateDTO.prototype, "category", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], ProductUpdateDTO.prototype, "seller", void 0);
