@@ -1,10 +1,14 @@
 import createHttpError from "http-errors";
 import { errorHandler } from "../../common/exception/error.handler";
-import { BuyAndSellDTO } from "./buy-sell.dto";
+import { BuyAndSellDTO, CountDTO } from "./buy-sell.dto";
 import { BuyAndSellModel } from "./buy-sell.model";
 import { IBuyAndSell } from "./buy-sell.types";
 import { plainToClass } from "class-transformer";
 import { getDateNow, getHourNow } from "../../common/utils/dateNormalize";
+import { FindDoc, ObjectIdDTO } from "../../types/public.types";
+import { ProductDTO } from "../product/product.dto";
+import { IProduct } from "../product/product.types";
+import { ProductModel } from "../product/product.model";
 
 class BuyAndSellService {
   async create(reqDto: BuyAndSellDTO): Promise<Boolean> {
@@ -17,6 +21,42 @@ class BuyAndSellService {
     const result: IBuyAndSell = await BuyAndSellModel.create(buyAndSellDto);
     if (!result) throw createHttpError.InternalServerError();
     return true;
+  }
+  async buy(productID: ObjectIdDTO, count: CountDTO, productDto: FindDoc<IProduct>) {
+    const productDTO: any = { product: productID.id, count: +count.count, operation: "خرید" };
+    await this.create(productDTO);
+
+    const countProduct = Number(productDto?.count) + Number(count.count);
+    await ProductModel.updateOne(
+      { _id: productID.id },
+      {
+        count: countProduct,
+      }
+    );
+  }
+  async sell(productID: ObjectIdDTO, count: CountDTO, productDto: FindDoc<IProduct>) {
+    const productDTO: any = { product: productID.id, count: +count.count, operation: "فروش" };
+    await this.create(productDTO);
+
+    const countProduct = Number(productDto?.count) - Number(count.count);
+    await ProductModel.updateOne(
+      { _id: productID.id },
+      {
+        count: countProduct,
+      }
+    );
+  }
+  async depo(productID: ObjectIdDTO, count: CountDTO, productDto: FindDoc<IProduct>) {
+    const productDTO: any = { product: productID.id, count: +count.count, operation: "دپو" };
+    await this.create(productDTO);
+
+    const countProduct = Number(productDto?.count) - Number(count.count);
+    await ProductModel.updateOne(
+      { _id: productID.id },
+      {
+        count: countProduct,
+      }
+    );
   }
 }
 export default new BuyAndSellService();

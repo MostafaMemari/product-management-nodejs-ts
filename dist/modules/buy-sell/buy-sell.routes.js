@@ -4,5 +4,5 @@ const express_1 = require("express");
 const buy_sell_controller_1 = require("./buy-sell.controller");
 const router = (0, express_1.Router)();
 const buyAndSellController = new buy_sell_controller_1.BuyAndSellController();
-router.post("/", buyAndSellController.create);
+router.post("/product/:id/buy", buyAndSellController.buyAndSell);
 exports.default = router;

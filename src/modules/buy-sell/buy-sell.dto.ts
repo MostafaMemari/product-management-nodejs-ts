@@ -1,5 +1,6 @@
 import { Expose, Transform, Type } from "class-transformer";
 import { IsDefined, IsString, IsNumber, Matches, IsOptional, IsDate, IsEnum } from "class-validator";
+import { ObjectId } from "mongoose";
 
 export class BuyAndSellDTO {
   @Expose()
@@ -7,7 +8,7 @@ export class BuyAndSellDTO {
   @Matches(RegExp(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i), {
     message: "object id is not valid",
   })
-  product: string;
+  product: string | ObjectId;
   @Expose()
   @IsDefined()
   @IsString()
@@ -21,11 +22,18 @@ export class BuyAndSellDTO {
   @IsNumber()
   count: number;
   @Expose()
-  @IsDefined()
+  @IsOptional()
   @IsNumber()
   price: number;
   @Expose()
   @IsDefined()
   @IsString()
   operation: string;
+}
+
+export class CountDTO {
+  @Expose()
+  @IsOptional()
+  @IsNumber()
+  count: number;
 }

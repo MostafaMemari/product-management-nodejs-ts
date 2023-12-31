@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BuyAndSellDTO = void 0;
+exports.CountDTO = exports.BuyAndSellDTO = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class BuyAndSellDTO {
@@ -21,7 +21,7 @@ __decorate([
     (0, class_validator_1.Matches)(RegExp(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i), {
         message: "object id is not valid",
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], BuyAndSellDTO.prototype, "product", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
@@ -43,7 +43,7 @@ __decorate([
 ], BuyAndSellDTO.prototype, "count", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
-    (0, class_validator_1.IsDefined)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], BuyAndSellDTO.prototype, "price", void 0);
@@ -53,3 +53,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], BuyAndSellDTO.prototype, "operation", void 0);
+class CountDTO {
+}
+exports.CountDTO = CountDTO;
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CountDTO.prototype, "count", void 0);

@@ -6,7 +6,7 @@ const ProductSchema = new Schema<IProduct>(
     title: { type: String, required: true },
     dkp: { type: Number, required: true },
     dkpc: { type: Number, required: true },
-    price: { type: Number, required: true },
+    price: { type: Number },
     count: { type: Number, default: 0 },
     color: { type: Types.ObjectId, ref: "color" },
     category: { type: Types.ObjectId, ref: "category" },

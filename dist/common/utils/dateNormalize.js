@@ -15,7 +15,6 @@ function getDateNow() {
     let [year, month, day] = dateShamsi.split("/");
     month = month.length === 1 ? `0${month}` : month;
     day = day.length === 1 ? `0${day}` : day;
-    console.log(`${year}/${month}/${day}`);
     return `${year}/${month}/${day}`;
 }
 exports.getDateNow = getDateNow;

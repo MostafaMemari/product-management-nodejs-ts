@@ -9,6 +9,7 @@ const buy_sell_dto_1 = require("./buy-sell.dto");
 const buy_sell_model_1 = require("./buy-sell.model");
 const class_transformer_1 = require("class-transformer");
 const dateNormalize_1 = require("../../common/utils/dateNormalize");
+const product_model_1 = require("../product/product.model");
 class BuyAndSellService {
     async create(reqDto) {
         reqDto.hour = (0, dateNormalize_1.getHourNow)();
@@ -19,6 +20,30 @@ class BuyAndSellService {
         if (!result)
             throw http_errors_1.default.InternalServerError();
         return true;
+    }
+    async buy(productID, count, productDto) {
+        const productDTO = { product: productID.id, count: +count.count, operation: "خرید" };
+        await this.create(productDTO);
+        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) + Number(count.count);
+        await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
+            count: countProduct,
+        });
+    }
+    async sell(productID, count, productDto) {
+        const productDTO = { product: productID.id, count: +count.count, operation: "فروش" };
+        await this.create(productDTO);
+        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) - Number(count.count);
+        await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
+            count: countProduct,
+        });
+    }
+    async depo(productID, count, productDto) {
+        const productDTO = { product: productID.id, count: +count.count, operation: "دپو" };
+        await this.create(productDTO);
+        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) - Number(count.count);
+        await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
+            count: countProduct,
+        });
     }
 }
 exports.default = new BuyAndSellService();

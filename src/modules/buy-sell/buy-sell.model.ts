@@ -1,13 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { IBuyAndSell } from "./buy-sell.types";
 
 const BuyAndSellSchema = new Schema<IBuyAndSell>(
   {
-    product: { type: String, required: true },
+    product: { type: Types.ObjectId, required: true, ref: "product" },
     date: { type: String, required: true },
     hour: { type: String, required: true },
     count: { type: Number, required: true },
-    price: { type: Number, required: true },
+    price: { type: Number },
     operation: { type: String, default: "فروش", enum: ["خرید", "فروش", "دپو", "خرابی"] },
   },
   {
@@ -15,4 +15,4 @@ const BuyAndSellSchema = new Schema<IBuyAndSell>(
   }
 );
 
-export const BuyAndSellModel = model("buy", BuyAndSellSchema);
+export const BuyAndSellModel = model("buyAndsell", BuyAndSellSchema);

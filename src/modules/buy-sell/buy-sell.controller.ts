@@ -1,13 +1,17 @@
 import autoBind from "auto-bind";
 import buyAndSellService from "./buy-sell.service";
 import { NextFunction, Request, Response } from "express";
-import { BuyAndSellDTO } from "./buy-sell.dto";
+import { BuyAndSellDTO, CountDTO } from "./buy-sell.dto";
 import { plainToClass } from "class-transformer";
 import { StatusCodes } from "http-status-codes";
 import { BuyAndSellMessage } from "./buy-sell.message";
+import { FindDoc, ObjectIdDTO } from "../../types/public.types";
+import { IProduct } from "../product/product.types";
+import productService from "../product/product.service";
 
 export class BuyAndSellController {
   private service = buyAndSellService;
+  private productService = productService;
   constructor() {
     autoBind(this);
   }
@@ -21,6 +25,29 @@ export class BuyAndSellController {
       });
     } catch (error) {
       console.log(error);
+      next(error);
+    }
+  }
+  async buyAndSell(req: Request, res: Response, next: NextFunction) {
+    try {
+      const pathUrl: string | undefined = req.url.split("/").pop();
+
+      const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
+      const countDto: CountDTO = plainToClass(CountDTO, req.body, { excludeExtraneousValues: true });
+      const productDto: FindDoc<IProduct> = await this.productService.checkExistProduct(productID);
+
+      if (pathUrl === "buy") {
+        await this.service.buy(productID, countDto, productDto);
+      } else if (pathUrl === "sell") {
+        await this.service.sell(productID, countDto, productDto);
+      } else if (pathUrl === "depo") {
+        await this.service.depo(productID, countDto, productDto);
+      }
+
+      res.status(StatusCodes.OK).json({
+        message: BuyAndSellMessage.Buy,
+      });
+    } catch (error) {
       next(error);
     }
   }

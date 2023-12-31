@@ -11,9 +11,11 @@ const product_service_1 = __importDefault(require("./product.service"));
 const product_message_1 = require("./product.message");
 const auto_bind_1 = __importDefault(require("auto-bind"));
 const public_types_1 = require("../../types/public.types");
+const buy_sell_service_1 = __importDefault(require("../../modules/buy-sell/buy-sell.service"));
 class ProductController {
     constructor() {
         this.service = product_service_1.default;
+        this.buyAndSellService = buy_sell_service_1.default;
         (0, auto_bind_1.default)(this);
     }
     async create(req, res, next) {

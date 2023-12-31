@@ -9,44 +9,84 @@
  * @swagger
  *  components:
  *    schemas:
- *      CreateBuyAndSell:
+ *      CountSchema:
  *        type: object
  *        required:
- *          - product
  *          - count
- *          - price
- *          - operation
  *        properties:
- *          product:
- *            type: string
  *          count:
- *            type: number
- *          price:
- *            type: number
- *          operation:
- *            type: string
- *            enum:
- *              - فروش
- *              - خرید
- *              - دپو
- *              - خرابی
+ *            type: integer
  */
 
 /**
  * @swagger
- * /api/v1/buy-sell:
+ * /api/v1/buy-sell/product/{id}/buy:
  *  post:
- *    summary: buy and sell
+ *    summary: buy product
  *    tags:
  *      - BuyAndSell
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
  *    requestBody:
  *      content:
  *        application/x-www-form-urlencoded:
  *          schema:
- *            $ref: "#/components/schemas/CreateBuyAndSell"
+ *            $ref: "#/components/schemas/CountSchema"
  *        application/json:
  *          schema:
- *            $ref: "#/components/schemas/CreateBuyAndSell"
+ *            $ref: "#/components/schemas/CountSchema"
+ *    responses:
+ *      201:
+ *        description: created
+ */
+
+/**
+ * @swagger
+ * /api/v1/buy-sell/product/{id}/sell:
+ *  post:
+ *    summary: sell product
+ *    tags:
+ *      - BuyAndSell
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *    requestBody:
+ *      content:
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: "#/components/schemas/CountSchema"
+ *        application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/CountSchema"
+ *    responses:
+ *      201:
+ *        description: created
+ */
+/**
+ * @swagger
+ * /api/v1/buy-sell/product/{id}/depo:
+ *  post:
+ *    summary: depo product
+ *    tags:
+ *      - BuyAndSell
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *    requestBody:
+ *      content:
+ *        application/x-www-form-urlencoded:
+ *          schema:
+ *            $ref: "#/components/schemas/CountSchema"
+ *        application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/CountSchema"
  *    responses:
  *      201:
  *        description: created

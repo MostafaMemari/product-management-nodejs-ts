@@ -4,4 +4,5 @@ exports.BuyAndSellMessage = void 0;
 var BuyAndSellMessage;
 (function (BuyAndSellMessage) {
     BuyAndSellMessage["Successfully"] = "Successfully";
+    BuyAndSellMessage["Buy"] = "product buy successfully";
 })(BuyAndSellMessage || (exports.BuyAndSellMessage = BuyAndSellMessage = {}));

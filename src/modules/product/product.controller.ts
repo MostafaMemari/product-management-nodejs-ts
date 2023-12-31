@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-
 import { ProductDTO, ProductUpdateDTO } from "./product.dto";
 import { plainToClass } from "class-transformer";
 import { IProduct } from "./product.types";
@@ -7,10 +6,12 @@ import { StatusCodes } from "http-status-codes";
 import productService from "./product.service";
 import { ProductMessage } from "./product.message";
 import autoBind from "auto-bind";
-import { ObjectIdDTO } from "../../types/public.types";
+import { FindDoc, ObjectIdDTO } from "../../types/public.types";
+import BuyAndSellService from "../../modules/buy-sell/buy-sell.service";
 
 export class ProductController {
   private service = productService;
+  private buyAndSellService = BuyAndSellService;
   constructor() {
     autoBind(this);
   }
