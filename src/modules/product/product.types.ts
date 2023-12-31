@@ -8,5 +8,16 @@ export interface IProduct extends Document {
   count?: number;
   color?: ObjectId;
   category?: ObjectId;
+  img?: string;
+  url?: string;
+  height?: number;
+  width?: number;
   seller?: ObjectId;
 }
+
+export type ResponseProducts = {
+  total: number;
+  page: number;
+  limit: number;
+  products: IProduct[];
+};

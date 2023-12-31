@@ -1,17 +1,22 @@
 import { NextFunction, Request, Response } from "express";
-import { ProductDTO, ProductUpdateDTO } from "./product.dto";
+import { ProductDTO, ProductQueryDTO, ProductUpdateDTO } from "./product.dto";
 import { plainToClass } from "class-transformer";
-import { IProduct } from "./product.types";
+import { IProduct, ResponseProducts } from "./product.types";
 import { StatusCodes } from "http-status-codes";
 import productService from "./product.service";
 import { ProductMessage } from "./product.message";
 import autoBind from "auto-bind";
 import { FindDoc, ObjectIdDTO } from "../../types/public.types";
 import BuyAndSellService from "../../modules/buy-sell/buy-sell.service";
+import ColorService from "../color/color.service";
+import { IColor } from "../color/color.types";
+import CategoryService from "../category/category.service";
+import { ICategory } from "../category/category.types";
 
 export class ProductController {
   private service = productService;
-  private buyAndSellService = BuyAndSellService;
+  private colorService = ColorService;
+  private categoryService = CategoryService;
   constructor() {
     autoBind(this);
   }
@@ -62,13 +67,15 @@ export class ProductController {
   }
   async find(req: Request, res: Response, next: NextFunction) {
     try {
-      const products: IProduct[] = await this.service.find();
+      const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+      const colors: IColor[] = await this.colorService.find();
+      const categories: ICategory[] = await this.categoryService.find();
+      const response: any = await this.service.find(query, colors, categories);
 
       res.status(StatusCodes.OK).json({
-        data: { products },
+        data: response,
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductUpdateDTO = exports.ProductDTO = void 0;
+exports.ProductQueryDTO = exports.ProductUpdateDTO = exports.ProductDTO = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class ProductDTO {
@@ -102,3 +102,36 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], ProductUpdateDTO.prototype, "seller", void 0);
+class ProductQueryDTO {
+}
+exports.ProductQueryDTO = ProductQueryDTO;
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "page", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "limit", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "search", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "category", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "color", void 0);

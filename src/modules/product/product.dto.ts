@@ -72,3 +72,30 @@ export class ProductUpdateDTO {
   @Expose()
   seller: string;
 }
+
+export class ProductQueryDTO {
+  @IsDefined()
+  @Expose()
+  @IsString()
+  page: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  limit: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  search: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  category: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  color: string;
+}

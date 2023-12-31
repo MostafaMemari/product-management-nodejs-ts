@@ -26,9 +26,42 @@ class ProductService {
         (0, error_handler_1.errorHandler)({ productID });
         return await this.checkExistProduct(productID);
     }
-    async find() {
-        const product = await product_model_1.ProductModel.find({});
-        return product;
+    async find(query, colorsDto, categoryDto) {
+        var _a, _b;
+        const page = parseInt(query.page) - 1 || 0;
+        const limit = parseInt(query.limit) || 10;
+        const search = query.search || "";
+        let categories = ((_a = query === null || query === void 0 ? void 0 : query.category) === null || _a === void 0 ? void 0 : _a.split(",")) || "ALL";
+        let colors = ((_b = query === null || query === void 0 ? void 0 : query.color) === null || _b === void 0 ? void 0 : _b.split(",")) || "ALL";
+        colors === "ALL"
+            ? (colors = colorsDto.map((color) => String(color._id)))
+            : (colors = colorsDto.filter((color) => colors.includes(color.name)).map((id) => String(id._id)));
+        categories === "ALL"
+            ? (categories = categoryDto.map((category) => String(category._id)))
+            : (categories = categoryDto.filter((category) => categories.includes(category.name)).map((id) => String(id._id)));
+        console.log(categories, colors);
+        const products = await product_model_1.ProductModel.find({ title: { $regex: search, $options: "i" } })
+            .where("category")
+            .in(categories)
+            .where("color")
+            .in(colors)
+            .skip(page * limit)
+            .limit(limit)
+            .populate("color")
+            .populate("category");
+        const total = await product_model_1.ProductModel.countDocuments({
+            category: { $in: [...categories] },
+            color: { $in: [...colors] },
+            title: { $regex: search, $options: "i" },
+        });
+        const response = {
+            total,
+            pages: Math.ceil(total / limit),
+            page: page + 1,
+            limit,
+            products,
+        };
+        return response;
     }
     async removeByID(productID) {
         (0, error_handler_1.errorHandler)({ productID });

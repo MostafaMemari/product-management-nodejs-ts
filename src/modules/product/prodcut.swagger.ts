@@ -127,6 +127,28 @@
  *    summary: get all product
  *    tags:
  *      - Product
+ *    parameters:
+ *      - in: query
+ *        name: search
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: category
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: color
+ *        schema:
+ *          type: string
+
  *    responses:
  *      200:
  *        description: success
