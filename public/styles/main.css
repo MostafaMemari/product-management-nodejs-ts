@@ -1,0 +1,93 @@
+:root {
+  --color-danger: #ff7782;
+  --color-success: #41f1b6;
+  --color-primary: #7380ec;
+  --color-background: #f6f6f9;
+  --color-dark: #363949;
+  --color-info-dark: #7d8da1;
+  --color-info-light: #dce1eb;
+  --color-dark-variant: #111e88;
+  --color-dark-primary: #7380ec;
+  --color-dark-danger: #ff7782;
+  --color-dark-success: #41f1b6;
+  --color-dark-warning: #ffbb55;
+  --color-dark-variant: #111e88;
+  --color-white: #fff;
+  --color-green: #04aa6d;
+  --color-light: rgba(132, 139, 200, 0.18);
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+
+  --card-padding: 1.8rem;
+
+  --box-shadow: 0 0.5rem 0.5rem var(--color-light);
+}
+.seach-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.seach-container select {
+  width: 200px;
+}
+.buy-box-container {
+  width: 100%;
+  max-height: 520px;
+  overflow: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.box-product {
+  width: 190px;
+  height: 280px;
+  background-color: white;
+  border-radius: var(--border-radius-1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.8;
+  font-family: "nazanin";
+  font-size: 1.1rem;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  transition: all 300ms ease;
+}
+.box-product:hover {
+  box-shadow: none;
+}
+.box-product .title {
+  font-size: 16px;
+  white-space: nowrap;
+  width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.box-product img {
+  width: 90px;
+  height: 90px;
+}
+.swich-container {
+  display: flex;
+  column-gap: 2.5rem;
+}
+
+/****** checkBox ******/
+.switch {
+  width: 45px;
+  height: 26px;
+}
+.slider:before {
+  height: 18px;
+  width: 18px;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}

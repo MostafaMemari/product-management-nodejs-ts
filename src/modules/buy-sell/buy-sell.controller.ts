@@ -6,8 +6,8 @@ import { plainToClass } from "class-transformer";
 import { StatusCodes } from "http-status-codes";
 import { BuyAndSellMessage } from "./buy-sell.message";
 import { FindDoc, ObjectIdDTO } from "../../types/public.types";
-import { IProduct } from "../product/product.types";
-import productService from "../product/product.service";
+import { IProduct } from "../products/product.types";
+import productService from "../products/product.service";
 
 export class BuyAndSellController {
   private service = buyAndSellService;

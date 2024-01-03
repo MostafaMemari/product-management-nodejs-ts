@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "Nazanin";
+  src: url("../fonts/B-NAZANIN.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Lalezar";
+  src: url("../fonts/Lalezar-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IranSansBold";
+  src: url("../fonts/ir_sans_b.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IranSansLight";
+  src: url("../fonts/ir_sans_light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IranSans";
+  src: url("../fonts/ir_sans.ttf") format("truetype");
+}

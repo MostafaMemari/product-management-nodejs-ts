@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/styles/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="modal-sell-buy" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2></h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+    <div class="container">
+      <%-include("./_aside")%>
+
+      <main>
+        <h2>مدیریت محصولات ربات</h2>
+        <input type="search" placeholder="جستجو..." name="" class="search-input-robot" />
+        <div class="container-products">
+          <div class="product-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>تصویر کالا</th>
+                  <th>عنوان کالا</th>
+                  <th>فروشنده</th>
+                  <th>کاهش قیمت</th>
+                  <th>کمترین قیمت</th>
+                  <th>بیشترین قیمت</th>
+                  <th>وضعیت</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="tbody-product"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="pagination-container"></div>
+      </main>
+    </div>
+    <script src="https://kit.fontawesome.com/7f969f3a77.js" crossorigin="anonymous"></script>
+    <script src="static/scripts/index.js"></script>
+    <script src="static/scripts/productRobot.js"></script>
+  </body>
+</html>

@@ -4,9 +4,11 @@ import morgan from "morgan";
 import path from "path";
 import { connectMongoDB } from "./config/mongoose.config";
 import { AllRouter } from "./app.routes";
+import panel from "./modules/dashbaord/dashbaord.routes";
 import { ApiErrorHandler, NotFoundErrorHandler } from "./common/exception/error.handler";
 import * as http from "http";
 import { SwaggerConfig } from "./config/swagger.config";
+import expressEjsLayouts from "express-ejs-layouts";
 
 export class Application {
   private app = express();
@@ -25,18 +27,25 @@ export class Application {
   configApplication(): void {
     this.app.use(cors({ origin: "*" }));
     this.app.use(morgan("dev"));
+    this.app.use(cors());
+
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+
     this.app.use(express.static(path.join(__dirname, "..", "public")));
+    this.app.use(expressEjsLayouts);
+    this.app.set("view engine", "ejs");
+    this.app.set("layout", "layouts/panel/main.ejs");
   }
 
   createServer(): void {
     this.server = http.createServer(this.app);
     this.server.listen(this.PORT, () => {
-      console.log(`Server listen on Port : http://localhost:${this.PORT}/api-docs`);
+      console.log(`Server listen on Port : \n http://localhost:${this.PORT}/api-docs \n http://localhost:${this.PORT}/panel/main`);
     });
   }
   createRoute(): void {
+    this.app.use("/panel", panel);
     this.app.use("/api/v1", AllRouter);
   }
   errorHandler(): void {

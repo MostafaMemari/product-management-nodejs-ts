@@ -1,5 +1,5 @@
 import { Router } from "express";
-import productRouter from "./modules/product/product.routes";
+import productRouter from "./modules/products/product.routes";
 import colorRouter from "./modules/color/color.routes";
 import categoryRouter from "./modules/category/category.routes";
 import buyAndSellRouter from "./modules/buy-sell/buy-sell.routes";

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const dashbaord_controller_1 = require("./dashbaord.controller");
+const router = (0, express_1.Router)();
+const dashbaordController = new dashbaord_controller_1.DashbaordController();
+router.get("/main", dashbaordController.main);
+router.get("/buy", dashbaordController.buy);
+router.get("/sell", dashbaordController.sell);
+router.get("/products", dashbaordController.products);
+exports.default = router;

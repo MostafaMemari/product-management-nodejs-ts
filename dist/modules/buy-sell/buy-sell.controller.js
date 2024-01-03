@@ -11,7 +11,7 @@ const class_transformer_1 = require("class-transformer");
 const http_status_codes_1 = require("http-status-codes");
 const buy_sell_message_1 = require("./buy-sell.message");
 const public_types_1 = require("../../types/public.types");
-const product_service_1 = __importDefault(require("../product/product.service"));
+const product_service_1 = __importDefault(require("../products/product.service"));
 class BuyAndSellController {
     constructor() {
         this.service = buy_sell_service_1.default;

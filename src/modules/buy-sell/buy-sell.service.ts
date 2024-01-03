@@ -6,9 +6,9 @@ import { IBuyAndSell } from "./buy-sell.types";
 import { plainToClass } from "class-transformer";
 import { getDateNow, getHourNow } from "../../common/utils/dateNormalize";
 import { FindDoc, ObjectIdDTO } from "../../types/public.types";
-import { ProductDTO } from "../product/product.dto";
-import { IProduct } from "../product/product.types";
-import { ProductModel } from "../product/product.model";
+import { ProductDTO } from "../products/product.dto";
+import { IProduct } from "../products/product.types";
+import { ProductModel } from "../products/product.model";
 
 class BuyAndSellService {
   async create(reqDto: BuyAndSellDTO): Promise<Boolean> {

@@ -33,9 +33,11 @@ const morgan_1 = __importDefault(require("morgan"));
 const path_1 = __importDefault(require("path"));
 const mongoose_config_1 = require("./config/mongoose.config");
 const app_routes_1 = require("./app.routes");
+const dashbaord_routes_1 = __importDefault(require("./modules/dashbaord/dashbaord.routes"));
 const error_handler_1 = require("./common/exception/error.handler");
 const http = __importStar(require("http"));
 const swagger_config_1 = require("./config/swagger.config");
+const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
 class Application {
     constructor(PORT, DB_URL) {
         this.PORT = PORT;
@@ -53,17 +55,22 @@ class Application {
     configApplication() {
         this.app.use((0, cors_1.default)({ origin: "*" }));
         this.app.use((0, morgan_1.default)("dev"));
+        this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: true }));
         this.app.use(express_1.default.static(path_1.default.join(__dirname, "..", "public")));
+        this.app.use(express_ejs_layouts_1.default);
+        this.app.set("view engine", "ejs");
+        this.app.set("layout", "layouts/panel/main.ejs");
     }
     createServer() {
         this.server = http.createServer(this.app);
         this.server.listen(this.PORT, () => {
-            console.log(`Server listen on Port : http://localhost:${this.PORT}/api-docs`);
+            console.log(`Server listen on Port : \n http://localhost:${this.PORT}/api-docs \n http://localhost:${this.PORT}/panel/main`);
         });
     }
     createRoute() {
+        this.app.use("/panel", dashbaord_routes_1.default);
         this.app.use("/api/v1", app_routes_1.AllRouter);
     }
     errorHandler() {

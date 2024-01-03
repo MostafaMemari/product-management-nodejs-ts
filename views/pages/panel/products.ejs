@@ -1,0 +1,43 @@
+<main>
+  <h2>مدیریت محصولات فروشگاه</h2>
+  <div class="seach-container">
+    <input type="search" placeholder="جستجو..." name="" class="search-input" />
+    <input type="search" placeholder="کمتر از ..." name="" class="min-input col-35" />
+    <select id="color-select-box" name="color">
+      <option value="none" selected>انتخاب رنگ</option>
+    </select>
+    <select id="categorie-select-box" name="categorie">
+      <option value="none" selected>انتخاب دسته بندی</option>
+    </select>
+    <select id="seller-select-box" name="seller">
+      <option value="none" selected>انتخاب فروشنده</option>
+    </select>
+  </div>
+  <br />
+  <button id="insert-product" class="btn success">ثبت محصول جدید</button>
+  <!-- <button id="btn-products" class="btn success"><a href="http://localhost:3000/products">محصولات</a></button> -->
+  <button id="btn-products" class="btn success"><a href="#">محصولات</a></button>
+  <button id="btn-categories" class="btn success">دسته بندی ها</button>
+  <button id="btn-colors" class="btn success">رنگ ها</button>
+  <button id="btn-sellers" class="btn success">فروشنده ها</button>
+  <button id="btn-robot" class="btn success">ربات</button>
+  <div class="container-products">
+    <div class="product-table">
+      <table>
+        <thead>
+          <tr>
+            <th>تصویر</th>
+            <th>عنوان محصول</th>
+            <th>کد محصول</th>
+            <th>قیمت</th>
+            <th>موجودی</th>
+            <th>ربات</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="tbody-product"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="pagination-container"></div>
+</main>

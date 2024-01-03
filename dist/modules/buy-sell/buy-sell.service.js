@@ -9,7 +9,7 @@ const buy_sell_dto_1 = require("./buy-sell.dto");
 const buy_sell_model_1 = require("./buy-sell.model");
 const class_transformer_1 = require("class-transformer");
 const dateNormalize_1 = require("../../common/utils/dateNormalize");
-const product_model_1 = require("../product/product.model");
+const product_model_1 = require("../products/product.model");
 class BuyAndSellService {
     async create(reqDto) {
         reqDto.hour = (0, dateNormalize_1.getHourNow)();

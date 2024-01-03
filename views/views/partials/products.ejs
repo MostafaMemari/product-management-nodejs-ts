@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Trigger/Open The Modal -->
+    <!-- <button id="myBtn">Open Modal</button> -->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2></h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <aside>
+        <div class="logo"><img src="/img/Digikala-logo.png" alt="" /></div>
+
+        <div class="profile">
+          <img src="/img/profile.jpg" alt="" />
+          <h3>مصطفی معماری</h3>
+          <h5>برنامه نویس جاوااسکریپت</h5>
+        </div>
+
+        <ul class="Accordion">
+          <li class="Accordion-item">
+            <label for="checkboxes-menu">
+              <a href="#">
+                <div>
+                  <i class="fa-solid fa-house fa-lg"></i>
+                  <span>صفحه اصلی</span>
+                </div></a
+              >
+            </label>
+          </li>
+          <li class="Accordion-item">
+            <label for="checkboxes-menu1">
+              <div>
+                <i class="fa-solid fa-basket-shopping fa-xl"></i>
+                <span>محصولات</span>
+              </div>
+              <i class="fa-solid fa-chevron-down"></i>
+            </label>
+            <input id="checkboxes-menu1" type="checkbox" name="menu" />
+            <ul class="Accordion-subElements">
+              <li class="Accordion-subElement active"><a href="products.html">مدیریت محصولات فروشگاه</a></li>
+              <li class="Accordion-subElement"><a href="product-robot.html">مدیریت محصولات ربات</a></li>
+              <li class="Accordion-subElement"><a href="buy-product.html">خرید کالا</a></li>
+              <li class="Accordion-subElement"><a href="sell-product.html">فروش کالا</a></li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+
+      <main>
+        <h2>مدیریت محصولات فروشگاه</h2>
+        <button id="insert-product" class="btn success">ثبت کالای جدید</button>
+        <button id="btn-categories" class="btn success">دسته بندی ها</button>
+        <button id="btn-colors" class="btn success">رنگ ها</button>
+        <button id="btn-sellers" class="btn success">فروشنده ها</button>
+        <input type="search" placeholder="جستجو..." name="" id="" />
+        <div class="container-products">
+          <div class="product-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ردیف</th>
+                  <th>کالا</th>
+                  <th>عنوان کالا</th>
+                  <th>کد کالا</th>
+                  <th>قیمت</th>
+                  <th>فعال / غیرفعال</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <img
+                      src="https://dkstatics-public.digikala.com/digikala-products/6b9d12a51ad709d0e65a4cb7c9b13e7381c6bbda_1681564123.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/quality,q_80"
+                      alt=""
+                    />
+                  </td>
+                  <td>تاوانشم قشنگه کد MT-B422</td>
+                  <td><a href="https://www.digikala.com/product/dkp-11080049">11080049</a></td>
+                  <td>285000</td>
+                  <td>
+                    <label class="switch">
+                      <input type="checkbox" checked />
+                      <span class="slider round"></span>
+                    </label>
+                  </td>
+                  <td><button class="btn primary">ویرایش</button><button class="btn danger">حذف</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="https://kit.fontawesome.com/7f969f3a77.js" crossorigin="anonymous"></script>
+    <script src="/scripts/index.js"></script>
+    <script src="/scripts/product.js"></script>
+  </body>
+</html>

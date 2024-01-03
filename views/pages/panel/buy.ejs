@@ -1,0 +1,38 @@
+<main>
+  <h2>خرید محصول</h2>
+  <input type="search" placeholder="جستجو..." name="" class="search-input" />
+  <div class="container-products">
+    <div class="product-table">
+      <table>
+        <thead>
+          <tr>
+            <th>تصویر محصول</th>
+            <th>عنوان محصول</th>
+            <th>قیمت خرید</th>
+            <th>موجودی</th>
+            <th>خریداری شده</th>
+            <th>تعداد</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="tbody-product">
+          <%response.products.forEach(product => {%>
+          <tr>
+            <td><img src="<%-product.img%>" alt="" /></td>
+            <td><a href="https://www.digikala.com/product/dkp-" target="_blank"></a><%-product.title%></td>
+            <td><%-product?.price%></td>
+            <td><%-product?.count%></td>
+            <td></td>
+            <td><input class="input-number" type="text" onkeypress="inputSave(event , '<%-product.id%>' , 'buy')" /></td>
+            <td class="col-20">
+              <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'buy')" id="btn-save">ثبت</button>
+              <button class="btn primary">گزارش خرید</button>
+            </td>
+            <% }) %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="pagination-container"></div>
+</main>

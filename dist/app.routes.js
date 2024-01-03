@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllRouter = void 0;
 const express_1 = require("express");
-const product_routes_1 = __importDefault(require("./modules/product/product.routes"));
+const product_routes_1 = __importDefault(require("./modules/products/product.routes"));
 const color_routes_1 = __importDefault(require("./modules/color/color.routes"));
 const category_routes_1 = __importDefault(require("./modules/category/category.routes"));
 const buy_sell_routes_1 = __importDefault(require("./modules/buy-sell/buy-sell.routes"));
