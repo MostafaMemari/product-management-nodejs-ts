@@ -30,6 +30,7 @@ class ProductService {
         const page = parseInt(query.page) - 1 || 0;
         const limit = parseInt(query.limit) || 25;
         const search = query.search || "";
+        const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
         let categories = ((_a = query === null || query === void 0 ? void 0 : query.category) === null || _a === void 0 ? void 0 : _a.split(",")) || "ALL";
         let colors = ((_b = query === null || query === void 0 ? void 0 : query.color) === null || _b === void 0 ? void 0 : _b.split(",")) || "ALL";
         colors === "ALL"
@@ -45,6 +46,7 @@ class ProductService {
             .in(colors)
             .skip(page * limit)
             .limit(limit)
+            .sort({ updatedAt: sort == "asc" ? 1 : -1 })
             .populate("color")
             .populate("category");
         const total = await product_model_1.ProductModel.countDocuments({

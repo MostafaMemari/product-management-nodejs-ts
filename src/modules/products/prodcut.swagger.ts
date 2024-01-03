@@ -133,6 +133,10 @@
  *        schema:
  *          type: string
  *      - in: query
+ *        name: sort
+ *        schema:
+ *          type: string
+ *      - in: query
  *        name: page
  *        schema:
  *          type: integer

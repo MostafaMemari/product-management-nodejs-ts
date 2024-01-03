@@ -98,4 +98,9 @@ export class ProductQueryDTO {
   @Expose()
   @IsString()
   color: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  sort: string;
 }

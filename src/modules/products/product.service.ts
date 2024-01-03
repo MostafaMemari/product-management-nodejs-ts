@@ -34,6 +34,7 @@ class ProductService {
     const page = parseInt(query.page) - 1 || 0;
     const limit = parseInt(query.limit) || 25;
     const search = query.search || "";
+    const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
 
     let categories: any = query?.category?.split(",") || "ALL";
     let colors: any = query?.color?.split(",") || "ALL";
@@ -53,6 +54,7 @@ class ProductService {
       .in(colors)
       .skip(page * limit)
       .limit(limit)
+      .sort({ updatedAt: sort == "asc" ? 1 : -1 })
       .populate("color")
       .populate("category");
 

@@ -17,5 +17,6 @@ const ProductSchema = new mongoose_1.Schema({
     seller: { type: mongoose_1.Types.ObjectId, ref: "seller" },
 }, {
     versionKey: false,
+    timestamps: true,
 });
 exports.ProductModel = (0, mongoose_1.model)("product", ProductSchema);
