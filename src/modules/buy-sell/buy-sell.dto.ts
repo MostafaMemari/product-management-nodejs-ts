@@ -31,9 +31,14 @@ export class BuyAndSellDTO {
   operation: string;
 }
 
-export class CountDTO {
+export class buyAndSellDTO {
   @Expose()
   @IsOptional()
   @IsNumber()
   count: number;
+
+  @Expose()
+  @IsOptional()
+  @IsString()
+  operation: string;
 }

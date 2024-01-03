@@ -22,7 +22,12 @@
             <td><a href="https://www.digikala.com/product/dkp-" target="_blank"></a><%-product.title%></td>
             <td><%-product?.price%></td>
             <td><%-product?.count%></td>
-            <td></td>
+            <td>
+              <select id="buy-select-box" name="buy">
+                <option value="خرید" selected>خرید</option>
+                <option value="خرابی">خرابی</option>
+              </select>
+            </td>
             <td><input class="input-number" type="text" onkeypress="inputSave(event , '<%-product.id%>' , 'buy')" /></td>
             <td class="col-20">
               <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'buy')" id="btn-save">ثبت</button>

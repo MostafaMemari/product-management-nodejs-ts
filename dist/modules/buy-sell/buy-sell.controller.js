@@ -35,16 +35,16 @@ class BuyAndSellController {
         try {
             const pathUrl = req.url.split("/").pop();
             const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true });
-            const countDto = (0, class_transformer_1.plainToClass)(buy_sell_dto_1.CountDTO, req.body, { excludeExtraneousValues: true });
+            const buyAndSellDto = (0, class_transformer_1.plainToClass)(buy_sell_dto_1.buyAndSellDTO, req.body, { excludeExtraneousValues: true });
             const productDto = await this.productService.checkExistProduct(productID);
             if (pathUrl === "buy") {
-                await this.service.buy(productID, countDto, productDto);
+                await this.service.buy(productID, buyAndSellDto, productDto);
             }
             else if (pathUrl === "sell") {
-                await this.service.sell(productID, countDto, productDto);
+                await this.service.sell(productID, buyAndSellDto, productDto);
             }
             else if (pathUrl === "depo") {
-                await this.service.depo(productID, countDto, productDto);
+                await this.service.depo(productID, buyAndSellDto, productDto);
             }
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 message: buy_sell_message_1.BuyAndSellMessage.Buy,

@@ -21,10 +21,10 @@ class BuyAndSellService {
             throw http_errors_1.default.InternalServerError();
         return true;
     }
-    async buy(productID, count, productDto) {
-        const productDTO = { product: productID.id, count: +count.count, operation: "خرید" };
+    async buy(productID, buyAndSellDto, productDto) {
+        const productDTO = { product: productID.id, count: +(buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.count), operation: (buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.operation) || "خرید" };
         await this.create(productDTO);
-        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) + Number(count.count);
+        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) + Number(buyAndSellDto.count);
         await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
             count: countProduct,
         });

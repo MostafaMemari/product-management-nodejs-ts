@@ -1,7 +1,7 @@
 import autoBind from "auto-bind";
 import buyAndSellService from "./buy-sell.service";
 import { NextFunction, Request, Response } from "express";
-import { BuyAndSellDTO, CountDTO } from "./buy-sell.dto";
+import { BuyAndSellDTO, buyAndSellDTO } from "./buy-sell.dto";
 import { plainToClass } from "class-transformer";
 import { StatusCodes } from "http-status-codes";
 import { BuyAndSellMessage } from "./buy-sell.message";
@@ -33,15 +33,15 @@ export class BuyAndSellController {
       const pathUrl: string | undefined = req.url.split("/").pop();
 
       const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
-      const countDto: CountDTO = plainToClass(CountDTO, req.body, { excludeExtraneousValues: true });
+      const buyAndSellDto: buyAndSellDTO = plainToClass(buyAndSellDTO, req.body, { excludeExtraneousValues: true });
       const productDto: FindDoc<IProduct> = await this.productService.checkExistProduct(productID);
 
       if (pathUrl === "buy") {
-        await this.service.buy(productID, countDto, productDto);
+        await this.service.buy(productID, buyAndSellDto, productDto);
       } else if (pathUrl === "sell") {
-        await this.service.sell(productID, countDto, productDto);
+        await this.service.sell(productID, buyAndSellDto, productDto);
       } else if (pathUrl === "depo") {
-        await this.service.depo(productID, countDto, productDto);
+        await this.service.depo(productID, buyAndSellDto, productDto);
       }
 
       res.status(StatusCodes.OK).json({
