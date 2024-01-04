@@ -24,7 +24,6 @@ export class BuyAndSellController {
         message: BuyAndSellMessage.Successfully,
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -40,10 +39,7 @@ export class BuyAndSellController {
         await this.service.buy(productID, buyAndSellDto, productDto);
       } else if (pathUrl === "sell") {
         await this.service.sell(productID, buyAndSellDto, productDto);
-      } else if (pathUrl === "depo") {
-        await this.service.depo(productID, buyAndSellDto, productDto);
       }
-
       res.status(StatusCodes.OK).json({
         message: BuyAndSellMessage.Buy,
       });

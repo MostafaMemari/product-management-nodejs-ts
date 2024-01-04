@@ -9,7 +9,8 @@ import { ApiErrorHandler, NotFoundErrorHandler } from "./common/exception/error.
 import * as http from "http";
 import { SwaggerConfig } from "./config/swagger.config";
 import expressEjsLayouts from "express-ejs-layouts";
-
+import flash from "express-flash";
+import session from "express-session";
 export class Application {
   private app = express();
   private server?: http.Server;
@@ -25,8 +26,16 @@ export class Application {
     this.errorHandler();
   }
   configApplication(): void {
+    this.app.use(
+      session({
+        secret: "keyboard cat",
+        resave: false,
+        saveUninitialized: false,
+      })
+    );
+    this.app.use(flash());
     this.app.use(cors({ origin: "*" }));
-    this.app.use(morgan("dev"));
+    this.app.use(morgan("short"));
     this.app.use(cors());
 
     this.app.use(express.json());

@@ -38,6 +38,8 @@ const error_handler_1 = require("./common/exception/error.handler");
 const http = __importStar(require("http"));
 const swagger_config_1 = require("./config/swagger.config");
 const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
+const express_flash_1 = __importDefault(require("express-flash"));
+const express_session_1 = __importDefault(require("express-session"));
 class Application {
     constructor(PORT, DB_URL) {
         this.PORT = PORT;
@@ -53,8 +55,14 @@ class Application {
         this.errorHandler();
     }
     configApplication() {
+        this.app.use((0, express_session_1.default)({
+            secret: "keyboard cat",
+            resave: false,
+            saveUninitialized: false,
+        }));
+        this.app.use((0, express_flash_1.default)());
         this.app.use((0, cors_1.default)({ origin: "*" }));
-        this.app.use((0, morgan_1.default)("dev"));
+        this.app.use((0, morgan_1.default)("short"));
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: true }));

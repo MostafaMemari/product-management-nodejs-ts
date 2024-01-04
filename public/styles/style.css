@@ -184,8 +184,7 @@ td {
 }
 
 /*********** pagination *************/
-/* Pagination links */
-.pagination-container {
+.pagination {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,7 +197,8 @@ td {
   font-family: "nazanin";
   font-size: 1.3rem;
 }
-.pagination-container button {
+
+.pagination a {
   padding-top: 2rem;
   background-color: #fff;
   cursor: pointer;
@@ -208,21 +208,18 @@ td {
   text-decoration: none;
   transition: background-color 0.3s;
   margin: 5px;
-  /* border: 1px solid #eee; */
 }
 
-/* Style the active/current link */
-.pagination-container button.active {
+.pagination a.active {
   background-color: var(--color-green);
   color: white;
 }
 
-/* Add a grey background color on mouse-over */
-.pagination-container button:hover:not(.active) {
+.pagination a:hover:not(.active) {
   background-color: #00b774;
 }
+/******************** end pagination *********************/
 
-/******************************************/
 /******************* Modal *****************/
 /* The Modal (background) */
 .modal {
@@ -514,7 +511,7 @@ main .product-table table tr:last-child {
 table h3 {
   font-size: 16px;
   white-space: nowrap;
-  width: 300px;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }

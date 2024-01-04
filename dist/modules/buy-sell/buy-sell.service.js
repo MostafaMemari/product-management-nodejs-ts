@@ -23,24 +23,21 @@ class BuyAndSellService {
     }
     async buy(productID, buyAndSellDto, productDto) {
         const productDTO = { product: productID.id, count: +(buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.count), operation: (buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.operation) || "خرید" };
+        if (!!Number((buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.count) <= 0))
+            throw http_errors_1.default.BadRequest("خرید محصول با خطا مواجه شد");
         await this.create(productDTO);
         const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) + Number(buyAndSellDto.count);
         await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
             count: countProduct,
         });
     }
-    async sell(productID, count, productDto) {
-        const productDTO = { product: productID.id, count: +count.count, operation: "فروش" };
+    async sell(productID, buyAndSellDto, productDto) {
+        const productDTO = { product: productID.id, count: +buyAndSellDto.count, operation: (buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.operation) || "فروش" };
         await this.create(productDTO);
-        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) - Number(count.count);
-        await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
-            count: countProduct,
-        });
-    }
-    async depo(productID, count, productDto) {
-        const productDTO = { product: productID.id, count: +count.count, operation: "دپو" };
-        await this.create(productDTO);
-        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) - Number(count.count);
+        if (Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) < Number(buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.count) || !!Number((buyAndSellDto === null || buyAndSellDto === void 0 ? void 0 : buyAndSellDto.count) <= 0)) {
+            throw http_errors_1.default.BadRequest("فروش محصول با خطا مواجه شد");
+        }
+        const countProduct = Number(productDto === null || productDto === void 0 ? void 0 : productDto.count) - Number(buyAndSellDto.count);
         await product_model_1.ProductModel.updateOne({ _id: productID.id }, {
             count: countProduct,
         });

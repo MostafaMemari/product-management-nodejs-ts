@@ -27,7 +27,6 @@ class BuyAndSellController {
             });
         }
         catch (error) {
-            console.log(error);
             next(error);
         }
     }
@@ -42,9 +41,6 @@ class BuyAndSellController {
             }
             else if (pathUrl === "sell") {
                 await this.service.sell(productID, buyAndSellDto, productDto);
-            }
-            else if (pathUrl === "depo") {
-                await this.service.depo(productID, buyAndSellDto, productDto);
             }
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 message: buy_sell_message_1.BuyAndSellMessage.Buy,

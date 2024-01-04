@@ -1,16 +1,17 @@
 <main>
-  <h2>خرید محصول</h2>
+  <h2><a href="/panel/buy/">خرید محصول</a></h2>
+
   <input type="search" placeholder="جستجو..." name="" class="search-input" />
   <div class="container-products">
     <div class="product-table">
       <table>
         <thead>
           <tr>
-            <th>تصویر محصول</th>
-            <th>عنوان محصول</th>
+            <th>تصویر</th>
+            <th>عنوان</th>
             <th>قیمت خرید</th>
             <th>موجودی</th>
-            <th>خریداری شده</th>
+            <th>فروشنده</th>
             <th>تعداد</th>
             <th></th>
           </tr>
@@ -19,16 +20,17 @@
           <%response.products.forEach(product => {%>
           <tr>
             <td><img src="<%-product.img%>" alt="" /></td>
-            <td><a href="https://www.digikala.com/product/dkp-" target="_blank"></a><%-product.title%></td>
+            <td>
+              <a href="https://www.digikala.com/product/dkp-<%-product.dkp%>" target="_blank"><h3><%-product.title%></h3></a>
+            </td>
             <td><%-product?.price%></td>
             <td><%-product?.count%></td>
             <td>
               <select id="buy-select-box" name="buy">
                 <option value="خرید" selected>خرید</option>
-                <option value="خرابی">خرابی</option>
               </select>
             </td>
-            <td><input class="input-number" type="text" onkeypress="inputSave(event , '<%-product.id%>' , 'buy')" /></td>
+            <td><input class="input-number" type="text" onkeypress="inputSave(event , '<%-product.id%>', 'buy')" /></td>
             <td class="col-20">
               <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'buy')" id="btn-save">ثبت</button>
               <button class="btn primary">گزارش خرید</button>
@@ -39,5 +41,15 @@
       </table>
     </div>
   </div>
-  <div class="pagination-container"></div>
+  <div class="pagination">
+    <a href="#">&laquo;</a>
+
+    <%for(let i = 1; response.pages >= i ; i++) {%> <% if(i== response.page) { %>
+    <a class="active" href="/panel/buy/?page=<%-i%>"><%-i%></a>
+    <% } else {%>
+    <a href="/panel/buy/?page=<%-i%>"><%-i%></a>
+    <% } %> <% } %>
+
+    <a href="#">&raquo;</a>
+  </div>
 </main>

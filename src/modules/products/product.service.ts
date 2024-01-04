@@ -32,7 +32,7 @@ class ProductService {
 
   async find(query: ProductQueryDTO, colorsDto: IColor[], categoryDto: ICategory[]): Promise<IProduct[]> {
     const page = parseInt(query.page) - 1 || 0;
-    const limit = parseInt(query.limit) || 25;
+    const limit = parseInt(query.limit) || 40;
     const search = query.search || "";
     const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
 
@@ -66,7 +66,6 @@ class ProductService {
 
     const response: any = {
       total,
-
       pages: Math.ceil(total / limit),
       page: page + 1,
       limit,

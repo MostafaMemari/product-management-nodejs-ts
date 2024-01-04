@@ -25,6 +25,8 @@ class BuyAndSellService {
   async buy(productID: ObjectIdDTO, buyAndSellDto: buyAndSellDTO, productDto: FindDoc<IProduct>) {
     const productDTO: any = { product: productID.id, count: +buyAndSellDto?.count, operation: buyAndSellDto?.operation || "خرید" };
 
+    if (!!Number(buyAndSellDto?.count <= 0)) throw createHttpError.BadRequest("خرید محصول با خطا مواجه شد");
+
     await this.create(productDTO);
 
     const countProduct = Number(productDto?.count) + Number(buyAndSellDto.count);
@@ -35,23 +37,15 @@ class BuyAndSellService {
       }
     );
   }
-  async sell(productID: ObjectIdDTO, count: buyAndSellDTO, productDto: FindDoc<IProduct>) {
-    const productDTO: any = { product: productID.id, count: +count.count, operation: "فروش" };
+  async sell(productID: ObjectIdDTO, buyAndSellDto: buyAndSellDTO, productDto: FindDoc<IProduct>) {
+    const productDTO: any = { product: productID.id, count: +buyAndSellDto.count, operation: buyAndSellDto?.operation || "فروش" };
     await this.create(productDTO);
 
-    const countProduct = Number(productDto?.count) - Number(count.count);
-    await ProductModel.updateOne(
-      { _id: productID.id },
-      {
-        count: countProduct,
-      }
-    );
-  }
-  async depo(productID: ObjectIdDTO, count: buyAndSellDTO, productDto: FindDoc<IProduct>) {
-    const productDTO: any = { product: productID.id, count: +count.count, operation: "دپو" };
-    await this.create(productDTO);
+    if (Number(productDto?.count) < Number(buyAndSellDto?.count) || !!Number(buyAndSellDto?.count <= 0)) {
+      throw createHttpError.BadRequest("فروش محصول با خطا مواجه شد");
+    }
 
-    const countProduct = Number(productDto?.count) - Number(count.count);
+    const countProduct = Number(productDto?.count) - Number(buyAndSellDto.count);
     await ProductModel.updateOne(
       { _id: productID.id },
       {

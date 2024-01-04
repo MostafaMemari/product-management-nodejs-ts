@@ -28,7 +28,7 @@ class ProductService {
     async find(query, colorsDto, categoryDto) {
         var _a, _b;
         const page = parseInt(query.page) - 1 || 0;
-        const limit = parseInt(query.limit) || 25;
+        const limit = parseInt(query.limit) || 40;
         const search = query.search || "";
         const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
         let categories = ((_a = query === null || query === void 0 ? void 0 : query.category) === null || _a === void 0 ? void 0 : _a.split(",")) || "ALL";
