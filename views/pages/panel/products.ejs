@@ -28,16 +28,39 @@
           <tr>
             <th>تصویر</th>
             <th>عنوان محصول</th>
-            <th>کد محصول</th>
-            <th>قیمت</th>
-            <th>موجودی</th>
             <th>ربات</th>
             <th></th>
           </tr>
         </thead>
-        <tbody class="tbody-product"></tbody>
+        <tbody class="tbody-product">
+          <%response.products.forEach(product => {%>
+          <tr>
+            <td><img src="<%-product.img%>" alt="" /></td>
+            <td>
+              <a href="https://www.digikala.com/product/dkp-<%-product.dkp%>" target="_blank"><h3><%-product.title%></h3></a>
+            </td>
+            <td>
+              <button class="btn success" onclick="btnRobot('<%-product._id%>')" id="btn-save">مدیریت ربات</button>
+            </td>
+            <td class="col-20">
+              <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'sell')" id="btn-save">ویرایش</button>
+              <button class="btn primary">حذف</button>
+            </td>
+            <% }) %>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
-  <div class="pagination-container"></div>
+  <div class="pagination">
+    <a href="#">&laquo;</a>
+
+    <%for(let i = 1; response.pages >= i ; i++) {%> <% if(i== response.page) { %>
+    <a class="active" href="/panel/products/?page=<%-i%>"><%-i%></a>
+    <% } else {%>
+    <a href="/panel/products/?page=<%-i%>"><%-i%></a>
+    <% } %> <% } %>
+
+    <a href="#">&raquo;</a>
+  </div>
 </main>
