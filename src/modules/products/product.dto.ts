@@ -1,5 +1,5 @@
 import { Expose, Transform, Type } from "class-transformer";
-import { IsDefined, IsString, IsNumber, Matches, IsOptional } from "class-validator";
+import { IsDefined, IsString, IsNumber, Matches, IsOptional, IsArray } from "class-validator";
 import { ObjectId } from "mongoose";
 
 export class ProductDTO {
@@ -45,7 +45,6 @@ export class ProductUpdateDTO {
 
   @Expose()
   @IsOptional()
-  @IsNumber()
   dkp: number;
 
   @Expose()
@@ -57,6 +56,16 @@ export class ProductUpdateDTO {
   @IsOptional()
   @IsNumber()
   price: number;
+
+  @Expose()
+  @IsOptional()
+  @IsNumber()
+  width: number;
+
+  @Expose()
+  @IsOptional()
+  @IsNumber()
+  height: number;
 
   @Expose()
   @IsOptional()

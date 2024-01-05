@@ -1,3 +1,5 @@
+<span class="message-success" style="display: none"><%=locals.messages.success%></span>
+<span class="message-error" style="display: none"><%=locals.messages.error%></span>
 <main>
   <h2>مدیریت محصولات فروشگاه</h2>
   <div class="seach-container">
@@ -21,6 +23,7 @@
   <button id="btn-colors" class="btn success">رنگ ها</button>
   <button id="btn-sellers" class="btn success">فروشنده ها</button>
   <button id="btn-robot" class="btn success">ربات</button>
+
   <div class="container-products">
     <div class="product-table">
       <table>
@@ -40,7 +43,9 @@
               <a href="https://www.digikala.com/product/dkp-<%-product.dkp%>" target="_blank"><h3><%-product.title%></h3></a>
             </td>
             <td>
-              <button class="btn success" onclick="btnRobot('<%-product._id%>')" id="btn-save">مدیریت ربات</button>
+              <button class="btn success" onclick="btnRobot(' <%- encodeURIComponent(JSON.stringify(product)) %>')" id="btn-save">
+                مدیریت ربات
+              </button>
             </td>
             <td class="col-20">
               <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'sell')" id="btn-save">ویرایش</button>

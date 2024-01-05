@@ -13,6 +13,7 @@ const auto_bind_1 = __importDefault(require("auto-bind"));
 const public_types_1 = require("../../types/public.types");
 const color_service_1 = __importDefault(require("../color/color.service"));
 const category_service_1 = __importDefault(require("../category/category.service"));
+const functions_1 = require("../../common/utils/functions");
 class ProductController {
     constructor() {
         this.service = product_service_1.default;
@@ -35,17 +36,22 @@ class ProductController {
     }
     async update(req, res, next) {
         try {
+            (0, functions_1.stringToNumber)(req.body);
             const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
             const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductUpdateDTO, req.body, {
                 excludeExtraneousValues: true,
                 exposeUnsetFields: false,
             });
             await this.service.update(productID, productDto);
-            res.status(http_status_codes_1.StatusCodes.OK).json({
-                message: product_message_1.ProductMessage.Updated,
-            });
+            req.flash("success", "ویرایش با موفقیت انجام شد");
+            res.redirect("/panel/products");
+            // res.status(StatusCodes.OK).json({
+            //   message: ProductMessage.Updated,
+            // });
         }
         catch (error) {
+            req.flash("error", "ویرایش با خطا مواجه شد");
+            res.redirect("/panel/products");
             next(error);
         }
     }

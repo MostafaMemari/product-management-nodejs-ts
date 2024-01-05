@@ -8,3 +8,14 @@ export function toEnglish(persianNumber: any): string {
   }
   return cache;
 }
+
+export function stringToNumber(objectString: any) {
+  for (const i in objectString) {
+    if (!isNaN(objectString[i])) {
+      objectString[i] = Number(objectString[i]);
+    } else if (objectString[i] === "undefined") {
+      delete objectString[i];
+    }
+  }
+  return objectString;
+}

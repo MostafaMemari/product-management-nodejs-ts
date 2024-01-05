@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toEnglish = void 0;
+exports.stringToNumber = exports.toEnglish = void 0;
 function toEnglish(persianNumber) {
     const pn = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     const en = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -12,3 +12,15 @@ function toEnglish(persianNumber) {
     return cache;
 }
 exports.toEnglish = toEnglish;
+function stringToNumber(objectString) {
+    for (const i in objectString) {
+        if (!isNaN(objectString[i])) {
+            objectString[i] = Number(objectString[i]);
+        }
+        else if (objectString[i] === "undefined") {
+            delete objectString[i];
+        }
+    }
+    return objectString;
+}
+exports.stringToNumber = stringToNumber;

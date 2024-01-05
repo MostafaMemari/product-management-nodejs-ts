@@ -10,6 +10,7 @@ import ColorService from "../color/color.service";
 import { IColor } from "../color/color.types";
 import CategoryService from "../category/category.service";
 import { ICategory } from "../category/category.types";
+import { stringToNumber } from "../../common/utils/functions";
 
 export class ProductController {
   private service = productService;
@@ -33,6 +34,7 @@ export class ProductController {
   }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
+      stringToNumber(req.body);
       const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const productDto: ProductUpdateDTO = plainToClass(ProductUpdateDTO, req.body, {
         excludeExtraneousValues: true,
@@ -41,10 +43,17 @@ export class ProductController {
 
       await this.service.update(productID, productDto);
 
-      res.status(StatusCodes.OK).json({
-        message: ProductMessage.Updated,
-      });
+      req.flash("success", "ویرایش با موفقیت انجام شد");
+
+      res.redirect("/panel/products");
+
+      // res.status(StatusCodes.OK).json({
+      //   message: ProductMessage.Updated,
+      // });
     } catch (error) {
+      req.flash("error", "ویرایش با خطا مواجه شد");
+      res.redirect("/panel/products");
+
       next(error);
     }
   }
