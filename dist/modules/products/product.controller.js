@@ -37,7 +37,6 @@ class ProductController {
     }
     async update(req, res, next) {
         try {
-            console.log(req.file);
             (0, functions_1.stringToNumber)(req.body);
             const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
             const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductUpdateDTO, req.body, {

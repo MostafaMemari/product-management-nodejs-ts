@@ -9,7 +9,6 @@ import { IColor } from "../color/color.types";
 import { ICategory } from "../category/category.types";
 import path from "path";
 import fs from "fs";
-import e from "express";
 
 class ProductService {
   async create(productDto: ProductDTO, reqFile: any): Promise<IProduct> {
@@ -26,20 +25,24 @@ class ProductService {
   async update(productID: ObjectIdDTO, productDto: ProductUpdateDTO, reqFile: any): Promise<boolean> {
     errorHandler({ productID, productDto });
 
-    const porduct = await this.checkExistProduct(productID);
+    const product = await this.checkExistProduct(productID);
 
     let img = null;
     if (reqFile) {
       const { destination, filename } = reqFile;
       const pathNewImg = (destination + "/" + filename).replace("public/", "/");
-      if (porduct?.img) {
-        if (porduct?.img === pathNewImg) {
+      if (product?.img) {
+        if (product?.img === pathNewImg) {
           img = pathNewImg;
         } else {
-          fs.unlinkSync(path.join(process.cwd(), "public", porduct?.img));
+          fs.unlinkSync(path.join(process.cwd(), "public", product?.img));
           img = pathNewImg;
         }
+      } else {
+        img = pathNewImg;
       }
+    } else {
+      img = product?.img;
     }
 
     const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });

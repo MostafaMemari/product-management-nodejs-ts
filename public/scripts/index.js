@@ -64,10 +64,23 @@ async function apiBuyProduct(productID, count, operationPath, operation) {
   }
 }
 
-async function btnRobot(productEncode) {
+async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode) {
   const product = JSON.parse(decodeURIComponent(productEncode));
+  const { _id, title, dkp, dkpc, width, height, count, color, category } = product;
 
-  const { _id, title, dkp, dkpc, price, img, url, width, height, count } = product;
+  const categories = JSON.parse(decodeURIComponent(categoriesEncode));
+  const optionCategory = Object.entries(categories).map((key) =>
+    category._id === key[1]._id
+      ? `<option selected value='${key[1]._id}'>${key[1].name}</option>`
+      : `<option value='${key[1]._id}'>${key[1].name}</option>`
+  );
+  const colors = JSON.parse(decodeURIComponent(colorsEncode));
+  const optionColors = Object.entries(colors).map((key) =>
+    color._id === key[1]._id
+      ? `<option selected value='${key[1]._id}'>${key[1].name}</option>`
+      : `<option value='${key[1]._id}'>${key[1].name}</option>`
+  );
+
   await Swal.fire({
     title: "ویرایش محصول",
     width: "1200px",
@@ -131,10 +144,7 @@ async function btnRobot(productEncode) {
               </div>
               <div class="col-100">
                 <select id="color-pro" name="color">
-                  <option value="none" selected disabled hidden>انتخاب کنید</option>
-                  <%colors.forEach(color => {%>
-                  <option value="<%=color._id%>"><%=color.color%></option>
-                  <%})%>
+                  ${optionColors.join("")}
                 </select>
               </div>
             </div>
@@ -143,11 +153,8 @@ async function btnRobot(productEncode) {
                 <label for="categorie-pro">دسته بندی</label>
               </div>
               <div class="col-100">
-                <select id="categorie-pro" name="categorie">
-                  <option value="none" selected disabled hidden>انتخاب کنید</option>
-                  <%categories.forEach(categorie => {%>
-                  <option value="<%=categorie._id%>"><%=categorie.categories%></option>
-                  <%})%>
+                <select id="categorie-pro" name="category">
+                  ${optionCategory.join("")}
                 </select>
               </div>
             </div>
@@ -167,6 +174,8 @@ async function btnRobot(productEncode) {
     `,
 
     showCancelButton: true,
+    confirmButtonText: "ویرایش محصول",
+    cancelButtonText: "انصراف",
     focusConfirm: false,
     preConfirm: () => {
       document.querySelector("form").submit();

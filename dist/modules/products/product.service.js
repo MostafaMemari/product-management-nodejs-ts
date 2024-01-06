@@ -19,22 +19,27 @@ class ProductService {
     }
     async update(productID, productDto, reqFile) {
         (0, error_handler_1.errorHandler)({ productID, productDto });
-        const porduct = await this.checkExistProduct(productID);
+        const product = await this.checkExistProduct(productID);
         let img = null;
         if (reqFile) {
             const { destination, filename } = reqFile;
             const pathNewImg = (destination + "/" + filename).replace("public/", "/");
-            if (porduct === null || porduct === void 0 ? void 0 : porduct.img) {
-                if ((porduct === null || porduct === void 0 ? void 0 : porduct.img) === pathNewImg) {
+            if (product === null || product === void 0 ? void 0 : product.img) {
+                if ((product === null || product === void 0 ? void 0 : product.img) === pathNewImg) {
                     img = pathNewImg;
                 }
                 else {
-                    fs_1.default.unlinkSync(path_1.default.join(process.cwd(), "public", porduct === null || porduct === void 0 ? void 0 : porduct.img));
+                    fs_1.default.unlinkSync(path_1.default.join(process.cwd(), "public", product === null || product === void 0 ? void 0 : product.img));
                     img = pathNewImg;
                 }
             }
+            else {
+                img = pathNewImg;
+            }
         }
-        console.log({ ...productDto, img });
+        else {
+            img = product === null || product === void 0 ? void 0 : product.img;
+        }
         const result = await product_model_1.ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });
         if (!result.modifiedCount)
             throw http_errors_1.default.InternalServerError();

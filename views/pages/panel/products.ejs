@@ -43,12 +43,16 @@
               <a href="https://www.digikala.com/product/dkp-<%-product.dkp%>" target="_blank"><h3><%-product.title%></h3></a>
             </td>
             <td>
-              <button class="btn success" onclick="btnRobot(' <%- encodeURIComponent(JSON.stringify(product)) %>')" id="btn-save">
-                مدیریت ربات
-              </button>
+              <button class="btn success" id="btn-save">مدیریت ربات</button>
             </td>
             <td class="col-20">
-              <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'sell')" id="btn-save">ویرایش</button>
+              <button
+                class="btn success"
+                onclick="btnUpdateProduct(' <%- encodeURIComponent(JSON.stringify(product)) %>' , '<%-encodeURIComponent(JSON.stringify(categories))%>'  ,'<%-encodeURIComponent(JSON.stringify(colors))%>')"
+                id="btn-save"
+              >
+                ویرایش
+              </button>
               <button class="btn primary">حذف</button>
             </td>
             <% }) %>

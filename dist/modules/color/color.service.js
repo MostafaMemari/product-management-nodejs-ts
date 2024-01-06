@@ -14,7 +14,6 @@ class ColorService {
         return color;
     }
     async update(colorID, colorDto) {
-        console.log({ colorID, colorDto });
         (0, error_handler_1.errorHandler)({ colorID, colorDto });
         await this.checkExistColor(colorID);
         const result = await color_model_1.ColorModel.updateOne({ _id: colorID.id }, { ...colorDto });

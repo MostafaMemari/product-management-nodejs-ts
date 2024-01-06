@@ -13,7 +13,6 @@ class ColorService {
     return color;
   }
   async update(colorID: ObjectIdDTO, colorDto: ColorUpdateDTO): Promise<boolean> {
-    console.log({ colorID, colorDto });
     errorHandler({ colorID, colorDto });
 
     await this.checkExistColor(colorID);

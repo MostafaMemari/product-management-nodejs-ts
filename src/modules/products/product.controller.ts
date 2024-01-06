@@ -35,8 +35,6 @@ export class ProductController {
   }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.file);
-
       stringToNumber(req.body);
       const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const productDto: ProductUpdateDTO = plainToClass(ProductUpdateDTO, req.body, {
