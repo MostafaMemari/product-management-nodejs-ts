@@ -127,6 +127,9 @@ td {
 .success-color {
   color: #009161;
 }
+.m5 {
+  margin: 5px;
+}
 
 /* file upload button */
 input[type="file"]::file-selector-button {

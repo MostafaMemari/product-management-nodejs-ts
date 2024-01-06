@@ -26,12 +26,16 @@ class ProductController {
             (0, functions_1.stringToNumber)(req.body);
             const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductDTO, req.body, { excludeExtraneousValues: true });
             await this.service.create(productDto, req.file);
-            res.status(http_status_codes_1.StatusCodes.CREATED).json({
-                statusCode: http_status_codes_1.StatusCodes.CREATED,
-                message: product_message_1.ProductMessage.Created,
-            });
+            req.flash("success", "ثبت محصول با موفقیت انجام شد");
+            res.redirect("/panel/products");
+            // res.status(StatusCodes.CREATED).json({
+            //   statusCode: StatusCodes.CREATED,
+            //   message: ProductMessage.Created,
+            // });
         }
         catch (error) {
+            req.flash("error", "ثبت محصول با خطا مواجه شد");
+            res.redirect("/panel/products");
             next(error);
         }
     }

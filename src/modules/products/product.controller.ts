@@ -25,11 +25,18 @@ export class ProductController {
       const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
 
       await this.service.create(productDto, req.file);
-      res.status(StatusCodes.CREATED).json({
-        statusCode: StatusCodes.CREATED,
-        message: ProductMessage.Created,
-      });
+
+      req.flash("success", "ثبت محصول با موفقیت انجام شد");
+
+      res.redirect("/panel/products");
+
+      // res.status(StatusCodes.CREATED).json({
+      //   statusCode: StatusCodes.CREATED,
+      //   message: ProductMessage.Created,
+      // });
     } catch (error) {
+      req.flash("error", "ثبت محصول با خطا مواجه شد");
+      res.redirect("/panel/products");
       next(error);
     }
   }

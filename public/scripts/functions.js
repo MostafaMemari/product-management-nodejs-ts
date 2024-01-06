@@ -1,17 +1,22 @@
-function showAlert(alertClass, message) {
-  alertBox.style.display = "block";
-  alertBox.style.opacity = 100;
-  alertBox.setAttribute("class", `alert ${alertClass}`);
-  alertBox.innerHTML = message;
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    cancelButton: "btn danger m5",
+    confirmButton: "btn success m5",
+  },
+  buttonsStyling: false,
+});
 
-  setTimeout(function () {
-    alertBox.style.opacity = 0;
-    alertBox.classList.remove(alertClass);
-  }, 2500);
-  setTimeout(function () {
-    alertBox.style.display = "none";
-  }, 3000);
-}
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
 
 function resetInput() {
   const input = document.getElementsByTagName("input");
@@ -29,15 +34,3 @@ function resetInput() {
   // sellerSelectBox.value = "none";
   // minInputSearch.value = "";
 }
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: "top",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});

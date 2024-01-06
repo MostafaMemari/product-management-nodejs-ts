@@ -291,3 +291,32 @@ async function btnCreateProduct(categoriesEncode, colorsEncode) {
     },
   });
 }
+async function btnDeleteProduct(productID) {
+  swalWithBootstrapButtons
+    .fire({
+      title: "از حذف محصول اطمینان دارید؟",
+      // text: "هیچ راه برگشتی نیستا!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "حذف",
+      cancelButtonText: "انصراف",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${apiUrl}/products/${productID}`, { method: "DELETE" }).then((res) => {
+          if (res.status) {
+            swalWithBootstrapButtons
+              .fire({
+                title: "محصول با موفقیت حذف شد",
+                // text: "Your file has been deleted.",
+                icon: "success",
+              })
+              .then((res) => {
+                document.location.href = `/panel/products`;
+              });
+          }
+        });
+      }
+    });
+}

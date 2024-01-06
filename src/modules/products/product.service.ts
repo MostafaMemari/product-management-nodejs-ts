@@ -32,7 +32,6 @@ class ProductService {
     const product = await this.checkExistProduct(productID);
     const defaultPathImg = "/img/products/no-image.jpg";
     let img = null;
-    console.log(reqFile);
     if (reqFile) {
       const { destination, filename } = reqFile;
       const pathNewImg = (destination + "/" + filename).replace("public/", "/");
@@ -114,8 +113,10 @@ class ProductService {
   async removeByID(productID: ObjectIdDTO): Promise<boolean> {
     errorHandler({ productID });
     const product = await this.checkExistProduct(productID);
+
     const deletedProduct: any = await ProductModel.deleteOne({ _id: product?.id });
     if (!deletedProduct.deletedCount) throw createHttpError.InternalServerError();
+    fs.unlinkSync(path.join(process.cwd(), "public", String(product?.img)));
     return true;
   }
 
