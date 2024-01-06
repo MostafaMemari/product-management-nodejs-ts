@@ -7,16 +7,35 @@ const http_errors_1 = __importDefault(require("http-errors"));
 const error_handler_1 = require("../../common/exception/error.handler");
 const product_model_1 = require("./product.model");
 const product_message_1 = require("./product.message");
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 class ProductService {
-    async create(productDto) {
+    async create(productDto, reqFile) {
         (0, error_handler_1.errorHandler)({ productDto });
-        const product = await product_model_1.ProductModel.create(productDto);
+        const { destination, filename } = reqFile;
+        const img = (destination + "/" + filename).replace("public/", "/");
+        const product = await product_model_1.ProductModel.create({ ...productDto, img });
         return product;
     }
-    async update(productID, productDto) {
+    async update(productID, productDto, reqFile) {
         (0, error_handler_1.errorHandler)({ productID, productDto });
-        await this.checkExistProduct(productID);
-        const result = await product_model_1.ProductModel.updateOne({ _id: productID.id }, { ...productDto });
+        const porduct = await this.checkExistProduct(productID);
+        let img = null;
+        if (reqFile) {
+            const { destination, filename } = reqFile;
+            const pathNewImg = (destination + "/" + filename).replace("public/", "/");
+            if (porduct === null || porduct === void 0 ? void 0 : porduct.img) {
+                if ((porduct === null || porduct === void 0 ? void 0 : porduct.img) === pathNewImg) {
+                    img = pathNewImg;
+                }
+                else {
+                    fs_1.default.unlinkSync(path_1.default.join(process.cwd(), "public", porduct === null || porduct === void 0 ? void 0 : porduct.img));
+                    img = pathNewImg;
+                }
+            }
+        }
+        console.log({ ...productDto, img });
+        const result = await product_model_1.ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });
         if (!result.modifiedCount)
             throw http_errors_1.default.InternalServerError();
         return true;

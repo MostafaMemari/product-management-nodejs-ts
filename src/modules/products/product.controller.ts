@@ -21,9 +21,10 @@ export class ProductController {
   }
   async create(req: Request, res: Response, next: NextFunction) {
     try {
+      stringToNumber(req.body);
       const productDto: ProductDTO = plainToClass(ProductDTO, req.body, { excludeExtraneousValues: true });
 
-      await this.service.create(productDto);
+      await this.service.create(productDto, req.file);
       res.status(StatusCodes.CREATED).json({
         statusCode: StatusCodes.CREATED,
         message: ProductMessage.Created,
@@ -34,6 +35,8 @@ export class ProductController {
   }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log(req.file);
+
       stringToNumber(req.body);
       const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const productDto: ProductUpdateDTO = plainToClass(ProductUpdateDTO, req.body, {
@@ -41,7 +44,7 @@ export class ProductController {
         exposeUnsetFields: false,
       });
 
-      await this.service.update(productID, productDto);
+      await this.service.update(productID, productDto, req.file);
 
       req.flash("success", "ویرایش با موفقیت انجام شد");
 

@@ -7,20 +7,42 @@ import { IProduct } from "./product.types";
 import { ProductMessage } from "./product.message";
 import { IColor } from "../color/color.types";
 import { ICategory } from "../category/category.types";
+import path from "path";
+import fs from "fs";
+import e from "express";
 
 class ProductService {
-  async create(productDto: ProductDTO): Promise<IProduct> {
+  async create(productDto: ProductDTO, reqFile: any): Promise<IProduct> {
     errorHandler({ productDto });
-    const product: IProduct = await ProductModel.create(productDto);
+
+    const { destination, filename } = reqFile;
+
+    const img = (destination + "/" + filename).replace("public/", "/");
+
+    const product: IProduct = await ProductModel.create({ ...productDto, img });
     return product;
   }
 
-  async update(productID: ObjectIdDTO, productDto: ProductUpdateDTO): Promise<boolean> {
+  async update(productID: ObjectIdDTO, productDto: ProductUpdateDTO, reqFile: any): Promise<boolean> {
     errorHandler({ productID, productDto });
 
-    await this.checkExistProduct(productID);
+    const porduct = await this.checkExistProduct(productID);
 
-    const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto });
+    let img = null;
+    if (reqFile) {
+      const { destination, filename } = reqFile;
+      const pathNewImg = (destination + "/" + filename).replace("public/", "/");
+      if (porduct?.img) {
+        if (porduct?.img === pathNewImg) {
+          img = pathNewImg;
+        } else {
+          fs.unlinkSync(path.join(process.cwd(), "public", porduct?.img));
+          img = pathNewImg;
+        }
+      }
+    }
+
+    const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });
     if (!result.modifiedCount) throw createHttpError.InternalServerError();
     return true;
   }

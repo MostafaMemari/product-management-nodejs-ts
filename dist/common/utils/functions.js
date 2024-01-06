@@ -21,6 +21,5 @@ function stringToNumber(objectString) {
             delete objectString[i];
         }
     }
-    return objectString;
 }
 exports.stringToNumber = stringToNumber;

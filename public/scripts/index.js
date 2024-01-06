@@ -73,7 +73,7 @@ async function btnRobot(productEncode) {
     width: "1200px",
     html: `
       <div class="modal-content">
-          <form action="/api/v1/products/${_id}"  method="post" class="modal-insert-product" id="form" novalidate="novalidate">
+          <form action="/api/v1/products/${_id}"  method="post" class="modal-insert-product" id="form" novalidate="novalidate" enctype="multipart/form-data">
             <div class="row">
               <div class="col-100">
                 <label for="title-pro">نام محصول</label>
@@ -156,12 +156,10 @@ async function btnRobot(productEncode) {
               <div class="col-100">
                 <label for="img-pro">تصویر</label>
               </div>
-              <div class="col-100">
-                <input type="text" id="img-pro" name="img" value="${img}" />
-                <div>
-                <img src="${img}" class="img-src" alt="" width="60" height="60" />
+              <div class="col-100" >
+                <input type="file" name="img"  />
               </div>
-              </div>
+            </div>
 
             </div>
           </form>

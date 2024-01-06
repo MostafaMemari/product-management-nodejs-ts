@@ -18,12 +18,10 @@ export class ProductDTO {
   @IsNumber()
   dkpc: number;
 
-  @IsDefined()
   @Expose()
   @IsNumber()
   price: number;
 
-  @IsDefined()
   @Expose()
   @IsNumber()
   count: number;
@@ -37,6 +35,7 @@ export class ProductDTO {
   @Expose()
   seller: string;
 }
+
 export class ProductUpdateDTO {
   @Expose()
   @IsOptional()

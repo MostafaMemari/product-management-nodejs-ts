@@ -35,7 +35,7 @@ export class Application {
     );
     this.app.use(flash());
     this.app.use(cors({ origin: "*" }));
-    this.app.use(morgan("short"));
+    // this.app.use(morgan("short"));
     this.app.use(cors());
 
     this.app.use(express.json());

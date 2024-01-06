@@ -17,5 +17,4 @@ export function stringToNumber(objectString: any) {
       delete objectString[i];
     }
   }
-  return objectString;
 }

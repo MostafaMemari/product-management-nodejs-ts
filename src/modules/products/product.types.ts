@@ -4,7 +4,7 @@ export interface IProduct extends Document {
   title: string;
   dkp: number;
   dkpc: number;
-  price: number;
+  price?: number;
   count?: number;
   color?: ObjectId;
   category?: ObjectId;
