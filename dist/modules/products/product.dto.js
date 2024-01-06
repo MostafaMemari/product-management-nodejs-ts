@@ -34,13 +34,21 @@ __decorate([
     __metadata("design:type", Number)
 ], ProductDTO.prototype, "dkpc", void 0);
 __decorate([
+    (0, class_validator_1.IsDefined)(),
     (0, class_transformer_1.Expose)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], ProductDTO.prototype, "price", void 0);
+], ProductDTO.prototype, "width", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ProductDTO.prototype, "height", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ProductDTO.prototype, "count", void 0);
 __decorate([
@@ -75,12 +83,6 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], ProductUpdateDTO.prototype, "dkpc", void 0);
-__decorate([
-    (0, class_transformer_1.Expose)(),
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], ProductUpdateDTO.prototype, "price", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     (0, class_validator_1.IsOptional)(),

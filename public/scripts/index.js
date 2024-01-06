@@ -182,3 +182,112 @@ async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode) {
     },
   });
 }
+async function btnCreateProduct(categoriesEncode, colorsEncode) {
+  const categories = JSON.parse(decodeURIComponent(categoriesEncode));
+  const optionCategory = Object.entries(categories).map((key) => `<option value='${key[1]._id}'>${key[1].name}</option>`);
+  const colors = JSON.parse(decodeURIComponent(colorsEncode));
+  const optionColors = Object.entries(colors).map((key) => `<option value='${key[1]._id}'>${key[1].name}</option>`);
+
+  await Swal.fire({
+    title: "ویرایش محصول",
+    width: "1200px",
+    html: `
+      <div class="modal-content">
+          <form action="/api/v1/products/"  method="post" class="modal-insert-product" id="form" novalidate="novalidate" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-100">
+                <label for="title-pro">نام محصول</label>
+              </div>
+              <div class="col-100">
+                <input type="text" id="title-pro" name="title" value="" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-100">
+                <label for="dkp-pro">کد محصول</label>
+              </div>
+              <div class="col-100">
+                <input type="text" id="dkp-pro" name="dkp" oninput="getApiDigiKala(event)" value="" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-100">
+                <label for="dkpc-pro">کد تنوع</label>
+              </div>
+              <div class="col-100"><input type="text" id="dkpc-pro" name="dkpc" value="" /></div>
+            </div>
+
+            <div class="row">
+              <div class="col-100">
+                <label for="width-pro">طول</label>
+              </div>
+              <div class="col-100">
+                <input type="text" id="width-pro" name="width" value="" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-100">
+                <label for="height-pro">عرض</label>
+              </div>
+              <div class="col-100">
+                <input type="text" id="height-pro" name="height" value=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-100">
+                <label for="count-pro">موجودی</label>
+              </div>
+              <div class="col-100">
+                <input type="text" id="count-pro" name="count" value="" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-100">
+                <label for="color-pro">رنگ</label>
+              </div>
+              <div class="col-100">
+                <select id="color-pro" name="color">
+                  <option value="none" selected>انتخاب رنگ</option>
+                  ${optionColors.join("")}
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-100">
+                <label for="categorie-pro">دسته بندی</label>
+              </div>
+              <div class="col-100">
+                <select id="categorie-pro" name="category">
+                  <option value="none" selected>انتخاب دسته بندی</option>
+                  ${optionCategory.join("")}
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-100">
+                <label for="img-pro">تصویر</label>
+              </div>
+              <div class="col-100" >
+                <input type="file" name="img"  />
+              </div>
+            </div>
+
+            </div>
+          </form>
+      </div>
+    `,
+
+    showCancelButton: true,
+    confirmButtonText: "ثبت محصول",
+    cancelButtonText: "انصراف",
+    focusConfirm: false,
+    preConfirm: () => {
+      document.querySelector("form").submit();
+    },
+  });
+}

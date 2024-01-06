@@ -18,12 +18,19 @@ export class ProductDTO {
   @IsNumber()
   dkpc: number;
 
+  @IsDefined()
   @Expose()
   @IsNumber()
-  price: number;
+  width: number;
+
+  @IsDefined()
+  @Expose()
+  @IsNumber()
+  height: number;
 
   @Expose()
   @IsNumber()
+  @IsOptional()
   count: number;
 
   @Expose()
@@ -50,11 +57,6 @@ export class ProductUpdateDTO {
   @IsOptional()
   @IsNumber()
   dkpc: number;
-
-  @Expose()
-  @IsOptional()
-  @IsNumber()
-  price: number;
 
   @Expose()
   @IsOptional()

@@ -16,7 +16,13 @@
     </select>
   </div>
   <br />
-  <button id="insert-product" class="btn success">ثبت محصول جدید</button>
+  <button
+    id="insert-product"
+    onclick="btnCreateProduct('<%-encodeURIComponent(JSON.stringify(categories))%>'  ,'<%-encodeURIComponent(JSON.stringify(colors))%>')"
+    class="btn success"
+  >
+    ثبت محصول جدید
+  </button>
   <!-- <button id="btn-products" class="btn success"><a href="http://localhost:3000/products">محصولات</a></button> -->
   <button id="btn-products" class="btn success"><a href="#">محصولات</a></button>
   <button id="btn-categories" class="btn success">دسته بندی ها</button>

@@ -4,14 +4,17 @@ export interface IProduct extends Document {
   title: string;
   dkp: number;
   dkpc: number;
-  price?: number;
+  width: number;
+  height: number;
+
   count?: number;
+  img?: string;
+
+  price?: number;
+  url?: string;
+
   color?: ObjectId;
   category?: ObjectId;
-  img?: string;
-  url?: string;
-  height?: number;
-  width?: number;
   seller?: ObjectId;
 }
 

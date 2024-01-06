@@ -14,9 +14,13 @@ class ProductService {
   async create(productDto: ProductDTO, reqFile: any): Promise<IProduct> {
     errorHandler({ productDto });
 
-    const { destination, filename } = reqFile;
-
-    const img = (destination + "/" + filename).replace("public/", "/");
+    let img = null;
+    if (reqFile) {
+      const { destination, filename } = reqFile;
+      img = (destination + "/" + filename).replace("public/", "/");
+    } else {
+      img = "/img/products/no-image.jpg";
+    }
 
     const product: IProduct = await ProductModel.create({ ...productDto, img });
     return product;
@@ -26,23 +30,29 @@ class ProductService {
     errorHandler({ productID, productDto });
 
     const product = await this.checkExistProduct(productID);
-
+    const defaultPathImg = "/img/products/no-image.jpg";
     let img = null;
+    console.log(reqFile);
     if (reqFile) {
       const { destination, filename } = reqFile;
       const pathNewImg = (destination + "/" + filename).replace("public/", "/");
+
       if (product?.img) {
         if (product?.img === pathNewImg) {
           img = pathNewImg;
         } else {
-          fs.unlinkSync(path.join(process.cwd(), "public", product?.img));
-          img = pathNewImg;
+          if (product?.img !== defaultPathImg) {
+            fs.unlinkSync(path.join(process.cwd(), "public", product?.img));
+            img = pathNewImg;
+          } else {
+            img = pathNewImg;
+          }
         }
       } else {
         img = pathNewImg;
       }
     } else {
-      img = product?.img;
+      img = product?.img ? product?.img : defaultPathImg;
     }
 
     const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });

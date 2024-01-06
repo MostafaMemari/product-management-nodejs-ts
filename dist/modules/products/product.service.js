@@ -12,15 +12,23 @@ const fs_1 = __importDefault(require("fs"));
 class ProductService {
     async create(productDto, reqFile) {
         (0, error_handler_1.errorHandler)({ productDto });
-        const { destination, filename } = reqFile;
-        const img = (destination + "/" + filename).replace("public/", "/");
+        let img = null;
+        if (reqFile) {
+            const { destination, filename } = reqFile;
+            img = (destination + "/" + filename).replace("public/", "/");
+        }
+        else {
+            img = "/img/products/no-image.jpg";
+        }
         const product = await product_model_1.ProductModel.create({ ...productDto, img });
         return product;
     }
     async update(productID, productDto, reqFile) {
         (0, error_handler_1.errorHandler)({ productID, productDto });
         const product = await this.checkExistProduct(productID);
+        const defaultPathImg = "/img/products/no-image.jpg";
         let img = null;
+        console.log(reqFile);
         if (reqFile) {
             const { destination, filename } = reqFile;
             const pathNewImg = (destination + "/" + filename).replace("public/", "/");
@@ -29,8 +37,13 @@ class ProductService {
                     img = pathNewImg;
                 }
                 else {
-                    fs_1.default.unlinkSync(path_1.default.join(process.cwd(), "public", product === null || product === void 0 ? void 0 : product.img));
-                    img = pathNewImg;
+                    if ((product === null || product === void 0 ? void 0 : product.img) !== defaultPathImg) {
+                        fs_1.default.unlinkSync(path_1.default.join(process.cwd(), "public", product === null || product === void 0 ? void 0 : product.img));
+                        img = pathNewImg;
+                    }
+                    else {
+                        img = pathNewImg;
+                    }
                 }
             }
             else {
@@ -38,7 +51,7 @@ class ProductService {
             }
         }
         else {
-            img = product === null || product === void 0 ? void 0 : product.img;
+            img = (product === null || product === void 0 ? void 0 : product.img) ? product === null || product === void 0 ? void 0 : product.img : defaultPathImg;
         }
         const result = await product_model_1.ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });
         if (!result.modifiedCount)
