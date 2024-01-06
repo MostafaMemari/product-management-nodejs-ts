@@ -7,6 +7,7 @@ const http_errors_1 = __importDefault(require("http-errors"));
 const error_handler_1 = require("../../common/exception/error.handler");
 const color_model_1 = require("./color.model");
 const color_message_1 = require("./color.message");
+const product_model_1 = require("../products/product.model");
 class ColorService {
     async create(colorDto) {
         (0, error_handler_1.errorHandler)({ colorDto });
@@ -35,6 +36,7 @@ class ColorService {
         const deletedcolor = await color_model_1.ColorModel.deleteOne({ _id: color === null || color === void 0 ? void 0 : color.id });
         if (!deletedcolor.deletedCount)
             throw http_errors_1.default.InternalServerError();
+        await product_model_1.ProductModel.updateMany({ color: colorID }, { $pull: { color: colorID } });
         return true;
     }
     async checkExistColor(colorID) {

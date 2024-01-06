@@ -24,8 +24,9 @@
     ثبت محصول جدید
   </button>
   <!-- <button id="btn-products" class="btn success"><a href="http://localhost:3000/products">محصولات</a></button> -->
-  <button id="btn-products" class="btn success"><a href="#">محصولات</a></button>
-  <button id="btn-categories" class="btn success">دسته بندی ها</button>
+  <button onclick="btnShowCategory('<%-encodeURIComponent(JSON.stringify(categories))%>')" id="btn-categories" class="btn success">
+    دسته بندی ها
+  </button>
   <button id="btn-colors" class="btn success">رنگ ها</button>
   <button id="btn-sellers" class="btn success">فروشنده ها</button>
   <button id="btn-robot" class="btn success">ربات</button>

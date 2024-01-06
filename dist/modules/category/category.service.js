@@ -7,7 +7,7 @@ const http_errors_1 = __importDefault(require("http-errors"));
 const error_handler_1 = require("../../common/exception/error.handler");
 const category_model_1 = require("./category.model");
 const category_message_1 = require("./category.message");
-const category_dto_1 = require("./category.dto");
+const product_model_1 = require("../products/product.model");
 class CategorySevice {
     async create(categoryDto) {
         (0, error_handler_1.errorHandler)({ categoryDto });
@@ -17,7 +17,8 @@ class CategorySevice {
     async update(categoryID, categoryDto) {
         (0, error_handler_1.errorHandler)({ categoryID, categoryDto });
         await this.checkExistCategory(categoryID);
-        const result = await category_model_1.CategoryModel.updateOne({ _id: categoryID.id }, { ...category_dto_1.CategoryDTO });
+        const result = await category_model_1.CategoryModel.updateOne({ _id: categoryID.id }, { ...categoryDto });
+        console.log(result);
         if (!result.modifiedCount)
             throw http_errors_1.default.InternalServerError();
         return true;
@@ -36,6 +37,7 @@ class CategorySevice {
         const deleteCategory = await category_model_1.CategoryModel.deleteOne({ _id: category === null || category === void 0 ? void 0 : category.id });
         if (!deleteCategory.deletedCount)
             throw http_errors_1.default.InternalServerError();
+        await product_model_1.ProductModel.updateMany({ category: categoryID }, { $pull: { category: categoryID } });
         return true;
     }
     async checkExistCategory(CategoryID) {

@@ -20,13 +20,16 @@ class CategoryController {
         try {
             const categoryDto = (0, class_transformer_1.plainToClass)(category_dto_1.CategoryDTO, req.body, { excludeExtraneousValues: true });
             await this.service.create(categoryDto);
-            res.status(http_status_codes_1.StatusCodes.CREATED).json({
-                statusCode: http_status_codes_1.StatusCodes.CREATED,
-                message: category_message_1.CategoryMessage.Created,
-            });
+            req.flash("success", "ثبت دسته بندی انجام شد");
+            res.redirect("/panel/products");
+            // res.status(StatusCodes.CREATED).json({
+            //   statusCode: StatusCodes.CREATED,
+            //   message: CategoryMessage.Created,
+            // });
         }
         catch (error) {
-            console.log(error);
+            req.flash("error", "ثبت دسته بندی با خطا مواجه شد");
+            res.redirect("/panel/products");
             next(error);
         }
     }
@@ -38,11 +41,15 @@ class CategoryController {
                 exposeUnsetFields: false,
             });
             await this.service.update(categoryID, categoryDto);
-            res.status(http_status_codes_1.StatusCodes.OK).json({
-                message: category_message_1.CategoryMessage.Updated,
-            });
+            req.flash("success", "ثبت دسته بندی انجام شد");
+            res.redirect("/panel/products");
+            // res.status(StatusCodes.OK).json({
+            //   message: CategoryMessage.Updated,
+            // });
         }
         catch (error) {
+            req.flash("error", "ویرایش دسته بندی با خطا مواجه شد");
+            res.redirect("/panel/products");
             next(error);
         }
     }
@@ -73,6 +80,7 @@ class CategoryController {
     }
     async removeByID(req, res, next) {
         try {
+            console.log(req.params);
             const categoryID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true });
             await this.service.removeByID(categoryID);
             res.status(http_status_codes_1.StatusCodes.OK).json({

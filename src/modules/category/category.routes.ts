@@ -6,8 +6,8 @@ const categoryController = new CategoryController();
 
 router.post("/", categoryController.create);
 router.get("/", categoryController.find);
-router.get("/:id", categoryController.findByID);
 router.put("/:id", categoryController.update);
-router.delete("/:id", categoryController.removeByID);
+router.delete("/:id/", categoryController.removeByID);
+router.get("/:id", categoryController.findByID);
 
 export default router;

@@ -5,6 +5,7 @@ import { ColorModel } from "./color.model";
 import { IColor } from "./color.types";
 import { ColorMessage } from "./color.message";
 import { ColorDTO, ColorUpdateDTO } from "./color.dto";
+import { ProductModel } from "../products/product.model";
 
 class ColorService {
   async create(colorDto: ColorDTO): Promise<IColor> {
@@ -34,6 +35,7 @@ class ColorService {
     const color = await this.checkExistColor(colorID);
     const deletedcolor: any = await ColorModel.deleteOne({ _id: color?.id });
     if (!deletedcolor.deletedCount) throw createHttpError.InternalServerError();
+    await ProductModel.updateMany({ color: colorID }, { $pull: { color: colorID } });
     return true;
   }
   async checkExistColor(colorID: ObjectIdDTO): Promise<FindDoc<IColor>> {

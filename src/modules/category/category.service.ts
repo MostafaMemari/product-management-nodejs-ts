@@ -5,6 +5,7 @@ import { CategoryModel } from "./category.model";
 import { ICategory } from "./category.types";
 import { CategoryMessage } from "./category.message";
 import { CategoryDTO, CategoryUpdateDTO } from "./category.dto";
+import { ProductModel } from "../products/product.model";
 
 class CategorySevice {
   async create(categoryDto: CategoryDTO): Promise<ICategory> {
@@ -17,7 +18,8 @@ class CategorySevice {
 
     await this.checkExistCategory(categoryID);
 
-    const result: any = await CategoryModel.updateOne({ _id: categoryID.id }, { ...CategoryDTO });
+    const result: any = await CategoryModel.updateOne({ _id: categoryID.id }, { ...categoryDto });
+    console.log(result);
     if (!result.modifiedCount) throw createHttpError.InternalServerError();
     return true;
   }
@@ -34,6 +36,9 @@ class CategorySevice {
     const category = await this.checkExistCategory(categoryID);
     const deleteCategory: any = await CategoryModel.deleteOne({ _id: category?.id });
     if (!deleteCategory.deletedCount) throw createHttpError.InternalServerError();
+
+    await ProductModel.updateMany({ category: categoryID }, { $pull: { category: categoryID } });
+
     return true;
   }
   async checkExistCategory(CategoryID: ObjectIdDTO): Promise<FindDoc<ICategory>> {

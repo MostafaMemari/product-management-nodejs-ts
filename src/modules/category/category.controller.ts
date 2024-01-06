@@ -19,12 +19,18 @@ export class CategoryController {
       const categoryDto: CategoryDTO = plainToClass(CategoryDTO, req.body, { excludeExtraneousValues: true });
 
       await this.service.create(categoryDto);
-      res.status(StatusCodes.CREATED).json({
-        statusCode: StatusCodes.CREATED,
-        message: CategoryMessage.Created,
-      });
+
+      req.flash("success", "ثبت دسته بندی انجام شد");
+
+      res.redirect("/panel/products");
+
+      // res.status(StatusCodes.CREATED).json({
+      //   statusCode: StatusCodes.CREATED,
+      //   message: CategoryMessage.Created,
+      // });
     } catch (error) {
-      console.log(error);
+      req.flash("error", "ثبت دسته بندی با خطا مواجه شد");
+      res.redirect("/panel/products");
       next(error);
     }
   }
@@ -38,10 +44,16 @@ export class CategoryController {
 
       await this.service.update(categoryID, categoryDto);
 
-      res.status(StatusCodes.OK).json({
-        message: CategoryMessage.Updated,
-      });
+      req.flash("success", "ثبت دسته بندی انجام شد");
+
+      res.redirect("/panel/products");
+
+      // res.status(StatusCodes.OK).json({
+      //   message: CategoryMessage.Updated,
+      // });
     } catch (error) {
+      req.flash("error", "ویرایش دسته بندی با خطا مواجه شد");
+      res.redirect("/panel/products");
       next(error);
     }
   }
@@ -72,6 +84,7 @@ export class CategoryController {
   }
   async removeByID(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log(req.params);
       const categoryID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
 
       await this.service.removeByID(categoryID);

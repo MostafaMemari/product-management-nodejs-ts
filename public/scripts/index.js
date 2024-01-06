@@ -24,7 +24,6 @@ searchInput.addEventListener("keypress", function searchInputChange(event) {
     document.location.href = `/panel/${pathName}/?search=${searchInput.value}`;
   }
 });
-
 async function btnSave(event, productID, operationPath) {
   const count = event.target.parentElement.parentElement.querySelector("input").value;
 
@@ -44,7 +43,6 @@ function inputSave(event, productID, operationPath) {
     apiBuyProduct(productID, count, operationPath, operation);
   }
 }
-
 async function apiBuyProduct(productID, count, operationPath, operation) {
   const response = await fetch(`${apiUrl}/buy-sell/product/${productID}/${operationPath}`, {
     method: "POST",
@@ -63,7 +61,6 @@ async function apiBuyProduct(productID, count, operationPath, operation) {
     });
   }
 }
-
 async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode) {
   const product = JSON.parse(decodeURIComponent(productEncode));
   const { _id, title, dkp, dkpc, width, height, count, color, category } = product;
@@ -83,7 +80,7 @@ async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode) {
 
   await Swal.fire({
     title: "ویرایش محصول",
-    width: "1200px",
+    width: "1000px",
     html: `
       <div class="modal-content">
           <form action="/api/v1/products/${_id}"  method="post" class="modal-insert-product" id="form" novalidate="novalidate" enctype="multipart/form-data">
@@ -190,7 +187,7 @@ async function btnCreateProduct(categoriesEncode, colorsEncode) {
 
   await Swal.fire({
     title: "ویرایش محصول",
-    width: "1200px",
+    width: "1000px",
     html: `
       <div class="modal-content">
           <form action="/api/v1/products/"  method="post" class="modal-insert-product" id="form" novalidate="novalidate" enctype="multipart/form-data">
@@ -319,4 +316,79 @@ async function btnDeleteProduct(productID) {
         });
       }
     });
+}
+async function btnShowCategory(categoriesEncode) {
+  const categories = JSON.parse(decodeURIComponent(categoriesEncode));
+
+  const trCategory = Object.entries(categories).map(
+    (key) => `        
+      <div class="table-category">
+        <input type="text" name="${key[1]._id}" value="${key[1].name}" />
+        <button onclick="btnUpdateCategory(event, '${key[1]._id}')" class="btn success" >
+          ویرایش
+        </button>
+        <button class="btn primary" onclick="btnDeleteCategory('${key[1]._id}')">حذف</button>
+      </div>
+    `
+  );
+
+  console.log();
+  await Swal.fire({
+    title: "دسته بندی",
+    width: "500px",
+    html: `
+    <form method="post" action="${apiUrl}/category">
+     <div class="table-category">
+      <button class="btn success" )">ثبت دسته بندی</button>
+      <input type="text" name="name"/>
+     </div>
+    </form>
+    ${trCategory.join("")}`,
+
+    showConfirmButton: false,
+  });
+}
+async function btnDeleteCategory(categoryID) {
+  swalWithBootstrapButtons
+    .fire({
+      title: "از حذف دسته بندی اطمینان دارید؟",
+      // text: "هیچ راه برگشتی نیستا!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "حذف",
+      cancelButtonText: "انصراف",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${apiUrl}/category/${categoryID}`, { method: "DELETE" }).then((res) => {
+          if (res.status) {
+            swalWithBootstrapButtons
+              .fire({
+                title: "دسته بندی با موفقیت حذف شد",
+                // text: "Your file has been deleted.",
+                icon: "success",
+              })
+              .then((res) => {
+                document.location.href = `/panel/products`;
+              });
+          }
+        });
+      }
+    });
+}
+async function btnUpdateCategory(event, categoryID) {
+  const updateValue = event.target.parentElement.querySelector("input").value;
+
+  await fetch(`${apiUrl}/category/${categoryID}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: updateValue }),
+  }).then((res) => {
+    if (res.status) {
+      document.location.href = `/panel/products`;
+    }
+  });
 }

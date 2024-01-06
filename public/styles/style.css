@@ -130,6 +130,11 @@ td {
 .m5 {
   margin: 5px;
 }
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* file upload button */
 input[type="file"]::file-selector-button {
@@ -163,6 +168,22 @@ input[type="file"]::file-selector-button:active {
   text-align: center;
 }
 .min-input {
+  text-align: center;
+}
+/*********** sweetAlert category *************/
+.table-category {
+  display: flex;
+  width: 100%;
+  margin: 15px auto;
+  justify-content: space-between;
+}
+.table-category input {
+  width: 280px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  height: 50px;
   text-align: center;
 }
 
@@ -229,23 +250,6 @@ input[type="file"]::file-selector-button:active {
   width: 95%;
 }
 
-/*************** Btn Yes No Modal ************/
-.btn-yes-no-modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-.btn-yes-no-modal button {
-  width: 50%;
-  height: 4rem;
-  font-family: "lalezar";
-  font-size: 1.5rem;
-  transition: all 300ms ease;
-}
-.btn-yes-no-modal button:hover {
-  opacity: 0.8;
-}
 /*************** Modal Insert Product ****************/
 .modal-insert-product {
   display: grid;
