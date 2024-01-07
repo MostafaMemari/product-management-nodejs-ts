@@ -1,5 +1,5 @@
 import { Expose, Transform, Type } from "class-transformer";
-import { IsDefined, IsString, IsNumber, Matches, IsOptional, IsArray } from "class-validator";
+import { IsDefined, IsString, IsNumber, Matches, IsOptional, IsArray, IsBoolean } from "class-validator";
 import { ObjectId } from "mongoose";
 
 export class ProductDTO {
@@ -81,6 +81,32 @@ export class ProductUpdateDTO {
 
   @Expose()
   seller: string;
+}
+export class ProductRobotDTO {
+  @Expose()
+  @IsOptional()
+  @IsNumber()
+  reducePrice: number;
+  @Expose()
+  @IsOptional()
+  @IsNumber()
+  maxPrice: number;
+  @Expose()
+  @IsOptional()
+  @IsNumber()
+  minPrice: number;
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  isActive: boolean;
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  isBuyBox: boolean;
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  isCheckPrice: boolean;
 }
 
 export class ProductQueryDTO {

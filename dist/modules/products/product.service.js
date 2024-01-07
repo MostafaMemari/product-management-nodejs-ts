@@ -57,6 +57,13 @@ class ProductService {
             throw http_errors_1.default.InternalServerError();
         return true;
     }
+    async updateRobot(productID, productDto) {
+        (0, error_handler_1.errorHandler)({ productID, productDto });
+        const result = await product_model_1.ProductModel.updateOne({ _id: productID.id }, { robot: { ...productDto } });
+        if (!result.modifiedCount)
+            throw http_errors_1.default.InternalServerError();
+        return true;
+    }
     async findByID(productID) {
         (0, error_handler_1.errorHandler)({ productID });
         return await this.checkExistProduct(productID);

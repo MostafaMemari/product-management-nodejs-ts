@@ -248,7 +248,7 @@ async function btnCreateProduct(categoriesEncode, colorsEncode) {
               </div>
               <div class="col-100">
                 <select id="color-pro" name="color">
-                  <option value="none" selected>انتخاب رنگ</option>
+                  <option value="none" selected disabled hidden>انتخاب رنگ</option>
                   ${optionColors.join("")}
                 </select>
               </div>
@@ -259,7 +259,7 @@ async function btnCreateProduct(categoriesEncode, colorsEncode) {
               </div>
               <div class="col-100">
                 <select id="categorie-pro" name="category">
-                  <option value="none" selected>انتخاب دسته بندی</option>
+                  <option value="none" selected disabled hidden>انتخاب دسته بندی</option>
                   ${optionCategory.join("")}
                 </select>
               </div>
@@ -317,6 +317,7 @@ async function btnDeleteProduct(productID) {
       }
     });
 }
+
 async function btnShowCategory(categoriesEncode) {
   const categories = JSON.parse(decodeURIComponent(categoriesEncode));
 
@@ -390,5 +391,145 @@ async function btnUpdateCategory(event, categoryID) {
     if (res.status) {
       document.location.href = `/panel/products`;
     }
+  });
+}
+
+async function btnShowColor(colorsEncode) {
+  const colors = JSON.parse(decodeURIComponent(colorsEncode));
+
+  const trColor = Object.entries(colors).map(
+    (key) => `        
+      <div class="table-color">
+        <input type="text" name="${key[1]._id}" value="${key[1].name}" />
+        <button onclick="btnUpdateColor(event, '${key[1]._id}')" class="btn success" >
+          ویرایش
+        </button>
+        <button class="btn primary" onclick="btnDeleteColor('${key[1]._id}')">حذف</button>
+      </div>
+    `
+  );
+
+  await Swal.fire({
+    title: "رنگ ها",
+    width: "500px",
+    html: `
+    <form method="post" action="${apiUrl}/colors">
+     <div class="table-color">
+      <button class="btn success" )">ثبت رنگ</button>
+      <input type="text" name="name"/>
+     </div>
+    </form>
+    ${trColor.join("")}`,
+
+    showConfirmButton: false,
+  });
+}
+async function btnDeleteColor(colorID) {
+  swalWithBootstrapButtons
+    .fire({
+      title: "از حذف رنگ اطمینان دارید؟",
+      // text: "هیچ راه برگشتی نیستا!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "حذف",
+      cancelButtonText: "انصراف",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${apiUrl}/colors/${colorID}`, { method: "DELETE" }).then((res) => {
+          if (res.status) {
+            swalWithBootstrapButtons
+              .fire({
+                title: "رنگ با موفقیت حذف شد",
+                // text: "Your file has been deleted.",
+                icon: "success",
+              })
+              .then((res) => {
+                document.location.href = `/panel/products`;
+              });
+          }
+        });
+      }
+    });
+}
+async function btnUpdateColor(event, colorID) {
+  const updateValue = event.target.parentElement.querySelector("input").value;
+
+  await fetch(`${apiUrl}/colors/${colorID}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: updateValue }),
+  }).then((res) => {
+    if (res.status) {
+      document.location.href = `/panel/products`;
+    }
+  });
+}
+
+async function btnShowRobot() {
+  await Swal.fire({
+    title: "تنظیمات ربات",
+    width: "700px",
+    html: `
+    <table class="table-robot">
+      <thead>
+        <tr>
+          <th>ربات</th>
+          <th>بای باکس</th>
+          <th>افزایش قیمت</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <label class="switch">
+            <input type="checkbox" checked/>
+            <span class="slider round"></span>
+            </label>
+          </td>
+          <td>
+            <label class="switch">
+            <input type="checkbox" checked/>
+            <span class="slider round"></span>
+            </label>
+          </td>
+          <td>
+            <label class="switch">
+            <input type="checkbox" checked/>
+            <span class="slider round"></span>
+            </label>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    <table class="table-robot">
+      <thead>
+        <tr>
+          <th>ربات</th>
+          <th>بای باکس</th>
+          <th>افزایش قیمت</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="text" name="" value="" />
+          </td>
+          <td>
+            <input type="text" name="" value="" />
+          </td>
+          <td>
+            <input type="text" name="" value="" />
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    `,
+    showConfirmButton: false,
   });
 }

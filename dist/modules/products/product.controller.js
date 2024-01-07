@@ -60,6 +60,26 @@ class ProductController {
             next(error);
         }
     }
+    async updateRobot(req, res, next) {
+        try {
+            const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
+            const productDto = (0, class_transformer_1.plainToClass)(product_dto_1.ProductRobotDTO, req.body, {
+                excludeExtraneousValues: true,
+                exposeUnsetFields: false,
+            });
+            await this.service.updateRobot(productID, productDto);
+            req.flash("success", "ویرایش با موفقیت انجام شد");
+            res.redirect("/panel/robot");
+            // res.status(StatusCodes.OK).json({
+            //   message: ProductMessage.Updated,
+            // });
+        }
+        catch (error) {
+            req.flash("error", "ویرایش با خطا مواجه شد");
+            res.redirect("/panel/products");
+            next(error);
+        }
+    }
     async findByID(req, res, next) {
         try {
             const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true });

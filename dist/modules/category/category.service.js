@@ -37,7 +37,7 @@ class CategorySevice {
         const deleteCategory = await category_model_1.CategoryModel.deleteOne({ _id: category === null || category === void 0 ? void 0 : category.id });
         if (!deleteCategory.deletedCount)
             throw http_errors_1.default.InternalServerError();
-        await product_model_1.ProductModel.updateMany({ category: categoryID }, { $pull: { category: categoryID } });
+        await product_model_1.ProductModel.updateMany({ category: categoryID.id }, { $unset: { category: "" } });
         return true;
     }
     async checkExistCategory(CategoryID) {

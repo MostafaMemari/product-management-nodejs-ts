@@ -19,12 +19,16 @@ export class ColorController {
       const colorDto: ColorDTO = plainToClass(ColorDTO, req.body, { excludeExtraneousValues: true });
 
       await this.service.create(colorDto);
-      res.status(StatusCodes.CREATED).json({
-        statusCode: StatusCodes.CREATED,
-        message: ColorMessage.Created,
-      });
+
+      req.flash("success", "ثبت رنگ با موفقیت انجام شد");
+      res.redirect("/panel/products");
+      // res.status(StatusCodes.CREATED).json({
+      //   statusCode: StatusCodes.CREATED,
+      //   message: ColorMessage.Created,
+      // });
     } catch (error) {
-      console.log(error);
+      req.flash("error", "ثبت رنگ با خطا مواجه شد");
+      res.redirect("/panel/products");
       next(error);
     }
   }
@@ -38,10 +42,15 @@ export class ColorController {
 
       await this.service.update(colorID, colorDto);
 
-      res.status(StatusCodes.OK).json({
-        message: ColorMessage.Updated,
-      });
+      req.flash("success", "بروزرسانی رنگ با موفقیت انجام شد");
+      res.redirect("/panel/products");
+
+      // res.status(StatusCodes.OK).json({
+      //   message: ColorMessage.Updated,
+      // });
     } catch (error) {
+      req.flash("error", "بروزرسانی رنگ با خطا مواجه شد");
+      res.redirect("/panel/products");
       next(error);
     }
   }

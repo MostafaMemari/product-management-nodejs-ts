@@ -164,19 +164,19 @@
           <input type="search" placeholder="جستجو..." name="" class="search-input" />
           <input type="search" placeholder="کمتر از ..." name="" class="min-input col-35" />
           <select id="color-select-box" name="color">
-            <option value="none" selected>انتخاب رنگ</option>
+            <option value="none" selected disabled hidden>انتخاب رنگ</option>
             <%colors.forEach(color => {%>
             <option value="<%=color._id%>"><%=color.color%></option>
             <%})%>
           </select>
           <select id="categorie-select-box" name="categorie">
-            <option value="none" selected>انتخاب دسته بندی</option>
+            <option value="none" selected disabled hidden>انتخاب دسته بندی</option>
             <%categories.forEach(categorie => {%>
             <option value="<%=categorie._id%>"><%=categorie.categories%></option>
             <%})%>
           </select>
           <select id="seller-select-box" name="seller">
-            <option value="none" selected>انتخاب فروشنده</option>
+            <option value="none" selected disabled hidden>انتخاب فروشنده</option>
             <%sellers.forEach(seller => {%>
             <option value="<%=seller._id%>"><%=seller.sellerTitle%></option>
             <%})%>

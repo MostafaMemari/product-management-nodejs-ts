@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
 import { errorHandler } from "../../common/exception/error.handler";
 import { FindDoc, ObjectIdDTO } from "../../types/public.types";
-import { ProductDTO, ProductQueryDTO, ProductUpdateDTO } from "./product.dto";
+import { ProductDTO, ProductQueryDTO, ProductRobotDTO, ProductUpdateDTO } from "./product.dto";
 import { ProductModel } from "./product.model";
 import { IProduct } from "./product.types";
 import { ProductMessage } from "./product.message";
@@ -55,6 +55,13 @@ class ProductService {
     }
 
     const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });
+    if (!result.modifiedCount) throw createHttpError.InternalServerError();
+    return true;
+  }
+  async updateRobot(productID: ObjectIdDTO, productDto: ProductRobotDTO): Promise<boolean> {
+    errorHandler({ productID, productDto });
+
+    const result: any = await ProductModel.updateOne({ _id: productID.id }, { robot: { ...productDto } });
     if (!result.modifiedCount) throw createHttpError.InternalServerError();
     return true;
   }

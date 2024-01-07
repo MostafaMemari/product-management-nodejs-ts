@@ -61,7 +61,7 @@ class Application {
         }));
         this.app.use((0, express_flash_1.default)());
         this.app.use((0, cors_1.default)({ origin: "*" }));
-        // this.app.use(morgan("short"));
+        // this.app.use(morgan("dev"));
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: true }));

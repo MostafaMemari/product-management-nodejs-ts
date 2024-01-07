@@ -7,5 +7,6 @@ const dashbaordController = new dashbaord_controller_1.DashbaordController();
 router.get("/main", dashbaordController.main);
 router.get("/buy", dashbaordController.buy);
 router.get("/sell", dashbaordController.sell);
+router.get("/robot", dashbaordController.robot);
 router.get("/products", dashbaordController.products);
 exports.default = router;

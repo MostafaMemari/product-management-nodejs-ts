@@ -6,13 +6,13 @@
     <input type="search" placeholder="جستجو..." name="" class="search-input" />
     <input type="search" placeholder="کمتر از ..." name="" class="min-input col-35" />
     <select id="color-select-box" name="color">
-      <option value="none" selected>انتخاب رنگ</option>
+      <option value="none" selected disabled hidden>انتخاب رنگ</option>
     </select>
     <select id="categorie-select-box" name="categorie">
-      <option value="none" selected>انتخاب دسته بندی</option>
+      <option value="none" selected disabled hidden>انتخاب دسته بندی</option>
     </select>
     <select id="seller-select-box" name="seller">
-      <option value="none" selected>انتخاب فروشنده</option>
+      <option value="none" selected disabled hidden>انتخاب فروشنده</option>
     </select>
   </div>
   <br />
@@ -24,10 +24,8 @@
     ثبت محصول جدید
   </button>
   <!-- <button id="btn-products" class="btn success"><a href="http://localhost:3000/products">محصولات</a></button> -->
-  <button onclick="btnShowCategory('<%-encodeURIComponent(JSON.stringify(categories))%>')" id="btn-categories" class="btn success">
-    دسته بندی ها
-  </button>
-  <button id="btn-colors" class="btn success">رنگ ها</button>
+  <button onclick="btnShowCategory('<%-encodeURIComponent(JSON.stringify(categories))%>')" class="btn success">دسته بندی ها</button>
+  <button onclick="btnShowColor('<%-encodeURIComponent(JSON.stringify(colors))%>')" class="btn success">رنگ ها</button>
   <button id="btn-sellers" class="btn success">فروشنده ها</button>
   <button id="btn-robot" class="btn success">ربات</button>
 
@@ -50,7 +48,7 @@
               <a href="https://www.digikala.com/product/dkp-<%-product.dkp%>" target="_blank"><h3><%-product.title%></h3></a>
             </td>
             <td>
-              <button class="btn success" id="btn-save">مدیریت ربات</button>
+              <!-- <button onclick="btnShowRobot('<%- product._id %>')" class="btn success">مدیریت ربات</button> -->
             </td>
             <td class="col-20">
               <button

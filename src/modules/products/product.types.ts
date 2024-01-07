@@ -10,12 +10,22 @@ export interface IProduct extends Document {
   count?: number;
   img?: string;
 
+  robot?: IRobot;
+
   price?: number;
   url?: string;
 
   color?: ObjectId;
   category?: ObjectId;
   seller?: ObjectId;
+}
+export interface IRobot extends Document {
+  reducePrice?: number;
+  maxPrice?: number;
+  minPrice?: number;
+  isActive?: boolean;
+  isBuyBox?: boolean;
+  isCheckPrice?: boolean;
 }
 
 export type ResponseProducts = {

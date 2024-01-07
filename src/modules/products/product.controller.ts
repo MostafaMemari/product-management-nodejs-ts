@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ProductDTO, ProductQueryDTO, ProductUpdateDTO } from "./product.dto";
+import { ProductDTO, ProductQueryDTO, ProductRobotDTO, ProductUpdateDTO } from "./product.dto";
 import { plainToClass } from "class-transformer";
 import { StatusCodes } from "http-status-codes";
 import productService from "./product.service";
@@ -54,6 +54,29 @@ export class ProductController {
       req.flash("success", "ویرایش با موفقیت انجام شد");
 
       res.redirect("/panel/products");
+
+      // res.status(StatusCodes.OK).json({
+      //   message: ProductMessage.Updated,
+      // });
+    } catch (error) {
+      req.flash("error", "ویرایش با خطا مواجه شد");
+      res.redirect("/panel/products");
+
+      next(error);
+    }
+  }
+  async updateRobot(req: Request, res: Response, next: NextFunction) {
+    try {
+      const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true, exposeUnsetFields: false });
+      const productDto: ProductRobotDTO = plainToClass(ProductRobotDTO, req.body, {
+        excludeExtraneousValues: true,
+        exposeUnsetFields: false,
+      });
+
+      await this.service.updateRobot(productID, productDto);
+
+      req.flash("success", "ویرایش با موفقیت انجام شد");
+      res.redirect("/panel/robot");
 
       // res.status(StatusCodes.OK).json({
       //   message: ProductMessage.Updated,

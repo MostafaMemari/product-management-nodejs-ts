@@ -65,5 +65,17 @@ class DashbaordController {
             next(error);
         }
     }
+    async robot(req, res, next) {
+        try {
+            const query = (0, class_transformer_1.plainToClass)(product_dto_1.ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+            const colors = await this.colorService.find();
+            const categories = await this.categoryService.find();
+            const response = await this.productService.find(query, colors, categories);
+            res.render("./pages/panel/robot.ejs", { response, colors, categories });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.DashbaordController = DashbaordController;

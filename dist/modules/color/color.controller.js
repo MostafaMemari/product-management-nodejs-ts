@@ -20,13 +20,16 @@ class ColorController {
         try {
             const colorDto = (0, class_transformer_1.plainToClass)(color_dto_1.ColorDTO, req.body, { excludeExtraneousValues: true });
             await this.service.create(colorDto);
-            res.status(http_status_codes_1.StatusCodes.CREATED).json({
-                statusCode: http_status_codes_1.StatusCodes.CREATED,
-                message: color_message_1.ColorMessage.Created,
-            });
+            req.flash("success", "ثبت رنگ با موفقیت انجام شد");
+            res.redirect("/panel/products");
+            // res.status(StatusCodes.CREATED).json({
+            //   statusCode: StatusCodes.CREATED,
+            //   message: ColorMessage.Created,
+            // });
         }
         catch (error) {
-            console.log(error);
+            req.flash("error", "ثبت رنگ با خطا مواجه شد");
+            res.redirect("/panel/products");
             next(error);
         }
     }
@@ -38,11 +41,15 @@ class ColorController {
                 exposeUnsetFields: false,
             });
             await this.service.update(colorID, colorDto);
-            res.status(http_status_codes_1.StatusCodes.OK).json({
-                message: color_message_1.ColorMessage.Updated,
-            });
+            req.flash("success", "بروزرسانی رنگ با موفقیت انجام شد");
+            res.redirect("/panel/products");
+            // res.status(StatusCodes.OK).json({
+            //   message: ColorMessage.Updated,
+            // });
         }
         catch (error) {
+            req.flash("error", "بروزرسانی رنگ با خطا مواجه شد");
+            res.redirect("/panel/products");
             next(error);
         }
     }

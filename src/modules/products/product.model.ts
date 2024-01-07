@@ -1,5 +1,20 @@
 import { Schema, model, Types } from "mongoose";
-import { IProduct } from "./product.types";
+import { IProduct, IRobot } from "./product.types";
+
+const robotSchema = new Schema<IRobot>(
+  {
+    reducePrice: { type: Number, default: 0 },
+    maxPrice: { type: Number, default: 0 },
+    minPrice: { type: Number, default: 0 },
+    isActive: { type: Boolean, default: false },
+    isBuyBox: { type: Boolean, default: false },
+    isCheckPrice: { type: Boolean, default: false },
+  },
+  {
+    _id: false,
+    versionKey: false,
+  }
+);
 
 const ProductSchema = new Schema<IProduct>(
   {
@@ -14,6 +29,8 @@ const ProductSchema = new Schema<IProduct>(
 
     price: { type: Number },
     url: { type: String },
+
+    robot: { type: robotSchema, default: { robotSchema } },
 
     color: { type: Types.ObjectId, ref: "color" },
     category: { type: Types.ObjectId, ref: "category" },

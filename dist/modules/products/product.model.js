@@ -2,6 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductModel = void 0;
 const mongoose_1 = require("mongoose");
+const robotSchema = new mongoose_1.Schema({
+    reducePrice: { type: Number, default: 0 },
+    maxPrice: { type: Number, default: 0 },
+    minPrice: { type: Number, default: 0 },
+    isActive: { type: Boolean, default: false },
+    isBuyBox: { type: Boolean, default: false },
+    isCheckPrice: { type: Boolean, default: false },
+}, {
+    _id: false,
+    versionKey: false,
+});
 const ProductSchema = new mongoose_1.Schema({
     title: { type: String, required: true, trim: true },
     dkp: { type: Number, required: true },
@@ -12,6 +23,7 @@ const ProductSchema = new mongoose_1.Schema({
     img: { type: String },
     price: { type: Number },
     url: { type: String },
+    robot: { type: robotSchema, default: { robotSchema } },
     color: { type: mongoose_1.Types.ObjectId, ref: "color" },
     category: { type: mongoose_1.Types.ObjectId, ref: "category" },
     seller: { type: mongoose_1.Types.ObjectId, ref: "seller" },

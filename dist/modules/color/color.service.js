@@ -36,7 +36,7 @@ class ColorService {
         const deletedcolor = await color_model_1.ColorModel.deleteOne({ _id: color === null || color === void 0 ? void 0 : color.id });
         if (!deletedcolor.deletedCount)
             throw http_errors_1.default.InternalServerError();
-        await product_model_1.ProductModel.updateMany({ color: colorID }, { $pull: { color: colorID } });
+        await product_model_1.ProductModel.updateMany({ color: colorID.id }, { $unset: { color: "" } });
         return true;
     }
     async checkExistColor(colorID) {

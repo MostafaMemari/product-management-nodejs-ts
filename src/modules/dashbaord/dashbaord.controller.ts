@@ -68,4 +68,17 @@ export class DashbaordController {
       next(error);
     }
   }
+  async robot(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+      const colors: IColor[] = await this.colorService.find();
+      const categories: ICategory[] = await this.categoryService.find();
+
+      const response: any = await this.productService.find(query, colors, categories);
+
+      res.render("./pages/panel/robot.ejs", { response, colors, categories });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

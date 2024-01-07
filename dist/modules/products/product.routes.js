@@ -8,6 +8,7 @@ const product_controller_1 = require("./product.controller");
 const multer_1 = __importDefault(require("../../common/utils/multer"));
 const router = (0, express_1.Router)();
 const productController = new product_controller_1.ProductController();
+router.put("/:id/robot", productController.updateRobot);
 router.post("/:id", multer_1.default.single("img"), productController.update);
 router.post("/", multer_1.default.single("img"), productController.create);
 router.get("/", productController.find);
