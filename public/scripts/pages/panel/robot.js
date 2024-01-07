@@ -1,3 +1,68 @@
+async function btnShowRobot() {
+  await Swal.fire({
+    title: "تنظیمات ربات",
+    width: "700px",
+    html: `
+    <table class="table-robot">
+      <thead>
+        <tr>
+          <th>ربات</th>
+          <th>بای باکس</th>
+          <th>افزایش قیمت</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <label class="switch">
+            <input type="checkbox" checked/>
+            <span class="slider round"></span>
+            </label>
+          </td>
+          <td>
+            <label class="switch">
+            <input type="checkbox" checked/>
+            <span class="slider round"></span>
+            </label>
+          </td>
+          <td>
+            <label class="switch">
+            <input type="checkbox" checked/>
+            <span class="slider round"></span>
+            </label>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    <table class="table-robot">
+      <thead>
+        <tr>
+          <th>ربات</th>
+          <th>بای باکس</th>
+          <th>افزایش قیمت</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="text" name="" value="" />
+          </td>
+          <td>
+            <input type="text" name="" value="" />
+          </td>
+          <td>
+            <input type="text" name="" value="" />
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    `,
+    showConfirmButton: false,
+  });
+}
+
 async function btnSaveRobot(event, productID) {
   const documentRobot = event.target.parentElement.parentElement;
   const inputReducePrice = documentRobot.querySelector("#input-reduce-price").value;
