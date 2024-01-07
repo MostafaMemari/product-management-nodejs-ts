@@ -11,5 +11,6 @@ const BuyAndSellSchema = new mongoose_1.Schema({
     operation: { type: String, default: "فروش", enum: ["خرید", "فروش", "دپو", "خرابی"] },
 }, {
     versionKey: false,
+    timestamps: true,
 });
 exports.BuyAndSellModel = (0, mongoose_1.model)("buyAndsell", BuyAndSellSchema);

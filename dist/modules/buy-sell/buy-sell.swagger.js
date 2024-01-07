@@ -89,3 +89,18 @@
  *      201:
  *        description: created
  */
+/**
+ * @swagger
+ * /api/v1/buy-sell/product/{id}/report/buy:
+ *  get:
+ *    summary: get report product
+ *    tags:
+ *      - BuyAndSell
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: success
+ */

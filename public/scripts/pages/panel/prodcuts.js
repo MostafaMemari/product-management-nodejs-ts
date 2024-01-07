@@ -270,7 +270,6 @@ async function btnShowCategory(categoriesEncode) {
     `
   );
 
-  console.log();
   await Swal.fire({
     title: "دسته بندی",
     width: "500px",

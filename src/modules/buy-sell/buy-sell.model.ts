@@ -12,6 +12,7 @@ const BuyAndSellSchema = new Schema<IBuyAndSell>(
   },
   {
     versionKey: false,
+    timestamps: true,
   }
 );
 

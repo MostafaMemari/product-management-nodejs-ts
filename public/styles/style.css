@@ -170,6 +170,50 @@ input[type="file"]::file-selector-button:active {
   background-color: #e5e7eb;
 }
 
+/*********** report modal *********/
+.modal-report {
+  display: flex;
+  font-family: "Nazanin";
+}
+.card-date-container {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-chart {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-1);
+  box-shadow: var(--box-shadow);
+  padding: 1rem;
+  transition: all 300ms ease;
+}
+
+.card-date {
+  width: 130px;
+  height: 86px;
+  text-align: center;
+  padding: 1rem;
+  border-radius: var(--border-radius-1);
+  background-color: white;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  box-shadow: var(--box-shadow);
+  margin: 0.5rem;
+  transition: all 300ms ease;
+}
+.card-date:hover {
+  box-shadow: none;
+}
+
+.card-chart:hover {
+  box-shadow: none;
+}
 /*********** table robot *********/
 .table-robot {
   width: 100%;
@@ -363,51 +407,6 @@ input[type="submit"]:hover {
 
 .modal-body {
   padding: 1rem;
-}
-/******************* start report Modal ****************/
-.report-product-container {
-  display: flex;
-  width: 95%;
-  margin: 0 auto;
-  justify-content: space-between;
-  align-items: center;
-  font-family: "nazanin";
-}
-.card-date-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 50%;
-}
-.card-date {
-  width: 100px;
-  text-align: center;
-  padding: 1rem;
-  border-radius: var(--border-radius-1);
-  background-color: white;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  box-shadow: var(--box-shadow);
-  margin: 0.5rem;
-  transition: all 300ms ease;
-}
-.card-date:hover {
-  box-shadow: none;
-}
-.card-chart {
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border-radius: var(--border-radius-1);
-  box-shadow: var(--box-shadow);
-  padding: 1rem;
-  transition: all 300ms ease;
-}
-.card-chart:hover {
-  box-shadow: none;
 }
 
 /******************* start aside *******************/

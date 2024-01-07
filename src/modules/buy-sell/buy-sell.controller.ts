@@ -47,4 +47,14 @@ export class BuyAndSellController {
       next(error);
     }
   }
+
+  async reportBuy(req: Request, res: Response, next: NextFunction) {
+    const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });
+
+    const reportBuyProduct = await this.service.reportBuy(productID);
+    res.status(StatusCodes.OK).json({
+      data: { reportBuyProduct },
+    });
+  }
+  async reportSell(req: Request, res: Response, next: NextFunction) {}
 }

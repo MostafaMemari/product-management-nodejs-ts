@@ -1,9 +1,11 @@
 <span class="message-success" style="display: none"><%=locals.messages.success%></span>
 <span class="message-error" style="display: none"><%=locals.messages.error%></span>
+
 <main>
   <h2><a href="/panel/buy/">خرید محصول</a></h2>
 
   <input type="search" placeholder="جستجو..." name="" class="search-input" />
+
   <div class="container-products">
     <div class="product-table">
       <table>
@@ -35,7 +37,7 @@
             <td><input class="input-number" type="text" onkeypress="inputSaveBuyAndSell(event , '<%-product.id%>', 'buy')" /></td>
             <td class="col-20">
               <button class="btn success" onclick="btnSaveBuyAndSell(event ,'<%-product.id%>' , 'buy')" id="btn-save">ثبت</button>
-              <button class="btn primary">گزارش خرید</button>
+              <button class="btn primary" onclick="btnShowReportBuy('<%-product.id%>')">گزارش خرید</button>
             </td>
             <% }) %>
           </tr>

@@ -9,6 +9,7 @@ import { FindDoc, ObjectIdDTO } from "../../types/public.types";
 import { ProductDTO } from "../products/product.dto";
 import { IProduct } from "../products/product.types";
 import { ProductModel } from "../products/product.model";
+import moment from "jalali-moment";
 
 class BuyAndSellService {
   async create(reqDto: BuyAndSellDTO): Promise<Boolean> {
@@ -52,6 +53,14 @@ class BuyAndSellService {
         count: countProduct,
       }
     );
+  }
+
+  async reportBuy(productID: ObjectIdDTO): Promise<IBuyAndSell[]> {
+    errorHandler({ productID });
+
+    const result: IBuyAndSell[] = await BuyAndSellModel.find({ product: productID.id, operation: "خرید" }).limit(12).sort({ updatedAt: 1 });
+
+    return result;
   }
 }
 export default new BuyAndSellService();

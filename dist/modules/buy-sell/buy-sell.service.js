@@ -42,5 +42,10 @@ class BuyAndSellService {
             count: countProduct,
         });
     }
+    async reportBuy(productID) {
+        (0, error_handler_1.errorHandler)({ productID });
+        const result = await buy_sell_model_1.BuyAndSellModel.find({ product: productID.id, operation: "خرید" }).limit(12).sort({ updatedAt: 1 });
+        return result;
+    }
 }
 exports.default = new BuyAndSellService();

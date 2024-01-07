@@ -62,7 +62,6 @@ class CategoryController {
             });
         }
         catch (error) {
-            console.log(error);
             next(error);
         }
     }
@@ -74,7 +73,6 @@ class CategoryController {
             });
         }
         catch (error) {
-            console.log(error);
             next(error);
         }
     }
@@ -88,7 +86,6 @@ class CategoryController {
             });
         }
         catch (error) {
-            console.log(error);
             next(error);
         }
     }

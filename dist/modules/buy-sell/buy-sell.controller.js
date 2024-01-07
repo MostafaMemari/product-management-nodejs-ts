@@ -50,5 +50,13 @@ class BuyAndSellController {
             next(error);
         }
     }
+    async reportBuy(req, res, next) {
+        const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true });
+        const reportBuyProduct = await this.service.reportBuy(productID);
+        res.status(http_status_codes_1.StatusCodes.OK).json({
+            data: { reportBuyProduct },
+        });
+    }
+    async reportSell(req, res, next) { }
 }
 exports.BuyAndSellController = BuyAndSellController;

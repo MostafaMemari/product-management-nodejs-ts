@@ -66,7 +66,6 @@ export class CategoryController {
         data: { category },
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -78,7 +77,6 @@ export class CategoryController {
         data: { categories },
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -92,7 +90,6 @@ export class CategoryController {
         message: CategoryMessage.Deleted,
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
