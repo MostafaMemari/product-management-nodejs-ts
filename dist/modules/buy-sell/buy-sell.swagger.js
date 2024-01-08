@@ -104,3 +104,18 @@
  *      200:
  *        description: success
  */
+/**
+ * @swagger
+ * /api/v1/buy-sell/product/{id}/report/sell:
+ *  get:
+ *    summary: sell report product
+ *    tags:
+ *      - BuyAndSell
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: success
+ */

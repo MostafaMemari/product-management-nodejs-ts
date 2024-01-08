@@ -26,7 +26,9 @@
   <!-- <button id="btn-products" class="btn success"><a href="http://localhost:3000/products">محصولات</a></button> -->
   <button onclick="btnShowCategory('<%-encodeURIComponent(JSON.stringify(categories))%>')" class="btn success">دسته بندی ها</button>
   <button onclick="btnShowColor('<%-encodeURIComponent(JSON.stringify(colors))%>')" class="btn success">رنگ ها</button>
-  <button id="btn-sellers" class="btn success">فروشنده ها</button>
+  <button onclick="btnShowSeller('<%-encodeURIComponent(JSON.stringify(sellers))%>')" id="btn-sellers" class="btn success">
+    فروشنده ها
+  </button>
   <button id="btn-robot" class="btn success">ربات</button>
 
   <div class="container-products">

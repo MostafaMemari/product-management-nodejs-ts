@@ -9,10 +9,13 @@ import ColorService from "../color/color.service";
 import CategoryService from "../category/category.service";
 import ProductService from "../products/product.service";
 import { ProductModel } from "../products/product.model";
+import SellerService from "../seller/seller.service";
+import { ISeller } from "../seller/seller.types";
 
 export class DashbaordController {
   private colorService = ColorService;
   private categoryService = CategoryService;
+  private sellerService = SellerService;
   private productService = ProductService;
   constructor() {
     autoBind(this);
@@ -60,10 +63,11 @@ export class DashbaordController {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
+      const sellers: ISeller[] = await this.sellerService.find();
 
       const response: any = await this.productService.find(query, colors, categories);
 
-      res.render("./pages/panel/products.ejs", { response, colors, categories });
+      res.render("./pages/panel/products.ejs", { response, colors, categories, sellers });
     } catch (error) {
       next(error);
     }

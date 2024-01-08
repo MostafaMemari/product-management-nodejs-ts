@@ -33,10 +33,10 @@
                 <option value="خرابی">خرابی</option>
               </select>
             </td>
-            <td><input class="input-number" type="text" onkeypress="inputSave(event , '<%-product.id%>' , 'sell')" /></td>
+            <td><input class="input-number" type="text" onkeypress="inputSaveBuyAndSell(event , '<%-product.id%>' , 'sell')" /></td>
             <td class="col-20">
-              <button class="btn success" onclick="btnSave(event ,'<%-product.id%>' , 'sell')" id="btn-save">ثبت</button>
-              <button class="btn primary">گزارش فروش</button>
+              <button class="btn success" onclick="btnSaveBuyAndSell(event ,'<%-product.id%>' , 'sell')" id="btn-save">ثبت</button>
+              <button class="btn primary" onclick="btnShowReportSell('<%-product.id%>')">گزارش فروش</button>
             </td>
             <% }) %>
           </tr>
@@ -56,3 +56,5 @@
     <a href="#">&raquo;</a>
   </div>
 </main>
+
+<script src="/scripts/pages/panel/buy-sell.js"></script>

@@ -255,6 +255,108 @@ async function btnDeleteProduct(productID) {
     });
 }
 
+async function btnShowSeller(sellersEncode) {
+  const sellers = JSON.parse(decodeURIComponent(sellersEncode));
+
+  const listSeller = Object.entries(sellers).map(
+    (key) => `        
+
+          <tr>
+            <td>${key[1].sellerTitle}</td>
+            <td>
+            <button onclick="btnShowModalUpdateSeller(event, '${encodeURIComponent(
+              JSON.stringify(key[1])
+            )}')" class="btn success" >ویرایش</button>
+            <button disabled class="btn primary" onclick="btnDeleteCategory('${key[1]._id}')">حذف</button>
+            </td>
+          </tr>
+    `
+  );
+
+  await Swal.fire({
+    title: "فروشنده ها",
+    width: "500px",
+    html: `
+
+      <form method="post" action="${apiUrl}/seller">
+        <div class="table-seller">
+            <input placeholder="نام فروشنده" type="text" name="sellerTitle"/>
+            <input placeholder="کد فروشنده" type="text" name="sellerID"/>
+            <input placeholder="توکن" type="text" name="token"/>
+
+            <div class="seller-robot">
+              <div>ربات</div>
+              <label class="switch">
+                <input type="checkbox" name="isRobot" checked/>
+                <span class="slider round"></span>
+              </label>
+            </div> 
+            <button class="btn success">ثبت فروشنده</button>
+
+        </div>
+      </form>
+
+        <table class="table-show-list-seller">
+          <thead>
+            <tr>
+              <th>نام فروشنده</th>
+              <th></th>
+            </tr>
+          </thead>
+        <tbody>${listSeller.join("")}</tbody>
+        
+      </table>
+    `,
+
+    showConfirmButton: false,
+  });
+}
+async function btnShowModalUpdateSeller(event, sellersEncode) {
+  const seller = JSON.parse(decodeURIComponent(sellersEncode));
+  await Swal.fire({
+    title: "فروشنده ها",
+    width: "500px",
+    html: `
+
+        <div class="table-seller">
+          <input placeholder="نام فروشنده" type="text" name="sellerTitle" value="${seller.sellerTitle}"/>
+          <input placeholder="کد فروشنده" type="text" name="sellerID" value="${seller.sellerID}"/>
+          <input placeholder="توکن" type="text" name="token" value="${seller.token}"/>
+
+          <div class="seller-robot">
+            <div>ربات</div>
+            <label class="switch">
+              <input id="switch-is-robot" type="checkbox" ${seller.isRobot ? "checked" : ""}/>
+              <span class="slider round"></span>
+            </label>
+          </div> 
+          <button onclick="btnUpdateSeller(event,'${seller._id}')" class="btn success">بروزرسانی فروشنده</button>
+        </div>
+    `,
+
+    showConfirmButton: false,
+  });
+}
+async function btnUpdateSeller(event, sellerId) {
+  const updateElem = event.target.parentElement.parentElement;
+  const sellerTitle = updateElem.querySelector('input[name="sellerTitle"]').value;
+  const sellerID = +updateElem.querySelector('input[name="sellerID"]').value;
+  const token = updateElem.querySelector('input[name="token"]').value;
+  const isRobot = updateElem.querySelector("#switch-is-robot").checked;
+
+  await fetch(`${apiUrl}/seller/${sellerId}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ sellerTitle, sellerID, token, isRobot }),
+  }).then((res) => {
+    if (res.status) {
+      document.location.href = `/panel/products`;
+    }
+  });
+}
+
 async function btnShowCategory(categoriesEncode) {
   const categories = JSON.parse(decodeURIComponent(categoriesEncode));
 
@@ -265,7 +367,7 @@ async function btnShowCategory(categoriesEncode) {
         <button onclick="btnUpdateCategory(event, '${key[1]._id}')" class="btn success" >
           ویرایش
         </button>
-        <button class="btn primary" onclick="btnDeleteCategory('${key[1]._id}')">حذف</button>
+        <button disabled class="btn primary" onclick="btnDeleteCategory('${key[1]._id}')">حذف</button>
       </div>
     `
   );
@@ -340,7 +442,7 @@ async function btnShowColor(colorsEncode) {
         <button onclick="btnUpdateColor(event, '${key[1]._id}')" class="btn success" >
           ویرایش
         </button>
-        <button class="btn primary" onclick="btnDeleteColor('${key[1]._id}')">حذف</button>
+        <button disabled class="btn primary" onclick="btnDeleteColor('${key[1]._id}')">حذف</button>
       </div>
     `
   );

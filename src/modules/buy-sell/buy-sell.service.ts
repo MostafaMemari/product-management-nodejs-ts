@@ -62,5 +62,17 @@ class BuyAndSellService {
 
     return result;
   }
+  async reportSell(productID: ObjectIdDTO): Promise<IBuyAndSell[]> {
+    errorHandler({ productID });
+
+    const result: IBuyAndSell[] = await BuyAndSellModel.find({
+      product: productID.id,
+      $or: [{ operation: "فروش" }, { operation: "دپو" }, { operation: "خرابی" }],
+    })
+      .limit(12)
+      .sort({ updatedAt: 1 });
+
+    return result;
+  }
 }
 export default new BuyAndSellService();
