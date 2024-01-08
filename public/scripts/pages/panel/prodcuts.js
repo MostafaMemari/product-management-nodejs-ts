@@ -267,7 +267,7 @@ async function btnShowSeller(sellersEncode) {
             <button onclick="btnShowModalUpdateSeller(event, '${encodeURIComponent(
               JSON.stringify(key[1])
             )}')" class="btn success" >ویرایش</button>
-            <button disabled class="btn primary" onclick="btnDeleteCategory('${key[1]._id}')">حذف</button>
+            <button disabled class="btn primary" onclick="btnShowModalDeleteSeller('${key[1]._id}')">حذف</button>
             </td>
           </tr>
     `
@@ -355,6 +355,35 @@ async function btnUpdateSeller(event, sellerId) {
       document.location.href = `/panel/products`;
     }
   });
+}
+async function btnShowModalDeleteSeller(sellerID) {
+  swalWithBootstrapButtons
+    .fire({
+      title: "از حذف فروشنده اطمینان دارید؟",
+      // text: "هیچ راه برگشتی نیستا!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "حذف",
+      cancelButtonText: "انصراف",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${apiUrl}/seller/${sellerID}`, { method: "DELETE" }).then((res) => {
+          if (res.status) {
+            swalWithBootstrapButtons
+              .fire({
+                title: "فروشنده با موفقیت حذف شد",
+                // text: "Your file has been deleted.",
+                icon: "success",
+              })
+              .then((res) => {
+                document.location.href = `/panel/products`;
+              });
+          }
+        });
+      }
+    });
 }
 
 async function btnShowCategory(categoriesEncode) {
