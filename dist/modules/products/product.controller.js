@@ -14,11 +14,13 @@ const public_types_1 = require("../../types/public.types");
 const color_service_1 = __importDefault(require("../color/color.service"));
 const category_service_1 = __importDefault(require("../category/category.service"));
 const functions_1 = require("../../common/utils/functions");
+const seller_service_1 = __importDefault(require("../seller/seller.service"));
 class ProductController {
     constructor() {
         this.service = product_service_1.default;
         this.colorService = color_service_1.default;
         this.categoryService = category_service_1.default;
+        this.sellerService = seller_service_1.default;
         (0, auto_bind_1.default)(this);
     }
     async create(req, res, next) {
@@ -97,7 +99,8 @@ class ProductController {
             const query = (0, class_transformer_1.plainToClass)(product_dto_1.ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
             const colors = await this.colorService.find();
             const categories = await this.categoryService.find();
-            const response = await this.service.find(query, colors, categories);
+            const sellers = await this.sellerService.find();
+            const response = await this.service.find(query, colors, categories, sellers);
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 data: response,
             });

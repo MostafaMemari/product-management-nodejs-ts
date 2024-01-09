@@ -9,6 +9,7 @@ import { IColor } from "../color/color.types";
 import { ICategory } from "../category/category.types";
 import path from "path";
 import fs from "fs";
+import { ISeller } from "../seller/seller.types";
 
 class ProductService {
   async create(productDto: ProductDTO, reqFile: any): Promise<IProduct> {
@@ -71,7 +72,7 @@ class ProductService {
     return await this.checkExistProduct(productID);
   }
 
-  async find(query: ProductQueryDTO, colorsDto: IColor[], categoryDto: ICategory[]): Promise<IProduct[]> {
+  async find(query: ProductQueryDTO, colorsDto: IColor[], categoryDto: ICategory[], sellerDto: ISeller[]): Promise<IProduct[]> {
     const page = parseInt(query.page) - 1 || 0;
     const limit = parseInt(query.limit) || 40;
     const search = query.search || "";
@@ -79,6 +80,7 @@ class ProductService {
 
     let categories: any = query?.category?.split(",") || "ALL";
     let colors: any = query?.color?.split(",") || "ALL";
+    let sellers: any = query?.seller?.split(",") || "ALL";
 
     colors === "ALL"
       ? (colors = colorsDto.map((color) => String(color._id)))
@@ -88,16 +90,23 @@ class ProductService {
       ? (categories = categoryDto.map((category) => String(category._id)))
       : (categories = categoryDto.filter((category) => categories.includes(category.name)).map((id) => String(id._id)));
 
+    sellers === "ALL"
+      ? (sellers = sellerDto.map((seller) => String(seller._id)))
+      : (sellers = sellerDto.filter((seller) => sellers.includes(seller.sellerTitle)).map((id) => String(id._id)));
+
     const products: IProduct[] = await ProductModel.find({ title: { $regex: search, $options: "i" } })
       .where("category")
       .in(categories)
       .where("color")
       .in(colors)
+      .where("seller")
+      .in(sellers)
       .skip(page * limit)
       .limit(limit)
       .sort({ updatedAt: sort == "asc" ? 1 : -1 })
       .populate("color")
-      .populate("category");
+      .populate("category")
+      .populate("seller", "sellerTitle");
 
     const total = await ProductModel.countDocuments({
       category: { $in: [...categories] },

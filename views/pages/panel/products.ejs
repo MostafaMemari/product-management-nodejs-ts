@@ -1,18 +1,27 @@
 <span class="message-success" style="display: none"><%=locals.messages.success%></span>
 <span class="message-error" style="display: none"><%=locals.messages.error%></span>
 <main>
-  <h2>مدیریت محصولات فروشگاه</h2>
+  <h2><a href="/panel/products">مدیریت محصولات فروشگاه</a></h2>
   <div class="seach-container">
-    <input type="search" placeholder="جستجو..." name="" class="search-input" />
-    <input type="search" placeholder="کمتر از ..." name="" class="min-input col-35" />
-    <select id="color-select-box" name="color">
-      <option value="none" selected disabled hidden>انتخاب رنگ</option>
+    <input type="search" placeholder="جستجو..." name="" class="search-input-elem" />
+    <input type="search" hidden placeholder="جستجو..." name="" class="search-input" />
+    <select onchange="selectBoxColor(event)" id="color-select-box" name="color">
+      <option value="none" selected>انتخاب رنگ</option>
+      <% colors.forEach(color => { %>
+      <option value="<%-color._id%>"><%-color.name %></option>
+      <% }) %>
     </select>
-    <select id="categorie-select-box" name="categorie">
-      <option value="none" selected disabled hidden>انتخاب دسته بندی</option>
+    <select onchange="selectBoxCategory(event)" id="categorie-select-box" name="categorie">
+      <option value="none" selected>انتخاب دسته بندی</option>
+      <% categories.forEach(category => { %>
+      <option value="<%-category._id%>"><%-category.name %></option>
+      <% }) %>
     </select>
-    <select id="seller-select-box" name="seller">
-      <option value="none" selected disabled hidden>انتخاب فروشنده</option>
+    <select onchange="selectBoxSeller(event)" id="seller-select-box" name="seller">
+      <option value="none" selected>انتخاب فروشنده</option>
+      <% sellers.forEach(seller => { %>
+      <option value="<%-seller._id%>"><%-seller.sellerTitle %></option>
+      <% }) %>
     </select>
   </div>
   <br />
@@ -29,7 +38,6 @@
   <button onclick="btnShowSeller('<%-encodeURIComponent(JSON.stringify(sellers))%>')" id="btn-sellers" class="btn success">
     فروشنده ها
   </button>
-  <button id="btn-robot" class="btn success">ربات</button>
 
   <div class="container-products">
     <div class="product-table">
@@ -69,7 +77,7 @@
     </div>
   </div>
   <div class="pagination">
-    <a href="#">&laquo;</a>
+    <!-- <a href="#">&laquo;</a> -->
 
     <%for(let i = 1; response.pages >= i ; i++) {%> <% if(i== response.page) { %>
     <a class="active" href="/panel/products/?page=<%-i%>"><%-i%></a>
@@ -77,7 +85,7 @@
     <a href="/panel/products/?page=<%-i%>"><%-i%></a>
     <% } %> <% } %>
 
-    <a href="#">&raquo;</a>
+    <!-- <a href="#">&raquo;</a> -->
   </div>
 </main>
 

@@ -25,8 +25,9 @@ export class DashbaordController {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
+      const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       res.render("./pages/panel/index.ejs", { response, colors, categories });
     } catch (error) {
@@ -38,8 +39,9 @@ export class DashbaordController {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
+      const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       res.render("./pages/panel/buy.ejs", { response, colors, categories });
     } catch (error) {
@@ -51,7 +53,9 @@ export class DashbaordController {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
-      const response: any = await this.productService.find(query, colors, categories);
+      const sellers: ISeller[] = await this.sellerService.find();
+
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       res.render("./pages/panel/sell.ejs", { response, colors, categories });
     } catch (error) {
@@ -65,7 +69,7 @@ export class DashbaordController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       res.render("./pages/panel/products.ejs", { response, colors, categories, sellers });
     } catch (error) {
@@ -77,8 +81,9 @@ export class DashbaordController {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
+      const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       res.render("./pages/panel/robot.ejs", { response, colors, categories });
     } catch (error) {

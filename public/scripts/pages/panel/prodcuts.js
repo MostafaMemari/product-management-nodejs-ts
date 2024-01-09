@@ -1,3 +1,86 @@
+const selectBoxColorElem = document.querySelector("#color-select-box");
+const selectBoxCategoryElem = document.querySelector("#categorie-select-box");
+const selectBoxSellerElem = document.querySelector("#seller-select-box");
+const searchInputElem = document.querySelector(".search-input-elem");
+
+window.addEventListener("load", () => {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  const colorQuery = searchParams.get("color") ? searchParams.get("color").trim() : false;
+  const categoryQuery = searchParams.get("category") ? searchParams.get("category").trim() : false;
+  const sellerQuery = searchParams.get("seller") ? searchParams.get("seller").trim() : false;
+  const searchQuery = searchParams.get("search") ? searchParams.get("search").trim() : false;
+
+  console.log(searchQuery);
+
+  if (colorQuery) {
+    const optionsColor = Array.from(selectBoxColorElem.options);
+    optionsColor.find((item) => item.text === colorQuery).selected = true;
+  }
+  if (categoryQuery) {
+    const optionsCategory = Array.from(selectBoxCategoryElem.options);
+    optionsCategory.find((item) => item.text === categoryQuery).selected = true;
+  }
+  if (sellerQuery) {
+    const optionsSeller = Array.from(selectBoxSellerElem.options);
+    optionsSeller.find((item) => item.text === sellerQuery).selected = true;
+  }
+  if (searchQuery) {
+    searchInputElem.value = searchQuery;
+  }
+});
+
+searchInputElem.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    const color = selectBoxColorElem.options[selectBoxColorElem.selectedIndex].text;
+    const category = selectBoxCategoryElem.options[selectBoxCategoryElem.selectedIndex].text;
+    const seller = selectBoxSellerElem.options[selectBoxSellerElem.selectedIndex].text;
+    const search = searchInputElem.value;
+
+    const url = `${color === "انتخاب رنگ" ? "" : `&color=${color}`}${category === "انتخاب دسته بندی" ? "" : `&category=${category}`}${
+      seller === "انتخاب فروشنده" ? "" : `&seller=${seller}`
+    }`;
+    window.location = `/panel/products/?search=${search ? search : ""}${url.replace(" &", "")} `;
+  }
+});
+
+async function selectBoxColor(event) {
+  const color = selectBoxColorElem.options[selectBoxColorElem.selectedIndex].text;
+  const category = selectBoxCategoryElem.options[selectBoxCategoryElem.selectedIndex].text;
+  const seller = selectBoxSellerElem.options[selectBoxSellerElem.selectedIndex].text;
+  const search = searchInputElem.value;
+
+  const url = `${color === "انتخاب رنگ" ? "" : `&color=${color}`}${category === "انتخاب دسته بندی" ? "" : `&category=${category}`}${
+    seller === "انتخاب فروشنده" ? "" : `&seller=${seller}`
+  }`;
+
+  window.location = `/panel/products/?search=${search ? search : ""}${url.replace(" &", "")} `;
+}
+async function selectBoxCategory(event) {
+  const color = selectBoxColorElem.options[selectBoxColorElem.selectedIndex].text;
+  const category = selectBoxCategoryElem.options[selectBoxCategoryElem.selectedIndex].text;
+  const seller = selectBoxSellerElem.options[selectBoxSellerElem.selectedIndex].text;
+  const search = searchInputElem.value;
+
+  const url = `${color === "انتخاب رنگ" ? "" : `&color=${color}`}${category === "انتخاب دسته بندی" ? "" : `&category=${category}`}${
+    seller === "انتخاب فروشنده" ? "" : `&seller=${seller}`
+  }`;
+
+  window.location = `/panel/products/?search=${search ? search : ""}${url.replace(" &", "")} `;
+}
+async function selectBoxSeller(event) {
+  const color = selectBoxColorElem.options[selectBoxColorElem.selectedIndex].text;
+  const category = selectBoxCategoryElem.options[selectBoxCategoryElem.selectedIndex].text;
+  const seller = selectBoxSellerElem.options[selectBoxSellerElem.selectedIndex].text;
+  const search = searchInputElem.value;
+
+  const url = `${color === "انتخاب رنگ" ? "" : `&color=${color}`}${category === "انتخاب دسته بندی" ? "" : `&category=${category}`}${
+    seller === "انتخاب فروشنده" ? "" : `&seller=${seller}`
+  }`;
+
+  window.location = `/panel/products/?search=${search ? search : ""}${url.replace(" &", "")} `;
+}
+
 async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode) {
   const product = JSON.parse(decodeURIComponent(productEncode));
   const { _id, title, dkp, dkpc, width, height, count, color, category } = product;

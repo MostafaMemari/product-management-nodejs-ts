@@ -11,11 +11,14 @@ import { IColor } from "../color/color.types";
 import CategoryService from "../category/category.service";
 import { ICategory } from "../category/category.types";
 import { stringToNumber } from "../../common/utils/functions";
+import SellerService from "../seller/seller.service";
+import { ISeller } from "../seller/seller.types";
 
 export class ProductController {
   private service = productService;
   private colorService = ColorService;
   private categoryService = CategoryService;
+  private sellerService = SellerService;
   constructor() {
     autoBind(this);
   }
@@ -105,8 +108,9 @@ export class ProductController {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
+      const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.service.find(query, colors, categories);
+      const response: any = await this.service.find(query, colors, categories, sellers);
 
       res.status(StatusCodes.OK).json({
         data: response,

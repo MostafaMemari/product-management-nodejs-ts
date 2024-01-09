@@ -7,7 +7,7 @@ const messageError = document.querySelector(".message-error").innerHTML;
 const apiUrl = "http://localhost:4500/api/v1";
 
 window.addEventListener("load", () => {
-  resetInput();
+  // resetInput();
   searchInput.focus();
 
   if (messageSuccess || messageError) {

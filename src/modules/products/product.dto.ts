@@ -138,5 +138,10 @@ export class ProductQueryDTO {
   @IsDefined()
   @Expose()
   @IsString()
+  seller: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
   sort: string;
 }
