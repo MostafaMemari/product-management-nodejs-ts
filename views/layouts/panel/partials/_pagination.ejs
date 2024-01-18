@@ -1,0 +1,105 @@
+<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-center items-center mt-5">
+  <ul class="pagination">
+    <% if(response.page - 3 < 1) {%>
+    <!---->
+    <% if(response.page !== 1) { %>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page - 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-right"></i>
+      </a>
+    </li>
+    <%} %>
+    <!---->
+    <% if(response.pages < 4) { %>
+    <!---->
+    <% for(let i = 1 ; i <= response.pages ; i++) {%>
+      <li><a class="pagination__link <%-i == response.page ? "pagination__link--active" : "" %>" href="<%-pageInfo.query.queryString %>&page=<%-i%>"><%-i%></a></li>
+    <%} %>
+    <!---->
+
+    <% if(response.page !== response.pages && response.pages >= 1) { %>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page - 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-left"></i>
+      </a>
+    </li>
+    <%} %> <%} else {%>
+    <!---->
+    <% for(let i = 1 ; i <= 4 ; i++) {%>
+    <!---->
+    <li><a class="pagination__link <%-i == response.page ? "pagination__link--active" : "" %>" href="<%-pageInfo.query.queryString %>&page=<%-i%>"><%-i%></a></li>
+    <!---->
+    <%} %>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=5">...</a></li>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.pages %>"><%-response.pages %></a>
+    </li>
+    <!---->
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page + 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-left"></i>
+      </a>
+    </li>
+    <% } %>
+    <!---- 2 ---->
+    <% } else if((response.page + 3 > response.pages) && (response.page <= response.pages) ) {%>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page - 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-right"></i>
+      </a>
+    </li>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=1">1</a></li>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=<%-response.pages - 5 %>">...</a></li>
+    <% for(let i = response.pages - 3 ; i <=response.pages ; i++) {%>
+    <!---->
+    <li><a class="pagination__link <%-i == response.page ? "pagination__link--active" : "" %>" href="<%-pageInfo.query.queryString %>&page=<%-i%>"><%-i%></a></li>
+
+    
+    
+    <%} %>
+    <!---->
+    <% if(response.page !== response.pages) { %>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page + 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-left"></i>
+      </a>
+    </li>
+    <%} %>
+
+    <!---- 3 ---->
+    <% } else if(response.page >= 4 && response.page <= response.pages) { %>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page - 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-right"></i>
+      </a>
+    </li>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=1">1</a></li>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=<%-response.page - 3 %>">...</a></li>
+    <% for(let i = response.page - 2 ; response.page + 2 >= i ; i++) {%>
+    <!---->
+    <li><a class="pagination__link <%-i == response.page ? "pagination__link--active" : "" %>" href="<%-pageInfo.query.queryString %>&page=<%-i%>"><%-i%></a></li>
+
+    <!---->
+    <%} %>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=<%-response.page + 3 %>">...</a></li>
+    <li><a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.pages %>"><%-response.pages %></a></li>
+    <li>
+      <a class="pagination__link" href="<%-pageInfo.query.queryString%>&page=<%-response.page + 1 %>">
+        <i class="w-4 h-4" data-feather="chevron-left"></i>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+
+  <select class="w-20 form-select box mt-3 sm:mt-0" name="forma" onchange="location = `?limit=${this.value}`">
+    <% const valueOption = ["15" , "30" , "50" , "100"] %>
+    <!---->
+    <% for(let i = 0 ; valueOption.length > i ; i++) { %>
+    <!---->
+    <% if(pageInfo.query?.limit == valueOption[i]) { %>
+    <option selected value="<%-valueOption[i] %>"><%-valueOption[i]%></option>
+    <% } else { %>
+    <option value="<%-valueOption[i] %>"><%-valueOption[i]%></option>
+    <% } %> <%} %>
+  </select>
+</div>

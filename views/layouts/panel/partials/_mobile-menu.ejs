@@ -1,0 +1,58 @@
+<div class="mobile-menu md:hidden">
+  <div class="mobile-menu-bar">
+    <a href="" class="flex ml-auto">
+      <!-- <img alt="Rubick Tailwind HTML Admin Template" class="w-6" src="/dist/images/logo.svg" /> -->
+    </a>
+    <a href="javascript:;" id="mobile-menu-toggler">
+      <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i>
+    </a>
+  </div>
+
+  <ul>
+
+<!-- menu products -->
+    <% const checkUrl = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell" ||  pageInfo.pathUrl == "/panel/robot-control" %>
+      <li>
+        <a href="javascript:;" class="menu <%- checkUrl ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="home"></i></div>
+          <div class="menu__title">محصولات<div class="menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
+        </a>
+
+        <ul class="<%-checkUrl ? "menu__sub-open" : "" %>">
+            <li>
+              <a href="/panel/products" class="menu <%-pageInfo.pathUrl == "/panel/products" ? "menu--active" : "" %>">
+                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت محصولات</div>
+              </a>
+            </li>
+            <li>
+              <a href="/panel/robot-control" class="menu <%-pageInfo.pathUrl == "/panel/robot-control" ? "menu--active" : "" %>">
+                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت ربات</div>
+              </a>
+            </li>
+            <li>
+              <a href="/panel/products-buy" class="menu <%-pageInfo.pathUrl == "/panel/products-buy" ? "menu--active" : "" %>">
+                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">خرید</div>
+              </a>
+            </li>
+            <li>
+              <a href="/panel/products-sell" class="menu <%-pageInfo.pathUrl == "/panel/products-sell" ? "menu--active" : "" %>">
+                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">فروش</div>
+              </a>
+            </li>
+        </ul>
+      </li>
+<!-- menu sellers -->
+    <li>
+      <a href="/panel/sellers" class="menu <%-pageInfo.pathUrl == "/panel/sellers" ? "menu--active" : "" %> ">
+        <div class="menu__icon"><i data-feather="calendar"></i></div><div class="menu__title">فروشندگان</div>
+      </a>
+    </li>
+<!-- menu color and category -->
+    <li>
+      <a href="/panel/category-color" class="menu <%-pageInfo.pathUrl == "/panel/category-color" ? "menu--active" : "" %>">
+        <div class="menu__icon"><i data-feather="calendar"></i></div><div class="menu__title">رنگ و دسته بندی</div>
+      </a>
+    </li>
+
+  </ul>
+</div>

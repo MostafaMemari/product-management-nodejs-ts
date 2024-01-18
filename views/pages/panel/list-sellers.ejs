@@ -1,0 +1,84 @@
+<span class="message-success" style="display: none"><%=locals.messages.success%></span>
+<span class="message-error" style="display: none"><%=locals.messages.error%></span>
+
+<div class="content">
+  <!-- BEGIN: Top Bar -->
+  <div class="top-bar">
+    <!-- BEGIN: Breadcrumb -->
+    <div class="-intro-x breadcrumb ml-auto hidden sm:flex">
+      <a href="">داشبورد</a> <i data-feather="chevron-left" class="breadcrumb__icon"></i>
+      <a href="/panel/products" class="breadcrumb--active"><%-pageInfo?.pathTitle %></a>
+    </div>
+    <!-- END: Breadcrumb -->
+
+    <!-- BEGIN: Notifications -->
+    <%-include("../../layouts/panel/partials/_notification.ejs")%>
+    <!-- END: Notifications -->
+    <!-- BEGIN: Account Menu -->
+    <%-include("../../layouts/panel/partials/_account_menu.ejs")%>
+    <!-- END: Account Menu -->
+  </div>
+  <!-- END: Top Bar -->
+
+  <h2 class="intro-y text-lg font-medium m-2"><%-pageInfo?.pathTitle %></h2>
+
+  <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
+    <div class="flex">
+      <button onclick="btnNewSeller()" class="btn btn-primary shadow-md ml-2">افزودن فروشنده جدید</button>
+    </div>
+  </div>
+
+  <!-- BEGIN: Data List -->
+  <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+    <table class="table table-report -mt-2">
+      <thead>
+        <tr>
+          <th class="whitespace-nowrap">#</th>
+          <th class="whitespace-nowrap">نام فروشنده</th>
+          <th class="whitespace-nowrap">شماره فروشندگی</th>
+          <th class="text-center whitespace-nowrap">تعداد محصولات</th>
+          <th class="text-center whitespace-nowrap">وضعیت ربات</th>
+          <th class="text-center whitespace-nowrap"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%sellers?.forEach((seller , i) => {%>
+        <tr class="intro-x">
+          <td>
+            <div class="font-medium whitespace-nowrap"><%=i+1 %></div>
+          </td>
+          <td>
+            <div class="font-medium whitespace-nowrap"><%-seller.sellerTitle %></div>
+          </td>
+          <td>
+            <div class="font-medium whitespace-nowrap"><%-seller.sellerID %></div>
+          </td>
+          <td class="text-center">10</td>
+          <td class="w-40">
+            <% if(seller.isRobot) { %>
+            <div class="flex items-center justify-center text-theme-9"><i data-feather="check-square" class="w-4 h-4 ml-2"></i>فعال</div>
+
+            <%} else { %>
+            <div class="flex items-center justify-center text-theme-6"><i data-feather="check-square" class="w-4 h-4 ml-2"></i>غیرفعال</div>
+
+            <% } %>
+          </td>
+          <td class="table-report__action w-56">
+            <div class="flex justify-center items-center">
+              <a onclick="btnUpdateSeller('<%-encodeURIComponent(JSON.stringify(seller))%>')" class="flex items-center ml-3" href="javascript:;">
+                <i class="w-4 h-4 ml-1" data-feather="check-square"></i> ویرایش</a
+              >
+              <a onclick="btnRemoveSeller('<%-seller._id%>')" class="flex items-center text-theme-6" href="javascript:;">
+                <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف
+              </a>
+            </div>
+          </td>
+        </tr>
+        <%}) %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- END: Data List -->
+</div>
+<script src="/pages/panel/sellers.js"></script>

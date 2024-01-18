@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const panel_controller_1 = require("./panel.controller");
+const router = (0, express_1.Router)();
+const panelController = new panel_controller_1.PanelController();
+router.get("/main", panelController.main);
+router.get("/robot-control", panelController.robot);
+router.get("/products", panelController.products);
+router.get("/products-buy", panelController.buy);
+router.get("/products-sell", panelController.sell);
+router.get("/sellers", panelController.sellers);
+router.get("/category-color", panelController.categoryAndColor);
+exports.default = router;

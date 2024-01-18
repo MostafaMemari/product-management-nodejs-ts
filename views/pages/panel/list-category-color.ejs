@@ -1,0 +1,112 @@
+<span class="message-success" style="display: none"><%=locals.messages.success%></span>
+<span class="message-error" style="display: none"><%=locals.messages.error%></span>
+
+<div class="content">
+  <!-- BEGIN: Top Bar -->
+  <div class="top-bar">
+    <!-- BEGIN: Breadcrumb -->
+    <div class="-intro-x breadcrumb ml-auto hidden sm:flex">
+      <a href="">داشبورد</a> <i data-feather="chevron-left" class="breadcrumb__icon"></i>
+      <a href="/panel/products" class="breadcrumb--active"><%-pageInfo?.pathTitle %></a>
+    </div>
+    <!-- END: Breadcrumb -->
+
+    <!-- BEGIN: Notifications -->
+    <%-include("../../layouts/panel/partials/_notification.ejs")%>
+    <!-- END: Notifications -->
+    <!-- BEGIN: Account Menu -->
+    <%-include("../../layouts/panel/partials/_account_menu.ejs")%>
+    <!-- END: Account Menu -->
+  </div>
+  <!-- END: Top Bar -->
+
+  <div class="grid lg:grid-cols-2 xl:grid-cols-2 gap-6 mt-5">
+    <!-- colors -->
+    <div>
+      <h2 class="intro-y text-lg font-medium m-2">رنگ ها</h2>
+      <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
+        <div class="flex">
+          <button onclick="btnNewColor()" class="btn btn-primary shadow-md ml-2">افزودن رنگ جدید</button>
+        </div>
+      </div>
+      <div class="grid gap-6 mt-5">
+        <table class="table table-report -mt-2 intro-y lg:col-span-6">
+          <thead>
+            <tr>
+              <th class="whitespace-nowrap">#</th>
+              <th class="whitespace-nowrap">رنگ</th>
+              <th class="text-center whitespace-nowrap"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%colors?.forEach((color , i) => {%>
+            <tr class="intro-x">
+              <td>
+                <div class="font-medium whitespace-nowrap"><%=i+1 %></div>
+              </td>
+              <td>
+                <div class="font-medium whitespace-nowrap"><%-color.name %></div>
+              </td>
+              <td class="table-report__action w-56">
+                <div class="flex justify-center items-center">
+                  <a onclick="btnUpdateColor('<%-encodeURIComponent(JSON.stringify(color))%>')" class="flex items-center ml-3" href="javascript:;">
+                    <i class="w-4 h-4 ml-1" data-feather="check-square"></i> ویرایش</a
+                  >
+                  <a onclick="btnRemoveColor('<%-color._id%>')" class="flex items-center text-theme-6" href="javascript:;">
+                    <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <%}) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- category -->
+    <div>
+      <h2 class="intro-y text-lg font-medium m-2">دسته بندی ها</h2>
+      <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
+        <div class="flex">
+          <button onclick="btnNewCategory()" class="btn btn-primary shadow-md ml-2">افزودن دسته بندی جدید</button>
+        </div>
+      </div>
+      <div class="grid gap-6 mt-5">
+        <table class="table table-report -mt-2 intro-y">
+          <thead>
+            <tr>
+              <th class="whitespace-nowrap">#</th>
+              <th class="whitespace-nowrap">رنگ</th>
+              <th class="text-center whitespace-nowrap"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%categories?.forEach((category , i) => {%>
+            <tr class="intro-x">
+              <td>
+                <div class="font-medium whitespace-nowrap"><%=i+1 %></div>
+              </td>
+              <td>
+                <div class="font-medium whitespace-nowrap"><%-category.name %></div>
+              </td>
+              <td class="table-report__action w-56">
+                <div class="flex justify-center items-center">
+                  <a onclick="btnUpdateCategory('<%-encodeURIComponent(JSON.stringify(category))%>')" class="flex items-center ml-3" href="javascript:;">
+                    <i class="w-4 h-4 ml-1" data-feather="check-square"></i> ویرایش</a
+                  >
+                  <a onclick="btnRemoveCategory('<%-category._id%>')" class="flex items-center text-theme-6" href="javascript:;">
+                    <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <%}) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- END: Data List -->
+</div>
+<script src="/pages/panel/category-seller.js"></script>
