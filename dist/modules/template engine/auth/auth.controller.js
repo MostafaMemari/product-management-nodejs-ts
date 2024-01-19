@@ -11,6 +11,8 @@ const product_service_1 = __importDefault(require("../../products/product.servic
 const buy_sell_service_1 = __importDefault(require("../../buy-sell/buy-sell.service"));
 const seller_service_1 = __importDefault(require("../../seller/seller.service"));
 const public_enum_1 = require("../../../common/constant/public.enum");
+const functions_1 = require("../../../common/utils/functions");
+const auth_model_1 = require("../../auth/auth.model");
 class AuthController {
     constructor() {
         this.colorService = color_service_1.default;
@@ -30,7 +32,17 @@ class AuthController {
         }
     }
     async register(req, res, next) {
+        var _a;
         try {
+            const token = (_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.access_token;
+            if (token) {
+                const data = await (0, functions_1.verifyToken)(token);
+                if (typeof data === "object" && "id" in data) {
+                    const user = await auth_model_1.UserModel.findById(data.id, { password: 0 }).lean();
+                    if (user)
+                        res.redirect("/panel/products");
+                }
+            }
             res.locals.layout = "./layouts/auth/main.ejs";
             res.render("./pages/auth/register.ejs", { page: "register" });
         }

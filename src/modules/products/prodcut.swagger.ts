@@ -183,7 +183,35 @@
  *        name: seller
  *        schema:
  *          type: string
+ *    responses:
+ *      200:
+ *        description: success
+ */
 
+/**
+ * @swagger
+ * /api/v1/products/defects:
+ *  get:
+ *    summary: get all product defects
+ *    tags:
+ *      - Product
+ *    parameters:
+ *      - in: query
+ *        name: search
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: sort
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
  *    responses:
  *      200:
  *        description: success

@@ -100,6 +100,18 @@ class ProductController {
             next(error);
         }
     }
+    async defects(req, res, next) {
+        try {
+            const query = (0, class_transformer_1.plainToClass)(product_dto_1.ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+            const response = await this.service.defects(query);
+            res.status(http_status_codes_1.StatusCodes.OK).json({
+                data: response,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async removeByID(req, res, next) {
         try {
             const productID = (0, class_transformer_1.plainToClass)(public_types_1.ObjectIdDTO, req.params, { excludeExtraneousValues: true });

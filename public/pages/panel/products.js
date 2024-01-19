@@ -170,21 +170,19 @@ async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode, s
 
   const categories = JSON.parse(decodeURIComponent(categoriesEncode));
   const optionCategory = Object.entries(categories).map((key) =>
-    category._id === key[1]._id
-      ? `<option selected value='${key[1]._id}'>${key[1].name}</option>`
-      : `<option value='${key[1]._id}'>${key[1].name}</option>`
+    category?._id === key[1]?._id
+      ? `<option selected value='${key[1]?._id}'>${key[1]?.name}</option>`
+      : `<option value='${key[1]?._id}'>${key[1]?.name}</option>`
   );
   const colors = JSON.parse(decodeURIComponent(colorsEncode));
   const optionColors = Object.entries(colors).map((key) =>
-    color._id === key[1]._id
-      ? `<option selected value='${key[1]._id}'>${key[1].name}</option>`
-      : `<option value='${key[1]._id}'>${key[1].name}</option>`
+    color?._id === key[1]?._id ? `<option selected value='${key[1]?._id}'>${key[1]?.name}</option>` : `<option value='${key[1]?._id}'>${key[1]?.name}</option>`
   );
   const sellers = JSON.parse(decodeURIComponent(sellerEncode));
   const optionSeller = Object.entries(sellers).map((key) =>
-    seller._id === key[1]._id
-      ? `<option selected value='${key[1]._id}'>${key[1].sellerTitle}</option>`
-      : `<option value='${key[1]._id}'>${key[1].sellerTitle}</option>`
+    seller._id === key[1]?._id
+      ? `<option selected value='${key[1]?._id}'>${key[1]?.sellerTitle}</option>`
+      : `<option value='${key[1]?._id}'>${key[1]?.sellerTitle}</option>`
   );
 
   Swal.fire({

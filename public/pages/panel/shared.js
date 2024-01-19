@@ -12,9 +12,7 @@ async function inputSearchEnter(event) {
 
     const searchQuery = event.target.value ? `search=${event.target.value}&page=1` : "";
 
-    const pathQuery = params.size
-      ? `?${params.toString()}${searchQuery ? `&${searchQuery}` : ""}`
-      : `${searchQuery ? `?${searchQuery}` : ""}`;
+    const pathQuery = params.size ? `?${params.toString()}${searchQuery ? `&${searchQuery}` : ""}` : `${searchQuery ? `?${searchQuery}` : ""}`;
 
     window.location = url.pathname + pathQuery;
   }
@@ -32,9 +30,7 @@ async function selectBoxCategory(event) {
   params.delete("page");
   const categoryQuery = categories.length ? `category=${categories.join(",")}&page=1` : "";
 
-  const pathQuery = params.size
-    ? `?${params.toString()}${categoryQuery ? `&${categoryQuery}` : ""}`
-    : `${categoryQuery ? `?${categoryQuery}` : ""}`;
+  const pathQuery = params.size ? `?${params.toString()}${categoryQuery ? `&${categoryQuery}` : ""}` : `${categoryQuery ? `?${categoryQuery}` : ""}`;
   window.location = url.pathname + pathQuery;
 }
 async function selectBoxColor(event) {
@@ -66,9 +62,7 @@ async function selectBoxSeller(event) {
   params.delete("page");
   const sellerQuery = sellers.length ? `seller=${sellers.join(",")}&page=1` : "";
 
-  const pathQuery = params.size
-    ? `?${params.toString()}${sellerQuery ? `&${sellerQuery}` : ""}`
-    : `${sellerQuery ? `?${sellerQuery}` : ""}`;
+  const pathQuery = params.size ? `?${params.toString()}${sellerQuery ? `&${sellerQuery}` : ""}` : `${sellerQuery ? `?${sellerQuery}` : ""}`;
 
   window.location = url.pathname + pathQuery;
 }

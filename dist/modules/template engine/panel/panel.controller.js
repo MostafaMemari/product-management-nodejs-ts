@@ -78,6 +78,28 @@ class PanelController {
             next(error);
         }
     }
+    async defects(req, res, next) {
+        try {
+            const query = (0, class_transformer_1.plainToClass)(product_dto_1.ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+            const colors = await this.colorService.find();
+            const categories = await this.categoryService.find();
+            const sellers = await this.sellerService.find();
+            const response = await this.productService.defects(query);
+            req.query.page ? delete req.query.page : false;
+            const queryPath = Object.entries(req.query);
+            const queryString = "?" + new URLSearchParams(queryPath).toString();
+            res.render("./pages/panel/list-products-defects.ejs", {
+                response,
+                colors,
+                categories,
+                sellers,
+                pageInfo: { pathUrl: "/panel/products-defects", pathTitle: "نواقص محصولات", query: { ...query, queryString } },
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async buy(req, res, next) {
         try {
             const query = (0, class_transformer_1.plainToClass)(product_dto_1.ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });

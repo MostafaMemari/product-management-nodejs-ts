@@ -27,6 +27,7 @@
         <div class="w-full relative text-gray-700 dark:text-gray-300">
           <% if(pageInfo?.query?.search) { %>
           <input
+            id="input-search"
             onkeypress="inputSearchEnter(event)"
             type="text"
             class="form-control w-full box pl-10 placeholder-theme-13"
@@ -34,7 +35,13 @@
             value="<%-pageInfo?.query?.search%>"
           />
           <% } else {%>
-          <input onkeypress="inputSearchEnter(event)" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..." /><% } %>
+          <input
+            id="input-search"
+            onkeypress="inputSearchEnter(event)"
+            type="text"
+            class="form-control w-full box pl-10 placeholder-theme-13"
+            placeholder="جستجو..."
+          /><% } %>
           <i class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
         </div>
       </div>
@@ -134,13 +141,13 @@
                 موجودی <span class="text-red-500 font-bold mt-0.5"> : <%-product.count%> عدد</span>
               </div>
               <div class="text-gray-600 text-xs mt-0.5 whitespace-nowrap">
-                <%-product?.reportBuy?.sumCountAll ? `فروش کل : ${product?.reportBuy?.sumCountAll} عدد` : "فروشی ثبت نشده"%>
+                <%-product?.reportSell?.sumCountAll ? `فروش کل : ${product?.reportSell?.sumCountAll} عدد` : "فروشی ثبت نشده"%>
               </div>
             </div>
 
             <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
               <div class="text-gray-600 text-xs mt-0.5">
-                <%-product?.reportBuy?.sumCountMonth ? ` ${product?.reportBuy?.sumCountMonth} عدد فروش در ماه گذشته` : "فروشی در ماه گذشته صورت نگرفته"%>
+                <%-product?.reportSell?.sumCountMonth ? ` ${product?.reportSell?.sumCountMonth} عدد فروش در ماه گذشته` : "فروشی در ماه گذشته صورت نگرفته"%>
               </div>
             </div>
             <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">

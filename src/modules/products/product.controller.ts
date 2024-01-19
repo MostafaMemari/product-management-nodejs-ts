@@ -104,6 +104,19 @@ export class ProductController {
       next(error);
     }
   }
+  async defects(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+
+      const response: any = await this.service.defects(query);
+
+      res.status(StatusCodes.OK).json({
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   async removeByID(req: Request, res: Response, next: NextFunction) {
     try {
       const productID: ObjectIdDTO = plainToClass(ObjectIdDTO, req.params, { excludeExtraneousValues: true });

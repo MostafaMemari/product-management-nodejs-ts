@@ -1,3 +1,7 @@
+window.addEventListener("load", () => {
+  document.querySelector("#input-search").focus();
+});
+
 function inputBuyAndSell(event, productID, operationPath) {
   if (event.key == "Enter") {
     const count = event.target.parentElement.parentElement.querySelector("input").value;
@@ -68,8 +72,15 @@ async function apiBuyProduct(productID, count, operationPath, operation) {
     body: JSON.stringify({ count, operation, status: operationPath }),
   });
 
+  params.delete("search");
+  params.delete("page");
+
+  const searchQuery = "";
+
+  const pathQuery = params.size ? `?${params.toString()}${searchQuery ? `&${searchQuery}` : ""}` : `${searchQuery ? `?${searchQuery}` : ""}`;
+
   if (response.ok) {
-    document.location.href = operationPath == "buy" ? `/panel/products-buy/` : `/panel/products-sell/`;
+    document.location.href = operationPath == "buy" ? `/panel/products-buy/${pathQuery}` : `/panel/products-sell/${pathQuery}`;
   } else {
     Toast.fire({
       icon: "error",

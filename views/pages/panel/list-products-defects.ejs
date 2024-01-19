@@ -1,0 +1,174 @@
+<span class="message-success" style="display: none"><%=locals.messages.success%></span>
+<span class="message-error" style="display: none"><%=locals.messages.error%></span>
+
+<div class="content">
+  <!-- BEGIN: Top Bar -->
+  <div class="top-bar">
+    <!-- BEGIN: Breadcrumb -->
+    <div class="-intro-x breadcrumb ml-auto hidden sm:flex">
+      <a href="">داشبورد</a> <i data-feather="chevron-left" class="breadcrumb__icon"></i>
+      <a href="/panel/products" class="breadcrumb--active">محصولات</a>
+    </div>
+    <!-- END: Breadcrumb -->
+
+    <!-- BEGIN: Notifications -->
+    <%-include("../../layouts/panel/partials/_notification.ejs")%>
+    <!-- END: Notifications -->
+    <!-- BEGIN: Account Menu -->
+    <%-include("../../layouts/panel/partials/_account_menu.ejs")%>
+    <!-- END: Account Menu -->
+  </div>
+  <!-- END: Top Bar -->
+
+  <h2 class="intro-y text-lg font-medium m-2">محصولات</h2>
+  <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
+    <div class="flex">
+      <button
+        onclick="btnNewProduct('<%-encodeURIComponent(JSON.stringify(categories))%>'  ,'<%-encodeURIComponent(JSON.stringify(colors))%>', '<%-encodeURIComponent(JSON.stringify(sellers))%>')"
+        class="btn btn-primary shadow-md ml-2"
+      >
+        افزودن محصول جدید
+      </button>
+    </div>
+    <div class="flex">
+      <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+        <div class="w-full relative text-gray-700 dark:text-gray-300">
+          <% if(pageInfo?.query?.search) { %>
+          <input
+            onkeypress="inputSearchEnter(event)"
+            type="text"
+            class="form-control w-full box pl-10 placeholder-theme-13"
+            placeholder="جستجو..."
+            value="<%-pageInfo?.query?.search%>"
+          />
+          <% } else {%>
+          <input onkeypress="inputSearchEnter(event)" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..." /><% } %>
+          <i class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4 mt-3">
+    <div class="flex">
+      <select
+        onchange="selectBoxColor(event)"
+        id="color-select-box"
+        data-placeholder="انتخاب رنگ"
+        data-search="true"
+        class="tail-select w-full z-[53]"
+        multiple
+      >
+        <!---->
+        <% colors.forEach(color => { %>
+        <!---->
+        <% if(pageInfo?.query?.color?.split(",").includes(color.name)){%>
+        <option selected value="<%-color.name%>"><%-color.name %></option>
+        <%} else {%>
+        <option value="<%-color.name%>"><%-color.name %></option>
+        <% } %><% }) %>
+      </select>
+    </div>
+
+    <div class="flex">
+      <select
+        onchange="selectBoxCategory(event)"
+        id="category-select-box"
+        data-placeholder="انتخاب دسته بندی"
+        data-search="true"
+        class="tail-select w-full z-[52]"
+        multiple
+      >
+        <% categories.forEach(category => { %>
+        <!---->
+        <% if(pageInfo?.query?.category?.split(",").includes(category.name)){%>
+        <option selected value="<%-category.name%>"><%-category.name %></option>
+        <%} else {%>
+        <option value="<%-category.name%>"><%-category.name %></option>
+        <% } %><% }) %>
+      </select>
+    </div>
+
+    <div class="flex">
+      <select
+        onchange="selectBoxSeller(event)"
+        id="seller-select-box"
+        data-placeholder="انتخاب فروشنده"
+        data-search="true"
+        class="tail-select w-full z-[51]"
+        multiple
+      >
+        <% sellers.forEach(seller => { %>
+        <!---->
+        <% if(pageInfo?.query?.seller?.split(",").includes(seller?.sellerTitle)){%>
+        <option selected value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
+        <%} else {%>
+        <option value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
+        <% } %><% }) %>
+      </select>
+    </div>
+  </div>
+  <!-- BEGIN: Data List -->
+  <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+    <table class="table table-report -mt-2">
+      <thead>
+        <tr>
+          <th class="whitespace-nowrap">تصاویر</th>
+          <th class="whitespace-nowrap">
+            <a class="pagination__link" href="">
+              نام محصول
+              <i class="w-4 h-4" data-feather="chevron-down"></i>
+            </a>
+          </th>
+          <th class="text-center whitespace-nowrap">موجودی</th>
+          <th class="text-center whitespace-nowrap">وضعیت</th>
+          <th class="text-center whitespace-nowrap">فعالیت</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%response?.products.forEach((product) => {%>
+        <tr class="intro-x">
+          <td class="w-30">
+            <div class="flex">
+              <div class="w-10 h-10 image-fit zoom-in rounded-full">
+                <img alt="" class="tooltip rounded-full" src="<%-product.img %>" title="فروشنده : <%-product.seller.sellerTitle %>" />
+              </div>
+            </div>
+          </td>
+          <td>
+            <a class="font-medium whitespace-nowrap"><%-product.title %></a>
+            <div class="text-gray-600 text-xs whitespace-nowrap mt-0.5"></div>
+          </td>
+          <td class="text-center"><%-product.count %></td>
+          <td class="w-40">
+            <div class="flex items-center justify-center text-theme-9">
+              <!-- <div class="flex items-center justify-center text-theme-6"> غیر فعال -->
+              <i class="w-4 h-4 ml-2"></i> فعال
+            </div>
+          </td>
+          <td class="table-report__action w-56">
+            <div class="flex justify-center items-center">
+              <a
+                onclick="btnUpdateProduct(' <%- encodeURIComponent(JSON.stringify(product)) %>' , '<%-encodeURIComponent(JSON.stringify(categories))%>'  ,'<%-encodeURIComponent(JSON.stringify(colors))%>','<%-encodeURIComponent(JSON.stringify(sellers))%>')"
+                class="flex items-center ml-3"
+                href="javascript:;"
+              >
+                <i class="w-4 h-4 ml-1" data-feather="check-square"></i> ویرایش</a
+              >
+              <a onclick="btnRemoveProduct('<%-product._id%>')" class="flex items-center text-theme-6" href="javascript:;">
+                <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف
+              </a>
+            </div>
+          </td>
+        </tr>
+        <%}) %>
+      </tbody>
+    </table>
+  </div>
+  <!-- END: Data List -->
+  <!-- BEGIN: Pagination -->
+  <%-include("../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
+  <!-- END: Pagination -->
+</div>
+<script src="/pages/panel/products.js"></script>
+<script src="/pages/panel/shared.js"></script>

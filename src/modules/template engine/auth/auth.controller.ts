@@ -14,6 +14,10 @@ import { ISeller } from "../../seller/seller.types";
 import { CookieNames } from "../../../common/constant/public.enum";
 import { StatusCodes } from "http-status-codes";
 import { AuthorizationMessage } from "../../../common/messages/auth.message";
+import { verifyToken } from "../../../common/utils/functions";
+import { Authorization } from "../../../common/guard/authorization.guard";
+import createHttpError from "http-errors";
+import { UserModel } from "../../auth/auth.model";
 
 export class AuthController {
   private colorService = ColorService;
@@ -34,6 +38,15 @@ export class AuthController {
   }
   async register(req: Request, res: Response, next: NextFunction) {
     try {
+      const token = req?.cookies?.access_token;
+      if (token) {
+        const data = await verifyToken(token);
+        if (typeof data === "object" && "id" in data) {
+          const user = await UserModel.findById(data.id, { password: 0 }).lean();
+          if (user) res.redirect("/panel/products");
+        }
+      }
+
       res.locals.layout = "./layouts/auth/main.ejs";
       res.render("./pages/auth/register.ejs", { page: "register" });
     } catch (error) {

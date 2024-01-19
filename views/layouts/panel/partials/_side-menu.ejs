@@ -8,7 +8,7 @@
   <ul>
 
 <!-- menu products -->
-    <% const checkUrl = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell" ||  pageInfo.pathUrl == "/panel/robot-control" %>
+    <% const checkUrl = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell" ||  pageInfo.pathUrl == "/panel/robot-control" || pageInfo.pathUrl == "/panel/products-defects" %>
       <li>
         <a href="javascript:;" class="side-menu <%- checkUrl ? "side-menu--active" : "" %>">
           <div class="side-menu__icon"><i data-feather="home"></i></div>
@@ -34,6 +34,11 @@
             <li>
               <a href="/panel/products-sell" class="side-menu <%-pageInfo.pathUrl == "/panel/products-sell" ? "side-menu--active" : "" %>">
                 <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">فروش</div>
+              </a>
+            </li>
+            <li>
+              <a href="/panel/products-defects" class="side-menu <%-pageInfo.pathUrl == "/panel/products-defects" ? "side-menu--active" : "" %>">
+                <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">نواقص محصولات</div>
               </a>
             </li>
         </ul>

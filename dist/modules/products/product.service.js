@@ -117,6 +117,35 @@ class ProductService {
         };
         return response;
     }
+    async defects(query) {
+        const page = parseInt(query.page) - 1 || 0;
+        const limit = parseInt(query.limit) || 15;
+        const search = query.search || "";
+        const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
+        const products = await product_model_1.ProductModel.find({
+            title: { $regex: search, $options: "i" },
+            $or: [{ color: { $exists: false } }, { category: { $exists: false } }, { seller: { $exists: false } }],
+        })
+            .skip(page * limit)
+            .limit(limit)
+            .sort({ updatedAt: sort == "asc" ? 1 : -1 })
+            .populate("color")
+            .populate("category")
+            .populate("seller", "sellerTitle")
+            .lean();
+        const total = await product_model_1.ProductModel.countDocuments({
+            title: { $regex: search, $options: "i" },
+            $or: [{ color: { $exists: false } }, { category: { $exists: false } }, { seller: { $exists: false } }],
+        });
+        const response = {
+            total,
+            pages: Math.ceil(total / limit),
+            page: page + 1,
+            limit,
+            products,
+        };
+        return response;
+    }
     async removeByID(productID) {
         (0, error_handler_1.errorHandler)({ productID });
         const product = await this.checkExistProduct(productID);
