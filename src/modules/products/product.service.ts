@@ -57,7 +57,6 @@ class ProductService {
     }
 
     const result: any = await ProductModel.updateOne({ _id: productID.id }, { ...productDto, img });
-    console.log(result);
     if (!result.modifiedCount) throw createHttpError.InternalServerError();
     return true;
   }

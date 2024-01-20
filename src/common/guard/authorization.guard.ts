@@ -3,6 +3,7 @@ import createHttpError from "http-errors";
 import { AuthorizationMessage } from "../messages/auth.message";
 import { verifyToken } from "../utils/functions";
 import { UserModel } from "../../modules/auth/auth.model";
+import { IUser } from "../../modules/auth/auth.types";
 
 export async function Authorization(req: Request, res: Response, next: NextFunction) {
   try {
@@ -11,7 +12,7 @@ export async function Authorization(req: Request, res: Response, next: NextFunct
     const data = await verifyToken(token);
 
     if (typeof data === "object" && "id" in data) {
-      const user = await UserModel.findById(data.id, { password: 0 }).lean();
+      const user: any = await UserModel.findById(data.id, { password: 0 }).lean();
       if (!user) throw createHttpError.Unauthorized(AuthorizationMessage.NotFoundAccount);
       req.user = user;
       return next();
