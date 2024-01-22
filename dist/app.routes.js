@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AllRouter = void 0;
+const express_1 = require("express");
+const product_routes_1 = __importDefault(require("./modules/products/product.routes"));
+const color_routes_1 = __importDefault(require("./modules/color/color.routes"));
+const category_routes_1 = __importDefault(require("./modules/category/category.routes"));
+const seller_routes_1 = __importDefault(require("./modules/seller/seller.routes"));
+const auth_routes_1 = __importDefault(require("./modules/auth/auth.routes"));
+const buy_sell_routes_1 = __importDefault(require("./modules/buy-sell/buy-sell.routes"));
+const AllRouter = (0, express_1.Router)();
+exports.AllRouter = AllRouter;
+AllRouter.use("/sellers", seller_routes_1.default);
+AllRouter.use("/auth", auth_routes_1.default);
+AllRouter.use("/products", product_routes_1.default);
+AllRouter.use("/colors", color_routes_1.default);
+AllRouter.use("/category", category_routes_1.default);
+AllRouter.use("/buy-sell", buy_sell_routes_1.default);
