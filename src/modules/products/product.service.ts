@@ -162,7 +162,7 @@ class ProductService {
     errorHandler({ productID });
     const product = await this.checkExistProduct(productID);
 
-    const deletedProduct: any = await ProductModel.deleteOne({ _id: product?.id });
+    const deletedProduct: any = await ProductModel.deleteOne({ _id: product?._id });
     if (!deletedProduct.deletedCount) throw createHttpError.InternalServerError();
     product?.img !== process.env.DEFAULT_IMG_PRODUCT ? fs.unlinkSync(path.join(process.cwd(), "public", String(product?.img))) : false;
     await BuyAndSellModel.deleteMany({ product: productID.id });

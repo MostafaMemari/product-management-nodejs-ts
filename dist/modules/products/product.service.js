@@ -148,7 +148,7 @@ class ProductService {
     async removeByID(productID) {
         (0, error_handler_1.errorHandler)({ productID });
         const product = await this.checkExistProduct(productID);
-        const deletedProduct = await product_model_1.ProductModel.deleteOne({ _id: product === null || product === void 0 ? void 0 : product.id });
+        const deletedProduct = await product_model_1.ProductModel.deleteOne({ _id: product === null || product === void 0 ? void 0 : product._id });
         if (!deletedProduct.deletedCount)
             throw http_errors_1.default.InternalServerError();
         (product === null || product === void 0 ? void 0 : product.img) !== process.env.DEFAULT_IMG_PRODUCT ? fs_1.default.unlinkSync(path_1.default.join(process.cwd(), "public", String(product === null || product === void 0 ? void 0 : product.img))) : false;
