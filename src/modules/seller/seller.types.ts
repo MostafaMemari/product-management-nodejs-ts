@@ -5,4 +5,5 @@ export interface ISeller extends Document {
   sellerTitle: string;
   token: string;
   isRobot?: boolean;
+  accessTokenDigiKala?: string;
 }

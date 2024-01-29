@@ -14,12 +14,16 @@ export async function Authorization(req: Request, res: Response, next: NextFunct
     if (typeof data === "object" && "id" in data) {
       const user: any = await UserModel.findById(data.id, { password: 0 }).lean();
       if (!user) throw createHttpError.Unauthorized(AuthorizationMessage.NotFoundAccount);
-      req.user = user;
-      return next();
+      if (user.role === "SUPER_ADMIN") {
+        req.user = user;
+        return next();
+      } else {
+        throw next(createHttpError.Unauthorized(AuthorizationMessage.UnAuthorized));
+      }
     }
-    throw createHttpError.Unauthorized(AuthorizationMessage.InvalidToken);
+    // throw createHttpError.Unauthorized(AuthorizationMessage.InvalidToken);
   } catch (error) {
-    res.redirect("/auth/register");
-    // next(error);
+    // res.redirect("/auth/register");
+    next(error);
   }
 }

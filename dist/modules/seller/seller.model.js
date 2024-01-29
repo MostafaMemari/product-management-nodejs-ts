@@ -6,6 +6,7 @@ const SellerSchema = new mongoose_1.Schema({
     sellerID: { type: Number, required: true },
     sellerTitle: { type: String, required: true },
     token: { type: String, required: true },
+    accessTokenDigiKala: { type: String },
     isRobot: { type: Boolean, default: false },
 }, {
     versionKey: false,

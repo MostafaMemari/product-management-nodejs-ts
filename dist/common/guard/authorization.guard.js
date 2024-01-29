@@ -19,14 +19,19 @@ async function Authorization(req, res, next) {
             const user = await auth_model_1.UserModel.findById(data.id, { password: 0 }).lean();
             if (!user)
                 throw http_errors_1.default.Unauthorized(auth_message_1.AuthorizationMessage.NotFoundAccount);
-            req.user = user;
-            return next();
+            if (user.role === "SUPER_ADMIN") {
+                req.user = user;
+                return next();
+            }
+            else {
+                throw next(http_errors_1.default.Unauthorized(auth_message_1.AuthorizationMessage.UnAuthorized));
+            }
         }
-        throw http_errors_1.default.Unauthorized(auth_message_1.AuthorizationMessage.InvalidToken);
+        // throw createHttpError.Unauthorized(AuthorizationMessage.InvalidToken);
     }
     catch (error) {
-        res.redirect("/auth/register");
-        // next(error);
+        // res.redirect("/auth/register");
+        next(error);
     }
 }
 exports.Authorization = Authorization;

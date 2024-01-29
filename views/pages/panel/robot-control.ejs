@@ -145,33 +145,33 @@
 
           <td>
             <div class="flex justify-center items-center">
-              <input id="input-reduce-price" type="text" class="form-control w-16 text-center" value="<%-product.robot.reducePrice %>" />
+              <input id="input-reduce-price" type="text" class="form-control w-16 text-center" value="<%-product?.robot?.reducePrice %>" />
             </div>
           </td>
           <td>
             <div class="flex justify-center items-center">
-              <input id="input-min-price" type="text" class="form-control w-20 text-center" value="<%-product.robot.minPrice %>" />
+              <input id="input-min-price" type="text" class="form-control w-20 text-center" value="<%-product?.robot?.minPrice %>" />
             </div>
           </td>
 
           <td>
             <div class="flex justify-center items-center">
-              <input id="input-max-price" type="text" class="form-control w-20 text-center" value="<%-product.robot.maxPrice %>" />
+              <input id="input-max-price" type="text" class="form-control w-20 text-center" value="<%-product?.robot?.maxPrice %>" />
             </div>
           </td>
           <td>
             <div class="flex justify-center items-center">
-              <input <%-product.robot.isActive ? "checked" : "" %> name="isRobot" id="switch-is-active" class="form-check-switch" type="checkbox" />
+              <input <%-product?.robot?.isActive ? "checked" : "" %> name="isRobot" id="switch-is-active" class="form-check-switch" type="checkbox" />
             </div>
           </td>
           <td>
             <div class="flex justify-center items-center">
-              <input <%-product.robot.isBuyBox ? "checked" : "" %> name="isRobot" id="switch-is-buybox" class="form-check-switch" type="checkbox" />
+              <input <%-product?.robot?.isBuyBox ? "checked" : "" %> name="isRobot" id="switch-is-buybox" class="form-check-switch" type="checkbox" />
             </div>
           </td>
           <td>
             <div class="flex justify-center items-center">
-              <input <%-product.robot.isCheckPrice ? "checked" : "" %> name="isRobot" id="switch-is-checkprice" class="form-check-switch" type="checkbox" />
+              <input <%-product?.robot?.isCheckPrice ? "checked" : "" %> name="isRobot" id="switch-is-checkprice" class="form-check-switch" type="checkbox" />
             </div>
           </td>
 

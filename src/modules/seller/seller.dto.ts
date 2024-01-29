@@ -19,6 +19,11 @@ export class SellerDTO {
 
   @IsOptional()
   @Expose()
+  @IsString()
+  accessTokenDigiKala: string;
+
+  @IsOptional()
+  @Expose()
   @IsBoolean()
   isRobot: boolean;
 }
@@ -32,6 +37,11 @@ export class SellerUpdateDTO {
   @Expose()
   @IsString()
   sellerTitle: string;
+
+  @IsOptional()
+  @Expose()
+  @IsString()
+  accessTokenDigiKala: string;
 
   @IsOptional()
   @Expose()

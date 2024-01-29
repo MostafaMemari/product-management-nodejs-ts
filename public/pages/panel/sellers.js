@@ -17,6 +17,10 @@ async function btnNewSeller() {
         <label for="seller-token" class="form-label">توکن</label>
         <input id="seller-token" type="text" name="token" class="form-control w-full" />
       </div>
+      <div>
+        <label for="access-token" class="form-label">توکن سلرآکادمی</label>
+        <input id="access-token" type="text" name="accessTokenDigiKala" class="form-control w-full" />
+      </div>
 
       <div class="flex justify-center gap-4">
         <input name="isRobot" id="seller-is-robot" class="form-check-switch" type="checkbox">
@@ -40,12 +44,14 @@ async function btnNewSeller() {
       const sellerIdElem = document.querySelector("#seller-id");
       const sellerTokenElem = document.querySelector("#seller-token");
       const sellerIsRobotElem = document.querySelector("#seller-is-robot");
+      const accessTokenElem = document.querySelector("#access-token");
 
       const newSeller = {
         sellerTitle: sellerTitleElem.value.trim(),
         sellerID: sellerIdElem.value.trim(),
         token: sellerTokenElem.value.trim(),
         isRobot: sellerIsRobotElem.checked,
+        accessTokenDigiKala: accessTokenElem.value.trim(),
       };
 
       const res = await fetch(`${apiUrl}/sellers`, {
@@ -109,7 +115,7 @@ async function btnRemoveSeller(sellerID) {
 }
 async function btnUpdateSeller(sellerEncode) {
   const seller = JSON.parse(decodeURIComponent(sellerEncode));
-  const { _id, sellerTitle, sellerID, token, isRobot } = seller;
+  const { _id, sellerTitle, sellerID, token, isRobot, accessTokenDigiKala } = seller;
 
   Swal.fire({
     title: "ویرایش فرشنده",
@@ -128,6 +134,10 @@ async function btnUpdateSeller(sellerEncode) {
       <div>
         <label for="seller-token" class="form-label">توکن</label>
         <input value="${token}" id="seller-token" type="text" name="token" class="form-control w-full" />
+      </div>
+      <div>
+        <label for="access-token" class="form-label">توکن سلرآکادمی</label>
+        <input value="${accessTokenDigiKala || ""}" id="access-token" type="text" name="accessTokenDigiKala" class="form-control w-full" />
       </div>
 
       <div class="flex justify-center gap-4">
