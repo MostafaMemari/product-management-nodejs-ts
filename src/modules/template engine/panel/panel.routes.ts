@@ -10,6 +10,7 @@ const robotController = new RobotController();
 router.get("/main", panelController.main);
 
 router.get("/robot-control", robotController.robot);
+router.get("/robot-history", robotController.history);
 
 router.get("/products", panelController.products);
 router.get("/products-buy", panelController.buy);

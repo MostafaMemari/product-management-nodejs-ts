@@ -16,7 +16,7 @@ class PriceHistoryService {
       .skip(page * limit)
       .limit(limit)
       .sort({ updatedAt: sort == "asc" ? 1 : -1 })
-      .populate("mySeller.seller")
+      .populate("mySeller.seller", "sellerTitle")
       .lean();
 
     const total = await PriceHistoryModel.countDocuments({

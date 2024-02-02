@@ -1,0 +1,189 @@
+<span class="message-success" style="display: none"><%=locals.messages.success%></span>
+<span class="message-error" style="display: none"><%=locals.messages.error%></span>
+
+<div class="content">
+  <!-- BEGIN: Top Bar -->
+  <div class="top-bar">
+    <!-- BEGIN: Breadcrumb -->
+    <div class="-intro-x breadcrumb ml-auto hidden sm:flex">
+      <a href="">داشبورد</a> <i data-feather="chevron-left" class="breadcrumb__icon"></i>
+      <a href="/panel/products" class="breadcrumb--active"><%- pageInfo?.pathTitle %></a>
+    </div>
+    <!-- END: Breadcrumb -->
+
+    <!-- BEGIN: Notifications -->
+    <%-include("../../../layouts/panel/partials/_notification.ejs")%>
+    <!-- END: Notifications -->
+    <!-- BEGIN: Account Menu -->
+    <%-include("../../../layouts/panel/partials/_account_menu.ejs")%>
+    <!-- END: Account Menu -->
+  </div>
+  <!-- END: Top Bar -->
+  <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <h2 class="text-lg font-medium ml-auto">تیبلتور</h2>
+    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+      <button class="btn btn-primary shadow-md ml-2">افزودن محصول جدید</button>
+      <div class="dropdown ml-auto sm:ml-0">
+        <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
+          <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i> </span>
+        </button>
+        <div class="dropdown-menu w-40">
+          <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+            <a
+              href=""
+              class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+            >
+              <i data-feather="file-plus" class="w-4 h-4 ml-2"></i> دسته بندی جدید
+            </a>
+            <a
+              href=""
+              class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+            >
+              <i data-feather="users" class="w-4 h-4 ml-2"></i>گروه جدید
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEGIN: HTML Table Data -->
+  <div class="intro-y box p-5 mt-5">
+    <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+      <form id="tabulator-html-filter-form" class="xl:flex sm:ml-auto">
+        <div class="sm:flex items-center sm:ml-4">
+          <label class="w-12 flex-none xl:w-auto xl:flex-initial ml-2"> فیلد </label>
+          <select id="tabulator-html-filter-field" class="form-select w-full sm:w-32 xxl:w-full mt-2 sm:mt-0 sm:w-auto">
+            <option value="name">نام</option>
+            <option value="category">دسته بندی</option>
+            <option value="remaining_stock">موجودی انبار</option>
+          </select>
+        </div>
+        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+          <label class="w-12 flex-none xl:w-auto xl:flex-initial ml-2"> نوع </label>
+          <select id="tabulator-html-filter-type" class="form-select w-full mt-2 sm:mt-0 sm:w-auto">
+            <option value="like" selected>شبیه</option>
+            <option value="=">=</option>
+            <option value="<">&lt;</option>
+            <option value="<=">&lt;=</option>
+            <option value=">">></option>
+            <option value=">=">>=</option>
+            <option value="!=">!=</option>
+          </select>
+        </div>
+        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+          <label class="w-12 flex-none xl:w-auto xl:flex-initial ml-2"> مقدار </label>
+          <input id="tabulator-html-filter-value" type="text" class="form-control sm:w-40 xxl:w-full mt-2 sm:mt-0" placeholder="جستجو..." />
+        </div>
+        <div class="mt-2 xl:mt-0 sm:mr-4">
+          <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16">جستجو</button>
+          <button id="tabulator-html-filter-reset" type="button" class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:mr-1">ریست</button>
+        </div>
+      </form>
+      <div class="flex mt-5 sm:mt-0">
+        <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto ml-2"><i data-feather="printer" class="w-4 h-4 ml-2"></i>پرینت</button>
+        <div class="dropdown w-1/2 sm:w-auto">
+          <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
+            <i data-feather="file-text" class="w-4 h-4 ml-2"></i> خروجی <i data-feather="chevron-down" class="w-4 h-4 mr-auto sm:mr-2"></i>
+          </button>
+          <div class="dropdown-menu w-40">
+            <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+              <a
+                id="tabulator-export-csv"
+                href="javascript:;"
+                class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              >
+                <i data-feather="file-text" class="w-4 h-4 ml-2"></i> خروجی سی اس وی
+              </a>
+              <a
+                id="tabulator-export-json"
+                href="javascript:;"
+                class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              >
+                <i data-feather="file-text" class="w-4 h-4 mlr-2"></i> خروجی جیسون
+              </a>
+              <a
+                id="tabulator-export-xlsx"
+                href="javascript:;"
+                class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              >
+                <i data-feather="file-text" class="w-4 h-4 ml-2"></i> خروجی ایکس ال اس ایکس
+              </a>
+              <a
+                id="tabulator-export-html"
+                href="javascript:;"
+                class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              >
+                <i data-feather="file-text" class="w-4 h-4 ml-2"></i> خروجی اچ تی ام ال
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scrollbar-hidden">
+      <!-- BEGIN: Data List -->
+      <div class="intro-y col-span-12 overflow-auto">
+        <table class="table table-report -mt-2">
+          <thead>
+            <tr>
+              <th class="whitespace-nowrap">تصویر</th>
+              <th class="whitespace-nowrap">نام محصول</th>
+              <th class="text-center whitespace-nowrap">قیمت</th>
+              <th class="text-center whitespace-nowrap">میزان تغییر</th>
+              <th class="text-center whitespace-nowrap">فروشنده</th>
+              <th class="text-center whitespace-nowrap">ساعت - تاریخ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%response.priceHistory?.forEach((item,i) => {%>
+            <tr class="intro-x">
+              <td class="w-10">
+                <div class="flex">
+                  <div class="w-8 h-8 image-fit">
+                    <img src="/img/products/<%-item.product.dkp %>.jpg" />
+                  </div>
+                </div>
+              </td>
+              <td><div class="w-60 lg:w-full font-normal line-clamp-2"><%-item?.product.title %></div></td>
+              <td class="text-center w-32 whitespace-nowrap">
+                <%if(item.status === "موفق"){%>
+                <!---->
+                <%-item.price%> <i data-feather="check-circle" class="w-4 h-4 mr-1 text-green-700"></i>
+                <!---->
+                <%}else {%> <%-item.price%> <i data-feather="x-circle" class="w-4 h-4 mr-1 text-red-700"></i> <%}%>
+              </td>
+
+              <td class="text-center w-32">
+                <% if(item.price - item.product.price < 0 ){%> <%-item.product.price - item.price %>
+                <i data-feather="arrow-down" class="w-4 h-4 mr-1 text-red-700"></i> <%} else {%> <%-item.product.price - item.price %>
+                <i data-feather="arrow-up" class="w-4 h-4 mr-1 text-green-700"></i> <% } %>
+              </td>
+              <td class="text-center w-32 whitespace-nowrap"><%-item.sellerBuyBox.title%></td>
+
+              <td class="table-report__action w-32">
+                <div class="flex justify-center items-center">
+                  <span class="flex items-center pl-2" href="javascript:;"><%-item.hour %><i data-feather="clock" class="w-4 h-4 mr-1"></i> </span>
+                  <span class="flex items-center pl-2" href="javascript:;"><%-item.date %><i class="w-4 h-4 mr-1" data-feather="calendar"></i></span>
+                </div>
+              </td>
+            </tr>
+            <%}) %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- END: Data List -->
+    </div>
+  </div>
+  <!-- END: HTML Table Data -->
+  <!-- END: Inbox Content -->
+  <!-- END: Data List -->
+
+  <!-- BEGIN: Pagination -->
+  <%-include("../../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
+  <!-- END: Pagination -->
+</div>
+<script src="/pages/panel/products.js"></script>
+<script src="/pages/panel/robot-control.js"></script>
+<script src="/pages/panel/shared.js"></script>

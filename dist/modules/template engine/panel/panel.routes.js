@@ -8,6 +8,7 @@ const panelController = new products_controller_1.PanelController();
 const robotController = new robot_controller_1.RobotController();
 router.get("/main", panelController.main);
 router.get("/robot-control", robotController.robot);
+router.get("/robot-history", robotController.history);
 router.get("/products", panelController.products);
 router.get("/products-buy", panelController.buy);
 router.get("/products-sell", panelController.sell);
