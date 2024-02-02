@@ -7,29 +7,21 @@
     <!-- BEGIN: Breadcrumb -->
     <div class="-intro-x breadcrumb ml-auto hidden sm:flex">
       <a href="">داشبورد</a> <i data-feather="chevron-left" class="breadcrumb__icon"></i>
-      <a href="/panel/products" class="breadcrumb--active">محصولات</a>
+      <a href="/panel/products" class="breadcrumb--active"><%- pageInfo?.pathTitle %></a>
     </div>
     <!-- END: Breadcrumb -->
 
     <!-- BEGIN: Notifications -->
-    <%-include("../../layouts/panel/partials/_notification.ejs")%>
+    <%-include("../../../layouts/panel/partials/_notification.ejs")%>
     <!-- END: Notifications -->
     <!-- BEGIN: Account Menu -->
-    <%-include("../../layouts/panel/partials/_account_menu.ejs")%>
+    <%-include("../../../layouts/panel/partials/_account_menu.ejs")%>
     <!-- END: Account Menu -->
   </div>
   <!-- END: Top Bar -->
 
-  <h2 class="intro-y text-lg font-medium m-2">محصولات</h2>
+  <h2 class="intro-y text-lg font-medium m-2"><%- pageInfo?.pathTitle %></h2>
   <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
-    <div class="flex">
-      <button
-        onclick="btnNewProduct('<%-encodeURIComponent(JSON.stringify(categories))%>'  ,'<%-encodeURIComponent(JSON.stringify(colors))%>', '<%-encodeURIComponent(JSON.stringify(sellers))%>')"
-        class="btn btn-primary shadow-md ml-2"
-      >
-        افزودن محصول جدید
-      </button>
-    </div>
     <div class="flex">
       <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
         <div class="w-full relative text-gray-700 dark:text-gray-300">
@@ -109,55 +101,83 @@
     </div>
   </div>
   <!-- BEGIN: Data List -->
-  <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+
+  <div class="intro-y col-span-10 overflow-auto">
     <table class="table table-report -mt-2">
       <thead>
-        <tr>
-          <th class="whitespace-nowrap">تصاویر</th>
+        <tr class="">
+          <th>تصاویر</th>
           <th class="whitespace-nowrap">
             <a class="pagination__link" href="">
               نام محصول
               <i class="w-4 h-4" data-feather="chevron-down"></i>
             </a>
           </th>
-          <th class="text-center whitespace-nowrap">موجودی</th>
-          <th class="text-center whitespace-nowrap">وضعیت</th>
-          <th class="text-center whitespace-nowrap">فعالیت</th>
+          <th class="whitespace-nowrap text-center">کاهش</th>
+          <th class="whitespace-nowrap text-center">کمترین</th>
+          <th class="whitespace-nowrap text-center">بیشترین</th>
+          <th class="whitespace-nowrap text-center">ربات</th>
+          <th class="whitespace-nowrap text-center">بای باکس</th>
+          <th class="whitespace-nowrap text-center">افزایش</th>
+          <th class="whitespace-nowrap text-center"></th>
         </tr>
       </thead>
       <tbody>
         <%response?.products.forEach((product) => {%>
         <tr class="intro-x">
-          <td class="w-30">
+          <td>
             <div class="flex">
               <div class="w-10 h-10 image-fit zoom-in rounded-full">
-                <img alt="" class="tooltip rounded-full" src="<%-product.img %>" title="فروشنده : <%-product.seller.sellerTitle %>" />
+                <img alt="" class="rounded-full" src="<%-product.img %>" />
               </div>
             </div>
           </td>
           <td>
-            <a href="https://www.digikala.com/product/dkp-<%-product.dkp %>" target="_blank" class="font-medium whitespace-nowrap"><%-product.title %></a>
-            <div class="text-gray-600 text-xs whitespace-nowrap mt-0.5"><%-product.category.name %></div>
+            <a
+              href="https://www.digikala.com/product/dkp-<%-product.dkp %>"
+              target="_blank"
+              class="font-medium line-clamp-2 leading-6 -mr-5 tooltip"
+              data-theme="light"
+              title="<%-product.title %>"
+              ><%-product.title %></a
+            >
           </td>
-          <td class="text-center"><%-product.count %></td>
-          <td class="w-40">
-            <div class="flex items-center justify-center text-theme-9">
-              <!-- <div class="flex items-center justify-center text-theme-6"> غیر فعال -->
-              <i class="w-4 h-4 ml-2"></i> فعال
+
+          <td>
+            <div class="flex justify-center items-center">
+              <input id="input-reduce-price" type="text" class="form-control w-16 text-center" value="<%-product?.robot?.reducePrice %>" />
             </div>
           </td>
-          <td class="table-report__action w-56">
+          <td>
             <div class="flex justify-center items-center">
-              <a
-                onclick="btnUpdateProduct(' <%- encodeURIComponent(JSON.stringify(product)) %>' , '<%-encodeURIComponent(JSON.stringify(categories))%>'  ,'<%-encodeURIComponent(JSON.stringify(colors))%>','<%-encodeURIComponent(JSON.stringify(sellers))%>')"
-                class="flex items-center ml-3"
-                href="javascript:;"
-              >
-                <i class="w-4 h-4 ml-1" data-feather="check-square"></i> ویرایش</a
-              >
-              <a onclick="btnRemoveProduct('<%-product._id%>')" class="flex items-center text-theme-6" href="javascript:;">
-                <i data-feather="trash-2" class="w-4 h-4 ml-1"></i> حذف
-              </a>
+              <input id="input-min-price" type="text" class="form-control w-20 text-center" value="<%-product?.robot?.minPrice %>" />
+            </div>
+          </td>
+
+          <td>
+            <div class="flex justify-center items-center">
+              <input id="input-max-price" type="text" class="form-control w-20 text-center" value="<%-product?.robot?.maxPrice %>" />
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center">
+              <input <%-product?.robot?.isActive ? "checked" : "" %> name="isRobot" id="switch-is-active" class="form-check-switch" type="checkbox" />
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center">
+              <input <%-product?.robot?.isBuyBox ? "checked" : "" %> name="isRobot" id="switch-is-buybox" class="form-check-switch" type="checkbox" />
+            </div>
+          </td>
+          <td>
+            <div class="flex justify-center items-center">
+              <input <%-product?.robot?.isCheckPrice ? "checked" : "" %> name="isRobot" id="switch-is-checkprice" class="form-check-switch" type="checkbox" />
+            </div>
+          </td>
+
+          <td class="flex justify-center">
+            <div class="flex justify-center items-center">
+              <button onclick="btnSaveRobot(event ,'<%-product._id%>')" class="btn btn-primary w-16 ml-1 mb-2">ثبت</button>
             </div>
           </td>
         </tr>
@@ -167,8 +187,9 @@
   </div>
   <!-- END: Data List -->
   <!-- BEGIN: Pagination -->
-  <%-include("../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
+  <%-include("../../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
   <!-- END: Pagination -->
 </div>
 <script src="/pages/panel/products.js"></script>
+<script src="/pages/panel/robot-control.js"></script>
 <script src="/pages/panel/shared.js"></script>

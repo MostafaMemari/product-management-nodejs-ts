@@ -18,6 +18,13 @@ export interface IProduct extends Document {
   category?: ObjectId;
   seller?: ObjectId;
 }
+export interface IFastRobotProduct extends Document {
+  isFast?: string;
+  myShipmentTime?: string;
+  sellerBuyBoxShipmentTime?: boolean;
+  sellerIDBuyBox?: number;
+  sellerBuyBoxTitle?: string;
+}
 export interface IRobot extends Document {
   reducePrice?: number;
   maxPrice?: number;
@@ -25,6 +32,7 @@ export interface IRobot extends Document {
   isActive?: boolean;
   isBuyBox?: boolean;
   isCheckPrice?: boolean;
+  fastRobot?: IFastRobotProduct;
 }
 
 export type ResponseProducts = {

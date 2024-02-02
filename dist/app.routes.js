@@ -11,6 +11,7 @@ const category_routes_1 = __importDefault(require("./modules/category/category.r
 const seller_routes_1 = __importDefault(require("./modules/seller/seller.routes"));
 const auth_routes_1 = __importDefault(require("./modules/auth/auth.routes"));
 const buy_sell_routes_1 = __importDefault(require("./modules/buy-sell/buy-sell.routes"));
+const priceHistory_routes_1 = __importDefault(require("./modules/price-history/priceHistory.routes"));
 const AllRouter = (0, express_1.Router)();
 exports.AllRouter = AllRouter;
 AllRouter.use("/sellers", seller_routes_1.default);
@@ -19,3 +20,4 @@ AllRouter.use("/products", product_routes_1.default);
 AllRouter.use("/colors", color_routes_1.default);
 AllRouter.use("/category", category_routes_1.default);
 AllRouter.use("/buy-sell", buy_sell_routes_1.default);
+AllRouter.use("/price-history", priceHistory_routes_1.default);

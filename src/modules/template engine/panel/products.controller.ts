@@ -36,30 +36,6 @@ export class PanelController {
     }
   }
 
-  async robot(req: Request, res: Response, next: NextFunction) {
-    try {
-      const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
-      const colors: IColor[] = await this.colorService.find();
-      const categories: ICategory[] = await this.categoryService.find();
-      const sellers: ISeller[] = await this.sellerService.find();
-
-      const response: any = await this.productService.find(query, colors, categories, sellers);
-
-      req.query.page ? delete req.query.page : false;
-      const queryPath: any = Object.entries(req.query);
-      const queryString = "?" + new URLSearchParams(queryPath).toString();
-
-      res.render("./pages/panel/robot-control.ejs", {
-        response,
-        colors,
-        categories,
-        sellers,
-        pageInfo: { pathUrl: "/panel/robot-control", pathTitle: "مدیریت ربات", query: { ...query, queryString } },
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
   async products(req: Request, res: Response, next: NextFunction) {
     try {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
@@ -73,7 +49,7 @@ export class PanelController {
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
-      res.render("./pages/panel/list-products.ejs", {
+      res.render("./pages/panel/products/products.ejs", {
         response,
         colors,
         categories,
@@ -97,7 +73,7 @@ export class PanelController {
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
-      res.render("./pages/panel/list-products-defects.ejs", {
+      res.render("./pages/panel/products/products-defects.ejs", {
         response,
         colors,
         categories,
@@ -126,7 +102,7 @@ export class PanelController {
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
-      res.render("./pages/panel/buy-product.ejs", {
+      res.render("./pages/panel/products/buy-product.ejs", {
         response,
         colors,
         categories,
@@ -155,7 +131,7 @@ export class PanelController {
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
-      res.render("./pages/panel/sell-product.ejs", {
+      res.render("./pages/panel/products/sell-product.ejs", {
         response,
         colors,
         categories,
@@ -166,6 +142,7 @@ export class PanelController {
       next(error);
     }
   }
+
   async sellers(req: Request, res: Response, next: NextFunction) {
     try {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
@@ -179,7 +156,7 @@ export class PanelController {
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
-      res.render("./pages/panel/list-sellers.ejs", {
+      res.render("./pages/panel/sellers.ejs", {
         response,
         colors,
         categories,
@@ -203,7 +180,7 @@ export class PanelController {
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
-      res.render("./pages/panel/list-category-color.ejs", {
+      res.render("./pages/panel/category-color.ejs", {
         response,
         colors,
         categories,

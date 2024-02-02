@@ -12,10 +12,10 @@
     <!-- END: Breadcrumb -->
 
     <!-- BEGIN: Notifications -->
-    <%-include("../../layouts/panel/partials/_notification.ejs")%>
+    <%-include("../../../layouts/panel/partials/_notification.ejs")%>
     <!-- END: Notifications -->
     <!-- BEGIN: Account Menu -->
-    <%-include("../../layouts/panel/partials/_account_menu.ejs")%>
+    <%-include("../../../layouts/panel/partials/_account_menu.ejs")%>
     <!-- END: Account Menu -->
   </div>
   <!-- END: Top Bar -->
@@ -136,8 +136,8 @@
             </div>
           </td>
           <td>
-            <a class="font-medium whitespace-nowrap"><%-product.title %></a>
-            <div class="text-gray-600 text-xs whitespace-nowrap mt-0.5"></div>
+            <a href="https://www.digikala.com/product/dkp-<%-product.dkp %>" target="_blank" class="font-medium whitespace-nowrap"><%-product.title %></a>
+            <div class="text-gray-600 text-xs whitespace-nowrap mt-0.5"><%-product.category.name %></div>
           </td>
           <td class="text-center"><%-product.count %></td>
           <td class="w-40">
@@ -167,7 +167,7 @@
   </div>
   <!-- END: Data List -->
   <!-- BEGIN: Pagination -->
-  <%-include("../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
+  <%-include("../../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
   <!-- END: Pagination -->
 </div>
 <script src="/pages/panel/products.js"></script>

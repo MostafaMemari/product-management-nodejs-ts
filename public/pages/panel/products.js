@@ -22,13 +22,13 @@ async function btnRemoveProduct(prodcutID) {
 }
 async function btnNewProduct(categoriesEncode, colorsEncode, sellersEncode) {
   const categories = JSON.parse(decodeURIComponent(categoriesEncode));
-  const optionCategory = Object.entries(categories).map((key) => `<option value='${key[1]._id}'>${key[1].name}</option>`);
+  const optionCategory = Object.entries(categories).map((key) => `<option value='${key[1]?._id}'>${key[1]?.name}</option>`);
 
   const colors = JSON.parse(decodeURIComponent(colorsEncode));
-  const optionColors = Object.entries(colors).map((key) => `<option class="p-20" value='${key[1]._id}'>${key[1].name}</option>`);
+  const optionColors = Object.entries(colors).map((key) => `<option class="p-20" value='${key[1]?._id}'>${key[1]?.name}</option>`);
 
   const sellers = JSON.parse(decodeURIComponent(sellersEncode));
-  const optionSeller = Object.entries(sellers).map((key) => `<option value='${key[1]._id}'>${key[1].sellerTitle}</option>`);
+  const optionSeller = Object.entries(sellers).map((key) => `<option value='${key[1]?._id}'>${key[1]?.sellerTitle}</option>`);
 
   Swal.fire({
     title: "ثبت محصول جدید",
@@ -110,58 +110,58 @@ async function btnNewProduct(categoriesEncode, colorsEncode, sellersEncode) {
     focusConfirm: false,
 
     // Way 1 => send data api (error handler sweetalert) => OK
-    preConfirm: async () => {
-      const productTitleElem = document.querySelector("#product-title");
-      const productDkpElem = document.querySelector("#product-dkp");
-      const productDkpcElem = document.querySelector("#product-dkpc");
-      const productWidthElem = document.querySelector("#product-width");
-      const productHeightElem = document.querySelector("#product-height");
-      const productCountElem = document.querySelector("#product-count");
-      const productColorElem = document.querySelector("#product-color");
-      const productCategoryElem = document.querySelector("#product-category");
-      const productSellerElem = document.querySelector("#product-seller");
-      const productImgElem = document.querySelector("#prodcut-img");
+    // preConfirm: async () => {
+    //   const productTitleElem = document.querySelector("#product-title");
+    //   const productDkpElem = document.querySelector("#product-dkp");
+    //   const productDkpcElem = document.querySelector("#product-dkpc");
+    //   const productWidthElem = document.querySelector("#product-width");
+    //   const productHeightElem = document.querySelector("#product-height");
+    //   const productCountElem = document.querySelector("#product-count");
+    //   const productColorElem = document.querySelector("#product-color");
+    //   const productCategoryElem = document.querySelector("#product-category");
+    //   const productSellerElem = document.querySelector("#product-seller");
+    //   const productImgElem = document.querySelector("#prodcut-img");
 
-      const formData = new FormData();
-      formData.append("title", productTitleElem.value.trim());
-      formData.append("dkp", productDkpElem.value.trim());
-      formData.append("dkpc", productDkpcElem.value.trim());
-      formData.append("width", productWidthElem.value.trim());
-      formData.append("height", productHeightElem.value.trim());
-      formData.append("count", productCountElem.value.trim());
-      formData.append("color", productColorElem.options[productColorElem.selectedIndex].value);
-      formData.append("category", productCategoryElem.options[productCategoryElem.selectedIndex].value);
-      formData.append("seller", productSellerElem.options[productSellerElem.selectedIndex].value);
-      formData.append("img", productImgElem.files[0]);
+    //   const formData = new FormData();
+    //   formData.append("title", productTitleElem.value.trim());
+    //   formData.append("dkp", productDkpElem.value.trim());
+    //   formData.append("dkpc", productDkpcElem.value.trim());
+    //   formData.append("width", productWidthElem.value.trim());
+    //   formData.append("height", productHeightElem.value.trim());
+    //   formData.append("count", productCountElem.value.trim());
+    //   formData.append("color", productColorElem.options[productColorElem.selectedIndex].value);
+    //   formData.append("category", productCategoryElem.options[productCategoryElem.selectedIndex].value);
+    //   formData.append("seller", productSellerElem.options[productSellerElem.selectedIndex].value);
+    //   formData.append("img", productImgElem.files[0]);
 
-      const res = await fetch(`${apiUrl}/products/`, { method: "POST", body: formData });
+    //   const res = await fetch(`${apiUrl}/products/`, { method: "POST", body: formData });
 
-      const result = await res.json();
-      if (res.ok) {
-        Swal.fire({
-          title: "ثبت شد",
-          text: result.message,
-          icon: "success",
-          confirmButtonText: "باشه",
-        }).then((res) => {
-          window.location.href = "/panel/products";
-        });
-      } else {
-        Swal.fire({
-          title: "خطا",
-          text: "ثبت محصول با خطا مواجه شد",
-          icon: "error",
-          confirmButtonText: "باشه",
-        }).then((res) => {
-          window.location.href = "/panel/products";
-        });
-      }
-    },
+    //   const result = await res.json();
+    //   if (res.ok) {
+    //     Swal.fire({
+    //       title: "ثبت شد",
+    //       text: result.message,
+    //       icon: "success",
+    //       confirmButtonText: "باشه",
+    //     }).then((res) => {
+    //       window.location.href = "/panel/products";
+    //     });
+    //   } else {
+    //     Swal.fire({
+    //       title: "خطا",
+    //       text: "ثبت محصول با خطا مواجه شد",
+    //       icon: "error",
+    //       confirmButtonText: "باشه",
+    //     }).then((res) => {
+    //       window.location.href = "/panel/products";
+    //     });
+    //   }
+    // },
 
     // Way 2 => send data form (error handler flash) => OK
-    // preConfirm: async () => {
-    //   document.querySelector("form").submit();
-    // },
+    preConfirm: async () => {
+      document.querySelector("form").submit();
+    },
   });
 }
 async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode, sellerEncode) {
@@ -179,14 +179,15 @@ async function btnUpdateProduct(productEncode, categoriesEncode, colorsEncode, s
     color?._id === key[1]?._id ? `<option selected value='${key[1]?._id}'>${key[1]?.name}</option>` : `<option value='${key[1]?._id}'>${key[1]?.name}</option>`
   );
   const sellers = JSON.parse(decodeURIComponent(sellerEncode));
+
   const optionSeller = Object.entries(sellers).map((key) =>
-    seller._id === key[1]?._id
+    seller?._id === key[1]?._id
       ? `<option selected value='${key[1]?._id}'>${key[1]?.sellerTitle}</option>`
       : `<option value='${key[1]?._id}'>${key[1]?.sellerTitle}</option>`
   );
 
   Swal.fire({
-    title: "ثبت محصول جدید",
+    title: "بروزرسانی محصول",
     width: "1000px",
     html: `
   <form action="/api/v1/products/${_id}/form" method="post" id="form" novalidate="novalidate" enctype="multipart/form-data">

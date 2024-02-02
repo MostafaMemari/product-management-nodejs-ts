@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const panel_controller_1 = require("./panel.controller");
+const products_controller_1 = require("./products.controller");
+const robot_controller_1 = require("./robot.controller");
 const router = (0, express_1.Router)();
-const panelController = new panel_controller_1.PanelController();
+const panelController = new products_controller_1.PanelController();
+const robotController = new robot_controller_1.RobotController();
 router.get("/main", panelController.main);
-router.get("/robot-control", panelController.robot);
+router.get("/robot-control", robotController.robot);
 router.get("/products", panelController.products);
 router.get("/products-buy", panelController.buy);
 router.get("/products-sell", panelController.sell);

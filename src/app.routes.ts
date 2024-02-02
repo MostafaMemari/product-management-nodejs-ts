@@ -5,6 +5,7 @@ import categoryRouter from "./modules/category/category.routes";
 import sellerRouter from "./modules/seller/seller.routes";
 import authRouter from "./modules/auth/auth.routes";
 import buyAndSellRouter from "./modules/buy-sell/buy-sell.routes";
+import priceHistoryRouter from "./modules/price-history/priceHistory.routes";
 
 const AllRouter: Router = Router();
 
@@ -14,5 +15,6 @@ AllRouter.use("/products", productRouter);
 AllRouter.use("/colors", colorRouter);
 AllRouter.use("/category", categoryRouter);
 AllRouter.use("/buy-sell", buyAndSellRouter);
+AllRouter.use("/price-history", priceHistoryRouter);
 
 export { AllRouter };

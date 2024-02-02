@@ -1,7 +1,18 @@
 import { Schema, model, Types } from "mongoose";
-import { IProduct, IRobot } from "./product.types";
+import { IFastRobotProduct, IProduct, IRobot } from "./product.types";
 
-const robotSchema = new Schema<IRobot>(
+const FastRobotSchema = new Schema<IFastRobotProduct>(
+  {
+    isFast: { type: Boolean, default: false },
+    myShipmentTime: { type: String },
+    sellerBuyBoxShipmentTime: { type: String },
+    sellerIDBuyBox: { type: Number },
+    sellerBuyBoxTitle: { type: String },
+  },
+  { _id: false, versionKey: false }
+);
+
+const RobotSchema = new Schema<IRobot>(
   {
     reducePrice: { type: Number, default: 0 },
     maxPrice: { type: Number, default: 0 },
@@ -9,11 +20,9 @@ const robotSchema = new Schema<IRobot>(
     isActive: { type: Boolean, default: false },
     isBuyBox: { type: Boolean, default: false },
     isCheckPrice: { type: Boolean, default: false },
+    fastRobot: { type: FastRobotSchema },
   },
-  {
-    _id: false,
-    versionKey: false,
-  }
+  { _id: false, timestamps: true, versionKey: false }
 );
 
 const ProductSchema = new Schema<IProduct>(
@@ -27,16 +36,13 @@ const ProductSchema = new Schema<IProduct>(
 
     img: { type: String },
     price: { type: Number },
-    robot: { type: robotSchema, default: { robotSchema } },
+    robot: { type: RobotSchema, default: { RobotSchema } },
 
     color: { type: Types.ObjectId, ref: "color" },
     category: { type: Types.ObjectId, ref: "category" },
     seller: { type: Types.ObjectId, ref: "seller" },
   },
-  {
-    versionKey: false,
-    timestamps: true,
-  }
+  { versionKey: false, timestamps: true }
 );
 
 export const ProductModel = model("product", ProductSchema);

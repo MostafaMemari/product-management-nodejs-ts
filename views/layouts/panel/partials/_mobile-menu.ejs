@@ -11,41 +11,52 @@
   <ul>
 
 <!-- menu products -->
-    <% const checkUrl = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell" ||  pageInfo.pathUrl == "/panel/robot-control" || pageInfo.pathUrl == "/panel/products-defects" %>
-      <li>
-        <a href="javascript:;" class="menu <%- checkUrl ? "menu--active" : "" %>">
-          <div class="menu__icon"><i data-feather="home"></i></div>
-          <div class="menu__title">محصولات<div class="menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
-        </a>
+<% const checkUrlProducts = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell"  || pageInfo.pathUrl == "/panel/products-defects" %>
+<li>
+  <a href="javascript:;" class="menu <%- checkUrlProducts ? "menu--active" : "" %>">
+    <div class="menu__icon"><i data-feather="home"></i></div>
+    <div class="menu__title">محصولات<div class="menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
+  </a>
 
-        <ul class="<%-checkUrl ? "menu__sub-open" : "" %>">
-            <li>
-              <a href="/panel/products" class="menu <%-pageInfo.pathUrl == "/panel/products" ? "menu--active" : "" %>">
-                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت محصولات</div>
-              </a>
-            </li>
-            <li>
-              <a href="/panel/robot-control" class="menu <%-pageInfo.pathUrl == "/panel/robot-control" ? "menu--active" : "" %>">
-                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت ربات</div>
-              </a>
-            </li>
-            <li>
-              <a href="/panel/products-buy" class="menu <%-pageInfo.pathUrl == "/panel/products-buy" ? "menu--active" : "" %>">
-                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">خرید</div>
-              </a>
-            </li>
-            <li>
-              <a href="/panel/products-sell" class="menu <%-pageInfo.pathUrl == "/panel/products-sell" ? "menu--active" : "" %>">
-                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">فروش</div>
-              </a>
-            </li>
-            <li>
-              <a href="/panel/products-defects" class="menu <%-pageInfo.pathUrl == "/panel/products-defects" ? "menu--active" : "" %>">
-                <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">نواقص محصولات</div>
-              </a>
-            </li>
-        </ul>
+  <ul class="<%-checkUrlProducts ? "menu__sub-open" : "" %>">
+      <li>
+        <a href="/panel/products" class="menu <%-pageInfo.pathUrl == "/panel/products" ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت محصولات</div>
+        </a>
       </li>
+      <li>
+        <a href="/panel/products-buy" class="menu <%-pageInfo.pathUrl == "/panel/products-buy" ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">خرید</div>
+        </a>
+      </li>
+      <li>
+        <a href="/panel/products-sell" class="menu <%-pageInfo.pathUrl == "/panel/products-sell" ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">فروش</div>
+        </a>
+      </li>
+      <li>
+        <a href="/panel/products-defects" class="menu <%-pageInfo.pathUrl == "/panel/products-defects" ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">نواقص محصولات</div>
+        </a>
+      </li>
+  </ul>
+</li>
+<!-- robot -->
+<% const checkUrlRobot = pageInfo.pathUrl == "/panel/robot-control"  %>
+<li>
+<a href="javascript:;" class="menu <%- checkUrlRobot ? "menu--active" : "" %>">
+<div class="menu__icon"><i data-feather="home"></i></div>
+<div class="menu__title">ربات<div class="menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
+</a>
+
+<ul class="<%-checkUrlRobot ? "menu__sub-open" : "" %>">
+<li>
+  <a href="/panel/robot-control" class="menu <%-pageInfo.pathUrl == "/panel/robot-control" ? "menu--active" : "" %>">
+    <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت ربات</div>
+  </a>
+</li>
+</ul>
+</li>
 <!-- menu sellers -->
     <li>
       <a href="/panel/sellers" class="menu <%-pageInfo.pathUrl == "/panel/sellers" ? "menu--active" : "" %> ">
