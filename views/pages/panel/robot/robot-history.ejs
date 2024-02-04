@@ -31,13 +31,13 @@
           <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
             <a
               href=""
-              class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              class="flex items-center  p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
             >
               <i data-feather="file-plus" class="w-4 h-4 ml-2"></i> دسته بندی جدید
             </a>
             <a
               href=""
-              class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              class="flex items-center  p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
             >
               <i data-feather="users" class="w-4 h-4 ml-2"></i>گروه جدید
             </a>
@@ -149,14 +149,18 @@
               <td class="text-center w-32 whitespace-nowrap">
                 <%if(item.status === "موفق"){%>
                 <!---->
-                <%-item.price%> <i data-feather="check-circle" class="w-4 h-4 mr-1 text-green-700"></i>
+                <%-Math.floor(item.price/10)%> <i data-feather="check-circle" class="w-4 h-4 mr-1 text-green-700"></i>
                 <!---->
-                <%}else {%> <%-item.price%> <i data-feather="x-circle" class="w-4 h-4 mr-1 text-red-700"></i> <%}%>
+                <%}else {%> <%-Math.floor(item.price/10)%> <i data-feather="x-circle" class="w-4 h-4 mr-1 text-red-700"></i> <%}%>
               </td>
 
               <td class="text-center w-32">
-                <% if(item.price - item.product.price < 0 ){%> <%-item.product.price - item.price %>
-                <i data-feather="arrow-down" class="w-4 h-4 mr-1 text-red-700"></i> <%} else {%> <%-item.product.price - item.price %>
+                <% if(item.price - item.product.price < 0 ){%>
+                <!---->
+                <%-Math.abs(Math.floor((item.product.price - item.price) /10))%>
+                <i data-feather="arrow-down" class="w-4 h-4 mr-1 text-red-700"></i>
+                <!---->
+                <%} else {%> <%-Math.abs(Math.floor((item.product.price - item.price) /10)) %>
                 <i data-feather="arrow-up" class="w-4 h-4 mr-1 text-green-700"></i> <% } %>
               </td>
               <td class="text-center w-32 whitespace-nowrap"><%-item.sellerBuyBox.title%></td>
