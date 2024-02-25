@@ -8,6 +8,7 @@ import { AuthMessage } from "./auth.message";
 import { comparePassword, generateToken, hashPassword } from "../../common/utils/functions";
 
 class AuthSevice {
+  
   async register(userDto: UserDTO): Promise<string> {
     errorHandler({ userDto });
     const { password, confirmPassword, email, username } = userDto;

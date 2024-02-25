@@ -44,18 +44,23 @@
 <!-- robot -->
 <% const checkUrlRobot = pageInfo.pathUrl == "/panel/robot-control"  %>
 <li>
-<a href="javascript:;" class="menu <%- checkUrlRobot ? "menu--active" : "" %>">
-<div class="menu__icon"><i data-feather="home"></i></div>
-<div class="menu__title">ربات<div class="menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
-</a>
-
-<ul class="<%-checkUrlRobot ? "menu__sub-open" : "" %>">
-<li>
-  <a href="/panel/robot-control" class="menu <%-pageInfo.pathUrl == "/panel/robot-control" ? "menu--active" : "" %>">
-    <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت ربات</div>
+  <a href="javascript:;" class="menu <%- checkUrlRobot ? "menu--active" : "" %>">
+    <div class="menu__icon"><i data-feather="home"></i></div>
+    <div class="menu__title">ربات<div class="menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
   </a>
-</li>
-</ul>
+
+  <ul class="<%-checkUrlRobot ? "menu__sub-open" : "" %>">
+      <li>
+        <a href="/panel/robot-control" class="menu <%-pageInfo.pathUrl == "/panel/robot-control" ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">مدیریت</div>
+        </a>
+      </li>
+      <li>
+        <a href="/panel/robot-history" class="menu <%-pageInfo.pathUrl == "/panel/robot-history" ? "menu--active" : "" %>">
+          <div class="menu__icon"><i data-feather="activity"></i></div><div class="menu__title">تاریخچه تغییرات</div>
+        </a>
+      </li>
+  </ul>
 </li>
 <!-- menu sellers -->
     <li>

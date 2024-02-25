@@ -35,6 +35,7 @@
         <div class="w-full relative text-gray-700 dark:text-gray-300">
           <% if(pageInfo?.query?.search) { %>
           <input
+            id="input-search"
             onkeypress="inputSearchEnter(event)"
             type="text"
             class="form-control w-full box pl-10 placeholder-theme-13"
@@ -42,8 +43,14 @@
             value="<%-pageInfo?.query?.search%>"
           />
           <% } else {%>
-          <input onkeypress="inputSearchEnter(event)" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..." /><% } %>
-          <i class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
+          <input
+            id="input-search"
+            onkeypress="inputSearchEnter(event)"
+            type="text"
+            class="form-control w-full box pl-10 placeholder-theme-13"
+            placeholder="جستجو..."
+          /><% } %>
+          <i onclick="iconSearchClick(event)" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
         </div>
       </div>
     </div>

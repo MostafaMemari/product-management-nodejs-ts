@@ -17,6 +17,18 @@ async function inputSearchEnter(event) {
     window.location = url.pathname + pathQuery;
   }
 }
+async function iconSearchClick() {
+  params.delete("search");
+  params.delete("page");
+
+  const searchInput = document.querySelector("#input-search").value;
+
+  const searchQuery = searchInput ? `search=${searchInput}&page=1` : "";
+
+  const pathQuery = params.size ? `?${params.toString()}${searchQuery ? `&${searchQuery}` : ""}` : `${searchQuery ? `?${searchQuery}` : ""}`;
+
+  window.location = url.pathname + pathQuery;
+}
 
 async function selectBoxCategory(event) {
   const optionsSelected = event.target.querySelectorAll("option");
