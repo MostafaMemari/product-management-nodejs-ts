@@ -6,7 +6,7 @@ const router: Router = Router();
 const sellerController = new SellerController();
 const sellerControllerEJS = new SellerControllerEJS();
 
-router.route("/").post(sellerController.create).get(sellerController.find);
+router.route("/user").post(sellerController.create).get(sellerController.find);
 router.route("/:id").put(sellerController.update).delete(sellerController.removeByID).get(sellerController.findByID);
 
 router.post("/form", sellerControllerEJS.create);

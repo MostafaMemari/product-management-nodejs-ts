@@ -52,10 +52,9 @@
     <li><a class="pagination__link" href="<%-pageInfo.query.queryString %>&page=<%-response.pages - 5 %>">...</a></li>
     <% for(let i = response.pages - 3 ; i <=response.pages ; i++) {%>
     <!---->
-    <li><a class="pagination__link <%-i == response.page ? "pagination__link--active" : "" %>" href="<%-pageInfo.query.queryString %>&page=<%-i%>"><%-i%></a></li>
-
-    
-    
+    <li>
+      <a class="pagination__link <%-i == response.page ? "pagination__link--active" : "" %>" href="<%-pageInfo.query.queryString %>&page=<%-i%>"><%-i%></a>
+    </li>
     <%} %>
     <!---->
     <% if(response.page !== response.pages) { %>
