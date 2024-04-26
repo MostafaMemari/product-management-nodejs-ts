@@ -15,6 +15,7 @@ import CategoryService from "../category/category.service";
 import { ICategory } from "../category/category.types";
 import { stringToNumber } from "../../common/utils/functions";
 import SellerService from "../seller/seller.service";
+import BuyAndSellService from "../buy-sell/buy-sell.service";
 import { ISeller } from "../seller/seller.types";
 
 export class ProductController {
@@ -22,6 +23,8 @@ export class ProductController {
   private colorService = ColorService;
   private categoryService = CategoryService;
   private sellerService = SellerService;
+  private buyAndSellService = BuyAndSellService;
+
   constructor() {
     autoBind(this);
   }
@@ -124,6 +127,28 @@ export class ProductController {
       await this.service.removeByID(productID);
       res.status(StatusCodes.OK).json({
         message: ProductMessage.Deleted,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async findAllProductAndSumSellBuy(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+      const colors: IColor[] = await this.colorService.find();
+      const categories: ICategory[] = await this.categoryService.find();
+      const sellers: ISeller[] = await this.sellerService.find();
+
+      const response: any = await this.service.find(query, colors, categories, sellers);
+
+      for (const product of response.products) {
+        const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
+        product.reportBuy = result;
+      }
+
+      res.status(StatusCodes.OK).json({
+        data: response,
       });
     } catch (error) {
       next(error);

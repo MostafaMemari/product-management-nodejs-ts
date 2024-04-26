@@ -1,6 +1,60 @@
 <span class="message-success" style="display: none"><%=locals.messages.success%></span>
 <span class="message-error" style="display: none"><%=locals.messages.error%></span>
 
+<div id="loader" class="hidden">
+  <div id="myspinner">
+    <svg width="20" viewBox="0 0 135 140" xmlns="http://www.w3.org/2000/svg" fill="rgb(45, 55, 72)" class="w-8 h-8">
+      <rect y="10" width="15" height="120" rx="6">
+        <animate
+          attributeName="height"
+          begin="0.5s"
+          dur="1s"
+          values="120;110;100;90;80;70;60;50;40;140;120"
+          calcMode="linear"
+          repeatCount="indefinite"
+        ></animate>
+        <animate attributeName="y" begin="0.5s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"></animate>
+      </rect>
+      <rect x="30" y="10" width="15" height="120" rx="6">
+        <animate
+          attributeName="height"
+          begin="0.25s"
+          dur="1s"
+          values="120;110;100;90;80;70;60;50;40;140;120"
+          calcMode="linear"
+          repeatCount="indefinite"
+        ></animate>
+        <animate attributeName="y" begin="0.25s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"></animate>
+      </rect>
+      <rect x="60" width="15" height="140" rx="6">
+        <animate attributeName="height" begin="0s" dur="1s" values="120;110;100;90;80;70;60;50;40;140;120" calcMode="linear" repeatCount="indefinite"></animate>
+        <animate attributeName="y" begin="0s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"></animate>
+      </rect>
+      <rect x="90" y="10" width="15" height="120" rx="6">
+        <animate
+          attributeName="height"
+          begin="0.25s"
+          dur="1s"
+          values="120;110;100;90;80;70;60;50;40;140;120"
+          calcMode="linear"
+          repeatCount="indefinite"
+        ></animate>
+        <animate attributeName="y" begin="0.25s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"></animate>
+      </rect>
+      <rect x="120" y="10" width="15" height="120" rx="6">
+        <animate
+          attributeName="height"
+          begin="0.5s"
+          dur="1s"
+          values="120;110;100;90;80;70;60;50;40;140;120"
+          calcMode="linear"
+          repeatCount="indefinite"
+        ></animate>
+        <animate attributeName="y" begin="0.5s" dur="1s" values="10;15;20;25;30;35;40;45;50;0;10" calcMode="linear" repeatCount="indefinite"></animate>
+      </rect>
+    </svg>
+  </div>
+</div>
 <div class="content">
   <!-- BEGIN: Top Bar -->
   <div class="top-bar">
@@ -25,24 +79,10 @@
     <div class="flex">
       <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
         <div class="w-full relative text-gray-700 dark:text-gray-300">
-          <% if(pageInfo?.query?.search) { %>
-          <input
-            id="input-search"
-            onkeypress="inputSearchEnter(event)"
-            type="text"
-            class="form-control w-full box pl-10 placeholder-theme-13"
-            placeholder="جستجو..."
-            value="<%-pageInfo?.query?.search%>"
-          />
-          <% } else {%>
-          <input
-            id="input-search"
-            onkeypress="inputSearchEnter(event)"
-            type="text"
-            class="form-control w-full box pl-10 placeholder-theme-13"
-            placeholder="جستجو..."
-          /><% } %>
-          <i onclick="iconSearchClick(event)" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
+          <input id="input-search" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..."
+          value="<%-pageInfo?.query?.search ? pageInfo?.query?.search : ""%>" />
+
+          <i id="btn-search" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
         </div>
       </div>
     </div>
@@ -50,14 +90,7 @@
 
   <div class="grid md:grid-cols-3 gap-4 mt-3">
     <div class="flex">
-      <select
-        onchange="selectBoxColor(event)"
-        id="color-select-box"
-        data-placeholder="انتخاب رنگ"
-        data-search="true"
-        class="tail-select w-full z-[53]"
-        multiple
-      >
+      <select id="color-select-box" data-placeholder="انتخاب رنگ" data-search="true" class="tail-select w-full z-[53]" multiple>
         <!---->
         <% colors.forEach(color => { %>
         <!---->
@@ -70,14 +103,7 @@
     </div>
 
     <div class="flex">
-      <select
-        onchange="selectBoxCategory(event)"
-        id="category-select-box"
-        data-placeholder="انتخاب دسته بندی"
-        data-search="true"
-        class="tail-select w-full z-[52]"
-        multiple
-      >
+      <select id="category-select-box" data-placeholder="انتخاب دسته بندی" data-search="true" class="tail-select w-full z-[52]" multiple>
         <% categories.forEach(category => { %>
         <!---->
         <% if(pageInfo?.query?.category?.split(",").includes(category.name)){%>
@@ -89,14 +115,7 @@
     </div>
 
     <div class="flex">
-      <select
-        onchange="selectBoxSeller(event)"
-        id="seller-select-box"
-        data-placeholder="انتخاب فروشنده"
-        data-search="true"
-        class="tail-select w-full z-[51]"
-        multiple
-      >
+      <select id="seller-select-box" data-placeholder="انتخاب فروشنده" data-search="true" class="tail-select w-full z-[51]" multiple>
         <% sellers.forEach(seller => { %>
         <!---->
         <% if(pageInfo?.query?.seller?.split(",").includes(seller?.sellerTitle)){%>
@@ -108,83 +127,11 @@
     </div>
   </div>
 
-  <!-- BEGIN: Data List -->
-  <div class="grid min-[2300px]:grid-cols-8 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-5">
-    <!-- BEGIN: Users Layout -->
-
-    <%response?.products.forEach((product) => {%>
-    <div class="intro-y zoom-in">
-      <div
-        class="box h-full tooltip"
-        data-theme="light"
-        title="آخرین خرید : <%-product?.reportBuy?.lastOperation.count%> عدد ساعت <%-product?.reportBuy?.lastOperation?.hour%> تاریخ <%-product?.reportBuy?.lastOperation?.date%>"
-      >
-        <div class="flex flex-col items-center p-5">
-          <div class="w-28 h-28 image-fit">
-            <img class="rounded-full image-fit" alt="" class="rounded-full" src="<%-product.img%>" />
-          </div>
-
-          <div class="text-center mt-3">
-            <a
-              href="https://www.digikala.com/product/dkp-<%-product.dkp %>"
-              target="_blank"
-              class="flex justify-center items-center font-medium line-clamp-2 h-10"
-              title="<%-product.title%>"
-              ><%-product.title%></a
-            >
-            <!-- <div class="text-gray-600 text-xs mt-0.5">مهندس فرانت اند</div> -->
-          </div>
-
-          <div class="flex flex-col w-full justify-center items-center">
-            <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-              <div class="text-gray-600 text-xs mt-0.5 whitespace-nowrap">
-                موجودی <span class="text-red-500 font-bold mt-0.5"> : <%-product.count%> عدد</span>
-              </div>
-              <div class="text-gray-600 text-xs mt-0.5 whitespace-nowrap">
-                <%-product?.reportBuy?.sumCountAll ? `خرید کل : ${product?.reportBuy?.sumCountAll} عدد` : "خریدی ثبت نشده"%>
-              </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-              <div class="text-gray-600 text-xs mt-0.5">
-                <%-product?.reportBuy?.sumCountMonth ? ` ${product?.reportBuy?.sumCountMonth} عدد خرید در ماه گذشته` : "خریدی در ماه گذشته صورت نگرفته"%>
-              </div>
-            </div>
-            <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-              <div class="text-gray-600 text-xs mt-0.5"></div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-              <input onkeypress="inputBuyAndSell(event , '<%-product._id%>', 'buy')" type="number" class="form-control w-3/5" placeholder="تعداد" />
-              <select
-                id="select-box-buy"
-                class="form-select appearance-none block w-3/5 h-10 text-gray-700 bg-white border m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              >
-                <option selected value="خرید">خرید</option>
-                <option value="خرابی">خرابی</option>
-              </select>
-            </div>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-              <button onclick="btnBuyAndSell(event , '<%-product._id%>', 'buy')" class="btn btn-primary w-3/5 h-10 order-last sm:order-first">ثبت</button>
-
-              <button onclick="btnShowReportBuyAndSell('<%-product._id%>', 'buy')" class="btn btn-outline-secondary w-3/5 h-10">گزارش</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <%}) %>
-
-    <!-- BEGIN: Users Layout -->
-
-    <!-- END: Pagination -->
-  </div>
-  <!-- END: Data List -->
+  <div class="grid min-[2300px]:grid-cols-8 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-5" id="card-product"></div>
 
   <!-- BEGIN: Pagination -->
   <%-include("../../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
   <!-- END: Pagination -->
 </div>
-<script src="/pages/panel/buy-sell.js"></script>
+<script src="/pages/panel/buy-product.js"></script>
 <script src="/pages/panel/shared.js"></script>

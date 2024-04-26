@@ -9,6 +9,7 @@ const multer_1 = __importDefault(require("../../common/utils/multer"));
 const router = (0, express_1.Router)();
 const productController = new product_controller_1.ProductController();
 const productControllerEjs = new product_controller_1.ProductControllerEJS();
+router.get("/report/:buyAndSell", productController.findAllProductAndSumSellBuy);
 router.post("/form", multer_1.default.single("img"), productControllerEjs.create);
 router.post("/:id/form", multer_1.default.single("img"), productControllerEjs.update);
 router.route("/").post(multer_1.default.single("img"), productController.create).get(productController.find);

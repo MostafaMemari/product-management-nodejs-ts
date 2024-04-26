@@ -5,7 +5,7 @@ const seller_controller_1 = require("./seller.controller");
 const router = (0, express_1.Router)();
 const sellerController = new seller_controller_1.SellerController();
 const sellerControllerEJS = new seller_controller_1.SellerControllerEJS();
-router.route("/").post(sellerController.create).get(sellerController.find);
+router.route("/user").post(sellerController.create).get(sellerController.find);
 router.route("/:id").put(sellerController.update).delete(sellerController.removeByID).get(sellerController.findByID);
 router.post("/form", sellerControllerEJS.create);
 router.post("/:id/form", sellerControllerEJS.update);
