@@ -28,7 +28,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response = await this.productService.find(query, colors, categories, sellers);
+      const response = await this.productService.find(query, req.params, colors, categories, sellers);
 
       res.render("", { response, colors, categories, sellers });
     } catch (error) {
@@ -43,7 +43,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories, sellers);
+      const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
@@ -91,19 +91,19 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories, sellers);
+      // const response: any = await this.productService.find(query, "buy", colors, categories, sellers);
 
-      for (const product of response.products) {
-        const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "buy");
-        product.reportBuy = result;
-      }
+      // for (const product of response.products) {
+      //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "buy");
+      //   product.reportBuy = result;
+      // }
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
       res.render("./pages/panel/products/buy-product.ejs", {
-        response,
+        // response,
         colors,
         categories,
         sellers,
@@ -120,7 +120,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories, sellers);
+      const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
 
       for (const product of response.products) {
         const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "sell");
@@ -150,7 +150,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories, sellers);
+      const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
@@ -174,14 +174,11 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, colors, categories, sellers);
-
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
       res.render("./pages/panel/category-color.ejs", {
-        response,
         colors,
         categories,
         sellers,

@@ -91,7 +91,7 @@ class ProductController {
             const colors = await this.colorService.find();
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
-            const response = await this.service.find(query, colors, categories, sellers);
+            const response = await this.service.find(query, req.params, colors, categories, sellers);
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 data: response,
             });

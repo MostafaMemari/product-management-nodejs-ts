@@ -29,8 +29,9 @@ export class RobotController {
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
+      const params = req.params;
 
-      const response: any = await this.productService.find(query, colors, categories, sellers);
+      const response: any = await this.productService.find(query, params, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);

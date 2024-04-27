@@ -14,9 +14,12 @@ import flash from "express-flash";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import { Authorization } from "./common/guard/authorization.guard";
+// import { setDefaultData } from "./common/exception/setDefaultDataReq";
+
 export class Application {
   private app = express();
   private server?: http.Server;
+
   constructor(private PORT: number, private DB_URL: string | undefined) {
     this.DB_URL = DB_URL;
     this.PORT = PORT;
@@ -36,6 +39,8 @@ export class Application {
         saveUninitialized: false,
       })
     );
+    // this.app.use(setDefaultData);
+
     this.app.use(flash());
     this.app.use(cors({ origin: "*" }));
     // this.app.use(morgan("dev"));

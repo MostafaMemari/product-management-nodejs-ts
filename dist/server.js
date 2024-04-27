@@ -42,6 +42,7 @@ const express_flash_1 = __importDefault(require("express-flash"));
 const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const authorization_guard_1 = require("./common/guard/authorization.guard");
+// import { setDefaultData } from "./common/exception/setDefaultDataReq";
 class Application {
     constructor(PORT, DB_URL) {
         this.PORT = PORT;
@@ -62,6 +63,7 @@ class Application {
             resave: false,
             saveUninitialized: false,
         }));
+        // this.app.use(setDefaultData);
         this.app.use((0, express_flash_1.default)());
         this.app.use((0, cors_1.default)({ origin: "*" }));
         // this.app.use(morgan("dev"));

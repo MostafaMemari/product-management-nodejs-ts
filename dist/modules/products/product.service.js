@@ -69,49 +69,171 @@ class ProductService {
         (0, error_handler_1.errorHandler)({ productID });
         return await this.checkExistProduct(productID);
     }
-    async find(query, colorsDto, categoryDto, sellerDto) {
-        var _a, _b, _c;
+    // async find(query: ProductQueryDTO, colorsDto: IColor[], categoryDto: ICategory[], sellerDto: ISeller[]): Promise<IProduct[]> {
+    //   const page = parseInt(query.page) - 1 || 0;
+    //   const limit = parseInt(query.limit) || 15;
+    //   const search = query.search || "";
+    //   const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
+    //   let categories: any = query?.category?.split(",") || "ALL";
+    //   let colors: any = query?.color?.split(",") || "ALL";
+    //   let sellers: any = query?.seller?.split(",") || "ALL";
+    //   colors === "ALL"
+    //     ? (colors = colorsDto.map((color) => String(color._id)))
+    //     : (colors = colorsDto.filter((color) => colors.includes(color.name)).map((id) => String(id._id)));
+    //   categories === "ALL"
+    //     ? (categories = categoryDto.map((category) => String(category._id)))
+    //     : (categories = categoryDto.filter((category) => categories.includes(category.name)).map((id) => String(id._id)));
+    //   sellers === "ALL"
+    //     ? (sellers = sellerDto.map((seller) => String(seller._id)))
+    //     : (sellers = sellerDto.filter((seller) => sellers.includes(seller.sellerTitle)).map((id) => String(id._id)));
+    //   const products: IProduct[] = await ProductModel.find({ title: { $regex: search, $options: "i" } })
+    //     .where("category")
+    //     .in(categories)
+    //     .where("color")
+    //     .in(colors)
+    //     .where("seller")
+    //     .in(sellers)
+    //     .skip(page * limit)
+    //     .limit(limit)
+    //     .sort({ updatedAt: sort == "asc" ? 1 : -1 })
+    //     .populate("color")
+    //     .populate("category")
+    //     .populate("seller", "sellerTitle")
+    //     .lean();
+    //   const total = await ProductModel.countDocuments({
+    //     category: { $in: [...categories] },
+    //     color: { $in: [...colors] },
+    //     seller: { $in: [...sellers] },
+    //     title: { $regex: search, $options: "i" },
+    //   });
+    //   const response: any = {
+    //     total,
+    //     pages: Math.ceil(total / limit),
+    //     page: page + 1,
+    //     limit,
+    //     products,
+    //   };
+    //   return response;
+    // }
+    async find(query, params, colorsDto, categoryDto, sellerDto) {
         const page = parseInt(query.page) - 1 || 0;
         const limit = parseInt(query.limit) || 15;
         const search = query.search || "";
         const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
-        let categories = ((_a = query === null || query === void 0 ? void 0 : query.category) === null || _a === void 0 ? void 0 : _a.split(",")) || "ALL";
-        let colors = ((_b = query === null || query === void 0 ? void 0 : query.color) === null || _b === void 0 ? void 0 : _b.split(",")) || "ALL";
-        let sellers = ((_c = query === null || query === void 0 ? void 0 : query.seller) === null || _c === void 0 ? void 0 : _c.split(",")) || "ALL";
-        colors === "ALL"
-            ? (colors = colorsDto.map((color) => String(color._id)))
-            : (colors = colorsDto.filter((color) => colors.includes(color.name)).map((id) => String(id._id)));
-        categories === "ALL"
-            ? (categories = categoryDto.map((category) => String(category._id)))
-            : (categories = categoryDto.filter((category) => categories.includes(category.name)).map((id) => String(id._id)));
-        sellers === "ALL"
-            ? (sellers = sellerDto.map((seller) => String(seller._id)))
-            : (sellers = sellerDto.filter((seller) => sellers.includes(seller.sellerTitle)).map((id) => String(id._id)));
-        const products = await product_model_1.ProductModel.find({ title: { $regex: search, $options: "i" } })
-            .where("category")
-            .in(categories)
-            .where("color")
-            .in(colors)
-            .where("seller")
-            .in(sellers)
-            .skip(page * limit)
-            .limit(limit)
-            .sort({ updatedAt: sort == "asc" ? 1 : -1 })
-            .populate("color")
-            .populate("category")
-            .populate("seller", "sellerTitle")
-            .lean();
-        const total = await product_model_1.ProductModel.countDocuments({
-            category: { $in: [...categories] },
-            color: { $in: [...colors] },
-            seller: { $in: [...sellers] },
-            title: { $regex: search, $options: "i" },
-        });
+        // let categories: any = query?.category?.split(",") || "ALL";
+        // let colors: any = query?.color?.split(",") || "ALL";
+        // let sellers: any = query?.seller?.split(",") || "ALL";
+        // colors === "ALL"
+        //   ? (colors = colorsDto.map((color) => String(color._id)))
+        //   : (colors = colorsDto.filter((color) => colors.includes(color.name)).map((id) => String(id._id)));
+        // categories === "ALL"
+        //   ? (categories = categoryDto.map((category) => String(category._id)))
+        //   : (categories = categoryDto.filter((category) => categories.includes(category.name)).map((id) => String(id._id)));
+        // sellers === "ALL"
+        //   ? (sellers = sellerDto.map((seller) => String(seller._id)))
+        //   : (sellers = sellerDto.filter((seller) => sellers.includes(seller.sellerTitle)).map((id) => String(id._id)));
+        console.log(params.buyAndSell);
+        const products = await product_model_1.ProductModel.aggregate([
+            {
+                $match: {
+                    $or: [
+                        {
+                            title: {
+                                $regex: new RegExp("", "i"),
+                            },
+                        },
+                    ],
+                },
+            },
+            {
+                $lookup: {
+                    from: "buyandsells",
+                    localField: "_id",
+                    foreignField: "product",
+                    pipeline: [
+                        {
+                            $match: {
+                                $and: [
+                                    {
+                                        status: params.buyAndSell,
+                                    },
+                                    {
+                                        operation: {
+                                            $ne: "خرابی",
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            $group: {
+                                _id: "",
+                                sumCountAll: {
+                                    $sum: "$count",
+                                },
+                                products: {
+                                    $push: "$$ROOT",
+                                },
+                            },
+                        },
+                        {
+                            $unwind: {
+                                path: "$products",
+                            },
+                        },
+                        {
+                            $match: {
+                                "products.createdAt": {
+                                    $gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+                                },
+                            },
+                        },
+                        {
+                            $sort: {
+                                "products.createdAt": -1,
+                            },
+                        },
+                        {
+                            $group: {
+                                _id: "",
+                                sumCountMonth: {
+                                    $sum: "$products.count",
+                                },
+                                sumCountAll: {
+                                    $first: "$sumCountAll",
+                                },
+                                lastOperation: {
+                                    $first: "$products",
+                                },
+                            },
+                        },
+                        {
+                            $project: {
+                                _id: 0,
+                            },
+                        },
+                    ],
+                    as: "report",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$report",
+                },
+            },
+        ]);
+        console.log(products);
+        // const total = await ProductModel.countDocuments({
+        //   category: { $in: [...categories] },
+        //   color: { $in: [...colors] },
+        //   seller: { $in: [...sellers] },
+        //   title: { $regex: search, $options: "i" },
+        // });
         const response = {
-            total,
-            pages: Math.ceil(total / limit),
-            page: page + 1,
-            limit,
+            // total,
+            // pages: Math.ceil(total / limit),
+            // page: page + 1,
+            // limit,
             products,
         };
         return response;
