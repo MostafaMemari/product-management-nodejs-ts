@@ -93,10 +93,10 @@ export class PanelController {
 
       const response: any = await this.productService.find(query, colors, categories, sellers);
 
-      for (const product of response.products) {
-        const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "buy");
-        product.reportBuy = result;
-      }
+      // for (const product of response.products) {
+      //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "buy");
+      //   product.reportBuy = result;
+      // }
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
@@ -122,10 +122,7 @@ export class PanelController {
 
       const response: any = await this.productService.find(query, colors, categories, sellers);
 
-      for (const product of response.products) {
-        const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "sell");
-        product.reportSell = result;
-      }
+      console.log(response);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);

@@ -100,6 +100,11 @@ export class ProductController {
 
       const response: any = await this.service.find(query, colors, categories, sellers);
 
+      // for (const product of response.products) {
+      //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
+      //   product.reportBuy = result;
+      // }
+
       res.status(StatusCodes.OK).json({
         data: response,
       });
@@ -142,10 +147,10 @@ export class ProductController {
 
       const response: any = await this.service.find(query, colors, categories, sellers);
 
-      for (const product of response.products) {
-        const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
-        product.reportBuy = result;
-      }
+      // for (const product of response.products) {
+      //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
+      //   product.reportBuy = result;
+      // }
 
       res.status(StatusCodes.OK).json({
         data: response,
