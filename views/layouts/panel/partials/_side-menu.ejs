@@ -10,30 +10,30 @@
 <!-- menu products -->
     <% const checkUrlProducts = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell"  || pageInfo.pathUrl == "/panel/products-defects" %>
       <li>
-        <a href="javascript:;" class="side-menu <%- checkUrlProducts ? "side-menu--active" : "" %>">
-          <div class="side-menu__icon"><i data-feather="home"></i></div>
+        <a href="javascript:;" class="side-menu <%- checkUrlProducts && "side-menu--active" %>">
+          <div class="side-menu__icon"><i data-feather="shopping-cart"></i></div>
           <div class="side-menu__title">محصولات<div class="side-menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
         </a>
 
-        <ul class="<%-checkUrlProducts ? "side-menu__sub-open" : "" %>">
+        <ul class="<%-checkUrlProducts && "side-menu__sub-open" %>">
             <li>
-              <a href="/panel/products" class="side-menu <%-pageInfo.pathUrl == "/panel/products" ? "side-menu--active" : "" %>">
-                <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">مدیریت محصولات</div>
+              <a href="/panel/products" class="side-menu <%-pageInfo.pathUrl == "/panel/products" && "side-menu--active" %>">
+                <div class="side-menu__icon"><i data-feather="minus"></i></div><div class="side-menu__title">مدیریت محصولات</div>
               </a>
             </li>
             <li>
-              <a href="/panel/products-buy" class="side-menu <%-pageInfo.pathUrl == "/panel/products-buy" ? "side-menu--active" : "" %>">
-                <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">خرید</div>
+              <a href="/panel/products-buy" class="side-menu <%-pageInfo.pathUrl == "/panel/products-buy" && "side-menu--active" %>">
+                <div class="side-menu__icon"><i data-feather="minus"></i></div><div class="side-menu__title">خرید</div>
               </a>
             </li>
             <li>
-              <a href="/panel/products-sell" class="side-menu <%-pageInfo.pathUrl == "/panel/products-sell" ? "side-menu--active" : "" %>">
-                <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">فروش</div>
+              <a href="/panel/products-sell" class="side-menu <%-pageInfo.pathUrl == "/panel/products-sell" && "side-menu--active" %>">
+                <div class="side-menu__icon"><i data-feather="minus"></i></div><div class="side-menu__title">فروش</div>
               </a>
             </li>
             <li>
-              <a href="/panel/products-defects" class="side-menu <%-pageInfo.pathUrl == "/panel/products-defects" ? "side-menu--active" : "" %>">
-                <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">نواقص محصولات</div>
+              <a href="/panel/products-defects" class="side-menu <%-pageInfo.pathUrl == "/panel/products-defects" && "side-menu--active" %>">
+                <div class="side-menu__icon"><i data-feather="minus"></i></div><div class="side-menu__title">نواقص محصولات</div>
               </a>
             </li>
         </ul>
@@ -41,34 +41,34 @@
 <!-- robot -->
 <% const checkUrlRobot = pageInfo.pathUrl == "/panel/robot-control" ||  pageInfo.pathUrl == "/panel/robot-history"  %>
 <li>
-  <a href="javascript:;" class="side-menu <%- checkUrlRobot ? "side-menu--active" : "" %>">
-    <div class="side-menu__icon"><i data-feather="home"></i></div>
+  <a href="javascript:;" class="side-menu <%- checkUrlRobot && "side-menu--active" %>">
+    <div class="side-menu__icon"><i data-feather="gitlab"></i></div>
     <div class="side-menu__title">ربات<div class="side-menu__sub-icon"><i data-feather="chevron-down"></i></div></div>
   </a>
 
-  <ul class="<%-checkUrlRobot ? "side-menu__sub-open" : "" %>">
+  <ul class="<%-checkUrlRobot && "side-menu__sub-open" %>">
       <li>
-        <a href="/panel/robot-control" class="side-menu <%-pageInfo.pathUrl == "/panel/robot-control" ? "side-menu--active" : "" %>">
-          <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">مدیریت</div>
+        <a href="/panel/robot-control" class="side-menu <%-pageInfo.pathUrl == "/panel/robot-control" && "side-menu--active" %>">
+          <div class="side-menu__icon"><i data-feather="minus"></i></div><div class="side-menu__title">مدیریت</div>
         </a>
       </li>
       <li>
-        <a href="/panel/robot-history" class="side-menu <%-pageInfo.pathUrl == "/panel/robot-history" ? "side-menu--active" : "" %>">
-          <div class="side-menu__icon"><i data-feather="activity"></i></div><div class="side-menu__title">تاریخچه تغییرات</div>
+        <a href="/panel/robot-history" class="side-menu <%-pageInfo.pathUrl == "/panel/robot-history" && "side-menu--active" %>">
+          <div class="side-menu__icon"><i data-feather="minus"></i></div><div class="side-menu__title">تاریخچه تغییرات</div>
         </a>
       </li>
   </ul>
 </li>
 <!-- menu sellers -->
     <li>
-      <a href="/panel/sellers" class="side-menu <%-pageInfo.pathUrl == "/panel/sellers" ? "side-menu--active" : "" %> ">
-        <div class="side-menu__icon"><i data-feather="calendar"></i></div><div class="side-menu__title">فروشندگان</div>
+      <a href="/panel/sellers" class="side-menu <%-pageInfo.pathUrl == "/panel/sellers" && "side-menu--active" %> ">
+        <div class="side-menu__icon"><i data-feather="users"></i></div><div class="side-menu__title">فروشندگان</div>
       </a>
     </li>
 <!-- menu color and category -->
     <li>
-      <a href="/panel/category-color" class="side-menu <%-pageInfo.pathUrl == "/panel/category-color" ? "side-menu--active" : "" %>">
-        <div class="side-menu__icon"><i data-feather="calendar"></i></div><div class="side-menu__title">رنگ و دسته بندی</div>
+      <a href="/panel/category-color" class="side-menu <%-pageInfo.pathUrl == "/panel/category-color" && "side-menu--active" %>">
+        <div class="side-menu__icon"><i data-feather="sliders"></i></div><div class="side-menu__title">رنگ و دسته بندی</div>
       </a>
     </li>
 
