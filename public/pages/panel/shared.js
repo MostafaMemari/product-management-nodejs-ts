@@ -5,6 +5,16 @@
 const url = new URL(window.location);
 const params = new URLSearchParams(url.search);
 
+const getQueryParameters = () => {
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+  const queryObject = {};
+  for (const [key, value] of params.entries()) {
+    queryObject[key] = value;
+  }
+  return queryObject;
+};
+
 // async function inputSearchEnter(event) {
 //   if (event.key === "Enter") {
 //     params.delete("search");

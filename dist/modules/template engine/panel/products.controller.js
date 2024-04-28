@@ -84,16 +84,10 @@ class PanelController {
             const colors = await this.colorService.find();
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
-            const response = await this.productService.find(query, colors, categories, sellers);
-            // for (const product of response.products) {
-            //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "buy");
-            //   product.reportBuy = result;
-            // }
             req.query.page ? delete req.query.page : false;
             const queryPath = Object.entries(req.query);
             const queryString = "?" + new URLSearchParams(queryPath).toString();
             res.render("./pages/panel/products/buy-product.ejs", {
-                response,
                 colors,
                 categories,
                 sellers,
@@ -111,7 +105,6 @@ class PanelController {
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
             const response = await this.productService.find(query, colors, categories, sellers);
-            console.log(response);
             req.query.page ? delete req.query.page : false;
             const queryPath = Object.entries(req.query);
             const queryString = "?" + new URLSearchParams(queryPath).toString();

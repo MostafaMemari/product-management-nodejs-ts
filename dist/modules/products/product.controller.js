@@ -136,11 +136,7 @@ class ProductController {
             const colors = await this.colorService.find();
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
-            const response = await this.service.find(query, colors, categories, sellers);
-            // for (const product of response.products) {
-            //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
-            //   product.reportBuy = result;
-            // }
+            const response = await this.service.findAllProductAndSumSellBuy(query, req.params, colors, categories, sellers);
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 data: response,
             });

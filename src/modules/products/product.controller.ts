@@ -112,6 +112,7 @@ export class ProductController {
       next(error);
     }
   }
+
   async defects(req: Request, res: Response, next: NextFunction) {
     try {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
@@ -141,16 +142,12 @@ export class ProductController {
   async findAllProductAndSumSellBuy(req: Request, res: Response, next: NextFunction) {
     try {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+
       const colors: IColor[] = await this.colorService.find();
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.service.find(query, colors, categories, sellers);
-
-      // for (const product of response.products) {
-      //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
-      //   product.reportBuy = result;
-      // }
+      const response: any = await this.service.findAllProductAndSumSellBuy(query, req.params, colors, categories, sellers);
 
       res.status(StatusCodes.OK).json({
         data: response,
