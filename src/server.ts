@@ -14,6 +14,7 @@ import flash from "express-flash";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import { Authorization } from "./common/guard/authorization.guard";
+
 export class Application {
   private app = express();
   private server?: http.Server;

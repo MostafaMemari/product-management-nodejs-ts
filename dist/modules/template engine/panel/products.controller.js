@@ -28,7 +28,7 @@ class PanelController {
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
             const response = await this.productService.find(query, colors, categories, sellers);
-            res.render("", { response, colors, categories, sellers });
+            res.render("", { response, colors, categories, sellers, apiUrl: process.env.API_URL });
         }
         catch (error) {
             next(error);
@@ -50,6 +50,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products", pathTitle: "محصولات", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -72,6 +73,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products-defects", pathTitle: "نواقص محصولات", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -92,6 +94,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products-buy", pathTitle: "خرید محصول", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -114,6 +117,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products-sell", pathTitle: "فروش محصول", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -136,6 +140,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/sellers", pathTitle: "فروشندگان", query: { query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -158,6 +163,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/category-color", pathTitle: "فروشندگان", query: { query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {

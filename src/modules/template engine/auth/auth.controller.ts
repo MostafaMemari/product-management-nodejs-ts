@@ -28,10 +28,11 @@ export class AuthController {
   constructor() {
     autoBind(this);
   }
+
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       res.locals.layout = "./layouts/auth/main.ejs";
-      res.render("./pages/auth/login.ejs", { page: "login" });
+      res.render("./pages/auth/login.ejs", { page: "login", apiUrl: process.env.API_URL });
     } catch (error) {
       next(error);
     }
@@ -48,7 +49,7 @@ export class AuthController {
       }
 
       res.locals.layout = "./layouts/auth/main.ejs";
-      res.render("./pages/auth/register.ejs", { page: "register" });
+      res.render("./pages/auth/register.ejs", { page: "register", apiUrl: process.env.API_URL });
     } catch (error) {
       next(error);
     }

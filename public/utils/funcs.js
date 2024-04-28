@@ -1,7 +1,7 @@
 const messageSuccess = document.querySelector(".message-success").innerHTML;
 const messageError = document.querySelector(".message-error").innerHTML;
 
-const apiUrl = "http://localhost:4600/api/v1";
+const apiUrl = document.getElementById("api-url").dataset.api;
 
 window.addEventListener("load", () => {
   if (messageSuccess || messageError) {
