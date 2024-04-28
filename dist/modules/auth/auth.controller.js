@@ -55,6 +55,14 @@ class AuthController {
             next(error);
         }
     }
+    async logout(req, res, next) {
+        try {
+            res.clearCookie(public_enum_1.CookieNames.AccessToken);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
     async getMe(req, res, next) {
         try {
             res.status(200).json({
