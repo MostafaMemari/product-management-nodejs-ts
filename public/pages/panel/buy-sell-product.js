@@ -1,3 +1,5 @@
+const operationPage = (pageInfo == "خرید محصول" && "خرید") || (pageInfo == "فروش محصول" && "فروش");
+
 window.addEventListener("load", () => {
   document.querySelector("#input-search").focus();
 
@@ -72,7 +74,7 @@ async function getAndShowListProducts(query = "") {
           <div
             class="box h-full tooltip"
             data-theme="light"
-            title="آخرین خرید : ${product?.report[0]?.lastOperation.count} عدد ساعت ${product?.report[0]?.lastOperation?.hour} تاریخ ${
+            title="آخرین ${operationPage} : ${product?.report[0]?.lastOperation.count} عدد ساعت ${product?.report[0]?.lastOperation?.hour} تاریخ ${
         product?.report[0]?.lastOperation?.date
       }"
           >
@@ -95,31 +97,41 @@ async function getAndShowListProducts(query = "") {
                     موجودی <span class="text-red-500 font-bold mt-0.5"> : ${product.count} عدد</span>
                   </div>
                   <div class="text-gray-600 text-xs mt-0.5 whitespace-nowrap">
-                  ${product?.report[0]?.sumCountAll ? `خرید کل : ${product?.report[0]?.sumCountAll} عدد` : "خریدی ثبت نشده"}
+                  ${product?.report[0]?.sumCountAll ? `${operationPage} کل : ${product?.report[0]?.sumCountAll} عدد` : `${operationPage}ی ثبت نشده`}
                   </div>
                 </div>
     
                 <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
                   <div class="text-gray-600 text-xs mt-0.5">
-                  ${product?.report[0]?.sumCountMonth ? ` ${product?.report[0]?.sumCountMonth} عدد خرید در ماه گذشته` : "خریدی در ماه گذشته صورت نگرفته"}
+                  ${
+                    product?.report[0]?.sumCountMonth
+                      ? ` ${product?.report[0]?.sumCountMonth} عدد ${operationPage} در ماه گذشته`
+                      : `${operationPage}ی در ماه گذشته صورت نگرفته`
+                  }
                   </div>
                 </div>
     
                 <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-                  <input onkeypress="inputBuyAndSell(event , '${product._id}', 'buy')" type="number" class="form-control w-3/5" placeholder="تعداد" />
+                  <input onkeypress="inputBuyAndSell(event , '${product._id}', '${
+        (operationPage == "خرید" && "buy") || (operationPage == "فروش" && "sell")
+      }')" type="number" class="form-control w-3/5" placeholder="تعداد" />
                   <select
                     id="select-box-buy"
                     class="form-select appearance-none block w-3/5 h-10 text-gray-700 bg-white border m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   >
-                    <option selected value="خرید">خرید</option>
+                    <option selected value="${operationPage}">${operationPage}</option>
                     <option value="خرابی">خرابی</option>
                   </select>
                 </div>
     
                 <div class="flex flex-col sm:flex-row justify-center items-center w-full gap-3 mt-2">
-                  <button onclick="btnBuyAndSell(event , '${product._id}', 'buy')" class="btn btn-primary w-3/5 h-10 order-last sm:order-first">ثبت</button>
+                  <button onclick="btnBuyAndSell(event , '${product._id}', '${
+        (operationPage == "خرید" && "buy") || (operationPage == "فروش" && "sell")
+      }')" class="btn btn-primary w-3/5 h-10 order-last sm:order-first">ثبت</button>
     
-                  <button onclick="btnShowReportBuyAndSell('${product._id}', 'buy')" class="btn btn-outline-secondary w-3/5 h-10">گزارش</button>
+                  <button onclick="btnShowReportBuyAndSell('${product._id}', '${
+        (operationPage == "خرید" && "buy") || (operationPage == "فروش" && "sell")
+      }')" class="btn btn-outline-secondary w-3/5 h-10">گزارش</button>
                 </div>
               </div>
             </div>
@@ -224,7 +236,7 @@ function createPaginationHtmlByPageInfo(pageInfo) {
 
   const limitBody = document.getElementById("select-limit");
   limitBody.innerHTML = "";
-  const valueOption = ["15", "30", "50", "100"];
+  const valueOption = ["10", "15", "30", "50", "100"];
   limitBody.insertAdjacentHTML(
     "beforeend",
     `
