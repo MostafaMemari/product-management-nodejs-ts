@@ -154,7 +154,7 @@ function createPaginationHtmlByPageInfo(pageInfo) {
 
   const btnPrev = `
   <li>
-    <a class="pagination__link">
+    <a class="pagination__link" data-page="prev">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
     <metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
     <g><g><path fill="#000000" d="M189.2,120.4L81.9,13.1C77.7,9,71,9,66.8,13.1c-4.2,4.2-4.2,10.9,0,15.1l99.8,99.8l-99.8,99.8c-4.2,4.2-4.2,10.9,0,15c2.1,2.1,4.8,3.1,7.5,3.1c2.7,0,5.4-1,7.5-3.1l107.3-107.3c2.1-2.1,3.1-4.9,3.1-7.6C192.3,125.3,191.3,122.5,189.2,120.4z"/></g></g>
@@ -208,7 +208,7 @@ function createPaginationHtmlByPageInfo(pageInfo) {
     for (let i = pages - 3; i <= pages; i++) {
       pagination += `
       <li>
-        <a class="pagination__link ${i == page && "pagination__link--active"}">${i}</a>
+        <a class="pagination__link ${i == page && "pagination__link--active"}" data-page="${i}">${i}</a>
       </li>
       `;
     }
