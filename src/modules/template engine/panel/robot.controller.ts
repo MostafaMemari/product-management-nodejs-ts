@@ -43,6 +43,7 @@ export class RobotController {
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/robot-control", pathTitle: "مدیریت ربات", query: { ...query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);
@@ -61,6 +62,7 @@ export class RobotController {
       res.render("./pages/panel/robot/robot-history.ejs", {
         response,
         pageInfo: { pathUrl: "/panel/robot-history", pathTitle: "تاریخچه تغییر قیمت", query: { ...query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);

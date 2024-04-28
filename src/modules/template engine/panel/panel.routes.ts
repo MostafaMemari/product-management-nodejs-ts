@@ -13,6 +13,7 @@ router.get("/robot-control", robotController.robot);
 router.get("/robot-history", robotController.history);
 
 router.get("/products", panelController.products);
+
 router.get("/products-buy", panelController.buy);
 router.get("/products-sell", panelController.sell);
 router.get("/products-defects", panelController.defects);

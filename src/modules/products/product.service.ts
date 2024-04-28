@@ -125,12 +125,20 @@ class ProductService {
 
   //   return response;
   // }
+<<<<<<< HEAD
   async find(query: ProductQueryDTO, params: any, colorsDto: IColor[], categoryDto: ICategory[], sellerDto: ISeller[]): Promise<IProduct[]> {
     const page = parseInt(query.page) - 1 || 0;
+=======
+
+  async find(query: ProductQueryDTO, colorsDto: IColor[], categoryDto: ICategory[], sellerDto: ISeller[]): Promise<IProduct[]> {
+    const page = parseInt(query.page) || 1;
+>>>>>>> spaSellBuyProduct
     const limit = parseInt(query.limit) || 15;
     const search = query.search || "";
+    const skip = (page - 1) * limit;
     const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
 
+<<<<<<< HEAD
     // let categories: any = query?.category?.split(",") || "ALL";
     // let colors: any = query?.color?.split(",") || "ALL";
     // let sellers: any = query?.seller?.split(",") || "ALL";
@@ -253,6 +261,316 @@ class ProductService {
       // pages: Math.ceil(total / limit),
       // page: page + 1,
       // limit,
+=======
+    let categoryQuery: any = categoryDto.filter((category) => query?.category?.split(",").includes(category.name));
+    let colorQuery: any = colorsDto.filter((color) => query?.color?.split(",").includes(color.name));
+    let sellerQuery: any = sellerDto.filter((seller) => query?.seller?.split(",").includes(seller.sellerTitle));
+
+    if (!!categoryQuery.length) {
+      categoryQuery = [{ category: { $in: categoryQuery.map((category: any) => category._id) } }];
+    } else {
+      categoryQuery = [{}];
+    }
+    if (!!colorQuery.length) {
+      colorQuery = [{ color: { $in: colorQuery.map((color: any) => color._id) } }];
+    } else {
+      colorQuery = [{}];
+    }
+    if (!!sellerQuery.length) {
+      sellerQuery = [{ seller: { $in: sellerQuery.map((seller: any) => seller._id) } }];
+    } else {
+      sellerQuery = [{}];
+    }
+
+    const products: IProduct[] = await ProductModel.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              $or: [{ title: { $regex: new RegExp(search, "i") } }],
+            },
+            {
+              $or: categoryQuery,
+            },
+            {
+              $or: colorQuery,
+            },
+            {
+              $or: sellerQuery,
+            },
+          ],
+        },
+      },
+      {
+        $sort: { updatedAt: sort == "asc" ? 1 : -1 },
+      },
+      {
+        $skip: skip,
+      },
+      {
+        $limit: limit,
+      },
+      {
+        $lookup: {
+          from: "buyandsells",
+          localField: "_id",
+          pipeline: [
+            {
+              $match: {
+                operation: {
+                  $ne: "خرابی",
+                },
+                status: "buy",
+              },
+            },
+
+            {
+              $sort: {
+                createdAt: -1,
+              },
+            },
+            {
+              $facet: {
+                lastOperation: [
+                  {
+                    $group: {
+                      _id: null,
+                      product: {
+                        $first: "$$ROOT",
+                      },
+                    },
+                  },
+                ],
+                sumCountAll: [
+                  {
+                    $group: {
+                      _id: null,
+                      sumCount: {
+                        $sum: "$count",
+                      },
+                    },
+                  },
+                ],
+                sumCountMonth: [
+                  {
+                    $match: {
+                      createdAt: {
+                        $gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+                      },
+                    },
+                  },
+                  {
+                    $group: {
+                      _id: null,
+                      sumCount: {
+                        $sum: "$count",
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              $unwind: "$lastOperation",
+            },
+            {
+              $unwind: "$sumCountAll",
+            },
+            {
+              $unwind: "$sumCountMonth",
+            },
+            {
+              $addFields: {
+                lastOperation: "$lastOperation.product",
+                sumCountAll: "$sumCountAll.sumCount",
+                sumCountMonth: "$sumCountMonth.sumCount",
+              },
+            },
+          ],
+          foreignField: "product",
+          as: "report",
+        },
+      },
+      {
+        $project: {
+          robot: 0,
+        },
+      },
+    ]);
+
+    const total = await ProductModel.countDocuments({
+      $and: [{ $or: [{ title: { $regex: new RegExp(search, "i") } }] }, { $or: categoryQuery }, { $or: colorQuery }, { $or: sellerQuery }],
+    });
+
+    const response: any = {
+      total,
+      pages: Math.ceil(total / limit),
+      page: page,
+      limit,
+      products,
+    };
+
+    return response;
+  }
+  async findAllProductAndSumSellBuy(
+    query: ProductQueryDTO,
+    params: any,
+    colorsDto: IColor[],
+    categoryDto: ICategory[],
+    sellerDto: ISeller[]
+  ): Promise<IProduct[]> {
+    const page = parseInt(query.page) || 1;
+    const limit = parseInt(query.limit) || 10;
+    const search = query.search || "";
+    const skip = (page - 1) * limit;
+    const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
+
+    let categoryQuery: any = categoryDto.filter((category) => query?.category?.split(",").includes(category.name));
+    let colorQuery: any = colorsDto.filter((color) => query?.color?.split(",").includes(color.name));
+    let sellerQuery: any = sellerDto.filter((seller) => query?.seller?.split(",").includes(seller.sellerTitle));
+
+    if (!!categoryQuery.length) {
+      categoryQuery = [{ category: { $in: categoryQuery.map((category: any) => category._id) } }];
+    } else {
+      categoryQuery = [{}];
+    }
+    if (!!colorQuery.length) {
+      colorQuery = [{ color: { $in: colorQuery.map((color: any) => color._id) } }];
+    } else {
+      colorQuery = [{}];
+    }
+    if (!!sellerQuery.length) {
+      sellerQuery = [{ seller: { $in: sellerQuery.map((seller: any) => seller._id) } }];
+    } else {
+      sellerQuery = [{}];
+    }
+
+    const products: IProduct[] = await ProductModel.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              $or: [{ title: { $regex: new RegExp(search, "i") } }],
+            },
+            {
+              $or: categoryQuery,
+            },
+            {
+              $or: colorQuery,
+            },
+            {
+              $or: sellerQuery,
+            },
+          ],
+        },
+      },
+      {
+        $sort: { updatedAt: sort == "asc" ? 1 : -1 },
+      },
+      {
+        $skip: skip,
+      },
+      {
+        $limit: limit,
+      },
+      {
+        $lookup: {
+          from: "buyandsells",
+          localField: "_id",
+          pipeline: [
+            {
+              $match: {
+                operation: {
+                  $ne: "خرابی",
+                },
+                status: params.buyAndSell,
+              },
+            },
+
+            {
+              $sort: {
+                createdAt: -1,
+              },
+            },
+            {
+              $facet: {
+                lastOperation: [
+                  {
+                    $group: {
+                      _id: null,
+                      product: {
+                        $first: "$$ROOT",
+                      },
+                    },
+                  },
+                ],
+                sumCountAll: [
+                  {
+                    $group: {
+                      _id: null,
+                      sumCount: {
+                        $sum: "$count",
+                      },
+                    },
+                  },
+                ],
+                sumCountMonth: [
+                  {
+                    $match: {
+                      createdAt: {
+                        $gte: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+                      },
+                    },
+                  },
+                  {
+                    $group: {
+                      _id: null,
+                      sumCount: {
+                        $sum: "$count",
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              $unwind: "$lastOperation",
+            },
+            {
+              $unwind: "$sumCountAll",
+            },
+            {
+              $unwind: "$sumCountMonth",
+            },
+            {
+              $addFields: {
+                lastOperation: "$lastOperation.product",
+                sumCountAll: "$sumCountAll.sumCount",
+                sumCountMonth: "$sumCountMonth.sumCount",
+              },
+            },
+          ],
+          foreignField: "product",
+          as: "report",
+        },
+      },
+      {
+        $project: {
+          robot: 0,
+        },
+      },
+    ]);
+
+    const total = await ProductModel.countDocuments({
+      $and: [{ $or: [{ title: { $regex: new RegExp(search, "i") } }] }, { $or: categoryQuery }, { $or: colorQuery }, { $or: sellerQuery }],
+    });
+
+    const response: any = {
+      total,
+      pages: Math.ceil(total / limit),
+      page: page,
+      limit,
+>>>>>>> spaSellBuyProduct
       products,
     };
 

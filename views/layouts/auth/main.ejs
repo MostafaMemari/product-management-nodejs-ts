@@ -29,13 +29,8 @@
         <!-- END: Login Form -->
       </div>
     </div>
-    <!-- BEGIN: Dark Mode Switcher-->
 
-    <!-- END: Dark Mode Switcher-->
-    <!-- BEGIN: JS Assets-->
-    <script src="/dist/js/app.js"></script>
-    <script src="/dist/vendor/SweetAlert2/sweetalert2.js"></script>
-    <script src="/utils/funcs.js"></script>
-    <!-- END: JS Assets-->
+    <input id="api-url" data-api="<%- apiUrl %>" class="hidden" />
+    <%-include("./partials/_scripts.ejs")%>
   </body>
 </html>

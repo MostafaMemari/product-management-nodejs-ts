@@ -30,7 +30,7 @@ export class PanelController {
 
       const response = await this.productService.find(query, req.params, colors, categories, sellers);
 
-      res.render("", { response, colors, categories, sellers });
+      res.render("", { response, colors, categories, sellers, apiUrl: process.env.API_URL });
     } catch (error) {
       next(error);
     }
@@ -55,6 +55,7 @@ export class PanelController {
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/products", pathTitle: "محصولات", query: { ...query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);
@@ -79,6 +80,7 @@ export class PanelController {
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/products-defects", pathTitle: "نواقص محصولات", query: { ...query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);
@@ -91,6 +93,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
+<<<<<<< HEAD
       // const response: any = await this.productService.find(query, "buy", colors, categories, sellers);
 
       // for (const product of response.products) {
@@ -98,16 +101,22 @@ export class PanelController {
       //   product.reportBuy = result;
       // }
 
+=======
+>>>>>>> spaSellBuyProduct
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
       res.render("./pages/panel/products/buy-product.ejs", {
+<<<<<<< HEAD
         // response,
+=======
+>>>>>>> spaSellBuyProduct
         colors,
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/products-buy", pathTitle: "خرید محصول", query: { ...query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);
@@ -122,11 +131,6 @@ export class PanelController {
 
       const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
 
-      for (const product of response.products) {
-        const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "sell");
-        product.reportSell = result;
-      }
-
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
@@ -137,6 +141,7 @@ export class PanelController {
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/products-sell", pathTitle: "فروش محصول", query: { ...query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);
@@ -162,6 +167,7 @@ export class PanelController {
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/sellers", pathTitle: "فروشندگان", query: { query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);
@@ -183,6 +189,7 @@ export class PanelController {
         categories,
         sellers,
         pageInfo: { pathUrl: "/panel/category-color", pathTitle: "فروشندگان", query: { query, queryString } },
+        apiUrl: process.env.API_URL,
       });
     } catch (error) {
       next(error);

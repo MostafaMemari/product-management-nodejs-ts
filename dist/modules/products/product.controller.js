@@ -17,12 +17,14 @@ const color_service_1 = __importDefault(require("../color/color.service"));
 const category_service_1 = __importDefault(require("../category/category.service"));
 const functions_1 = require("../../common/utils/functions");
 const seller_service_1 = __importDefault(require("../seller/seller.service"));
+const buy_sell_service_1 = __importDefault(require("../buy-sell/buy-sell.service"));
 class ProductController {
     constructor() {
         this.service = product_service_1.default;
         this.colorService = color_service_1.default;
         this.categoryService = category_service_1.default;
         this.sellerService = seller_service_1.default;
+        this.buyAndSellService = buy_sell_service_1.default;
         (0, auto_bind_1.default)(this);
     }
     async create(req, res, next) {
@@ -92,6 +94,10 @@ class ProductController {
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
             const response = await this.service.find(query, req.params, colors, categories, sellers);
+            // for (const product of response.products) {
+            //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
+            //   product.reportBuy = result;
+            // }
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 data: response,
             });

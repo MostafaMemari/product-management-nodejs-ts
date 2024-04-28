@@ -14,7 +14,10 @@ import flash from "express-flash";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import { Authorization } from "./common/guard/authorization.guard";
+<<<<<<< HEAD
 // import { setDefaultData } from "./common/exception/setDefaultDataReq";
+=======
+>>>>>>> spaSellBuyProduct
 
 export class Application {
   private app = express();

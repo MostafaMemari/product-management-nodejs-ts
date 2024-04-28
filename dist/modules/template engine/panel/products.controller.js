@@ -28,7 +28,7 @@ class PanelController {
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
             const response = await this.productService.find(query, req.params, colors, categories, sellers);
-            res.render("", { response, colors, categories, sellers });
+            res.render("", { response, colors, categories, sellers, apiUrl: process.env.API_URL });
         }
         catch (error) {
             next(error);
@@ -50,6 +50,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products", pathTitle: "محصولات", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -72,6 +73,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products-defects", pathTitle: "نواقص محصولات", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -84,20 +86,15 @@ class PanelController {
             const colors = await this.colorService.find();
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
-            // const response: any = await this.productService.find(query, "buy", colors, categories, sellers);
-            // for (const product of response.products) {
-            //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "buy");
-            //   product.reportBuy = result;
-            // }
             req.query.page ? delete req.query.page : false;
             const queryPath = Object.entries(req.query);
             const queryString = "?" + new URLSearchParams(queryPath).toString();
             res.render("./pages/panel/products/buy-product.ejs", {
-                // response,
                 colors,
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products-buy", pathTitle: "خرید محصول", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -111,10 +108,6 @@ class PanelController {
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
             const response = await this.productService.find(query, req.params, colors, categories, sellers);
-            for (const product of response.products) {
-                const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), "sell");
-                product.reportSell = result;
-            }
             req.query.page ? delete req.query.page : false;
             const queryPath = Object.entries(req.query);
             const queryString = "?" + new URLSearchParams(queryPath).toString();
@@ -124,6 +117,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/products-sell", pathTitle: "فروش محصول", query: { ...query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -146,6 +140,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/sellers", pathTitle: "فروشندگان", query: { query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {
@@ -166,6 +161,7 @@ class PanelController {
                 categories,
                 sellers,
                 pageInfo: { pathUrl: "/panel/category-color", pathTitle: "فروشندگان", query: { query, queryString } },
+                apiUrl: process.env.API_URL,
             });
         }
         catch (error) {

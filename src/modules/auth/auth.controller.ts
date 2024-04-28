@@ -56,6 +56,13 @@ export class AuthController {
       next(error);
     }
   }
+  async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.clearCookie(CookieNames.AccessToken);
+    } catch (error) {
+      next(error);
+    }
+  }
 
   async getMe(req: Request, res: Response, next: NextFunction) {
     try {

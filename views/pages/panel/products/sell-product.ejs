@@ -55,7 +55,10 @@
     </svg>
   </div>
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> spaSellBuyProduct
 <div class="content">
   <!-- BEGIN: Top Bar -->
   <div class="top-bar">
@@ -75,34 +78,16 @@
   </div>
   <!-- END: Top Bar -->
 
-  <h2 class="intro-y text-lg font-medium m-2"><%-pageInfo?.pathTitle %></h2>
-  <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
-    <div class="flex">
-      <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-        <div class="w-full relative text-gray-700 dark:text-gray-300">
-          <% if(pageInfo?.query?.search) { %>
-          <input
-            id="input-search"
-            onkeypress="inputSearchEnter(event)"
-            type="text"
-            class="form-control w-full box pl-10 placeholder-theme-13"
-            placeholder="جستجو..."
-            value="<%-pageInfo?.query?.search%>"
-          />
-          <% } else {%>
-          <input
-            id="input-search"
-            onkeypress="inputSearchEnter(event)"
-            type="text"
-            class="form-control w-full box pl-10 placeholder-theme-13"
-            placeholder="جستجو..."
-          /><% } %>
-          <i onclick="iconSearchClick(event)" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="container-xxl flex-grow-1 container-p-y" id="scroll">
+    <h2 class="intro-y text-lg font-medium m-2"><%-pageInfo?.pathTitle %></h2>
+    <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
+      <div class="flex">
+        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+          <div class="w-full relative text-gray-700 dark:text-gray-300">
+            <input id="input-search" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..."
+            value="<%-pageInfo?.query?.search ? pageInfo?.query?.search : ""%>" />
 
+<<<<<<< HEAD
   <div class="grid md:grid-cols-3 gap-4 mt-3">
     <div class="flex">
       <select
@@ -174,3 +159,65 @@
 <script src="/pages/panel/sell-product.js"></script>
 <!-- <script src="/pages/panel/buy-sell.js"></script> -->
 <script src="/pages/panel/shared.js"></script>
+=======
+            <i id="btn-search" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-3">
+      <div class="flex">
+        <select id="color-select-box" data-placeholder="انتخاب رنگ" data-search="true" class="tail-select w-full z-[53]" multiple>
+          <!---->
+          <% colors.forEach(color => { %>
+          <!---->
+          <% if(pageInfo?.query?.color?.split(",").includes(color.name)){%>
+          <option selected value="<%-color.name%>"><%-color.name %></option>
+          <%} else {%>
+          <option value="<%-color.name%>"><%-color.name %></option>
+          <% } %><% }) %>
+        </select>
+      </div>
+
+      <div class="flex">
+        <select id="category-select-box" data-placeholder="انتخاب دسته بندی" data-search="true" class="tail-select w-full z-[52]" multiple>
+          <% categories.forEach(category => { %>
+          <!---->
+          <% if(pageInfo?.query?.category?.split(",").includes(category.name)){%>
+          <option selected value="<%-category.name%>"><%-category.name %></option>
+          <%} else {%>
+          <option value="<%-category.name%>"><%-category.name %></option>
+          <% } %><% }) %>
+        </select>
+      </div>
+
+      <div class="flex">
+        <select id="seller-select-box" data-placeholder="انتخاب فروشنده" data-search="true" class="tail-select w-full z-[51]" multiple>
+          <% sellers.forEach(seller => { %>
+          <!---->
+          <% if(pageInfo?.query?.seller?.split(",").includes(seller?.sellerTitle)){%>
+          <option selected value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
+          <%} else {%>
+          <option value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
+          <% } %><% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid min-[2300px]:grid-cols-8 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-5" id="card-product"></div>
+
+    <!-- BEGIN: Pagination -->
+
+    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap justify-center items-center mt-5">
+      <ul class="pagination flex justify-center items-center"></ul>
+      <select class="w-20 form-select box mt-3 sm:mt-0" name="forma" id="select-limit"></select>
+    </div>
+
+    <!-- END: Pagination -->
+  </div>
+  <script>
+    const pageInfo = "<%-pageInfo?.pathTitle%>";
+  </script>
+</div>
+>>>>>>> spaSellBuyProduct

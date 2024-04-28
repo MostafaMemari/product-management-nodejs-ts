@@ -1,0 +1,19 @@
+<script src="/dist/js/app.js"></script>
+<script src="/dist/vendor/SweetAlert2/sweetalert2.js"></script>
+<script src="/pages/panel/shared.js"></script>
+<script src="/utils/funcs.js"></script>
+<script src="/utils/chart.js"></script>
+
+<% if(pageInfo?.pathUrl === "/panel/products-sell" || pageInfo?.pathUrl === "/panel/products-buy") { %>
+<script src="/pages/panel/buy-sell-product.js"></script>
+<%} %> <% if(pageInfo?.pathUrl === "/panel/product"){ %>
+<script src="/pages/panel/products.js"></script>
+<%} %> <% if(pageInfo?.pathUrl === "/panel/products-defects") {%>
+<script src="/pages/panel/products.js"></script>
+<%} %> <% if(pageInfo?.pathUrl === "/panel/robot-control") {%>
+<script src="/pages/panel/robot-control.js"></script>
+<%} %> <% if(pageInfo?.pathUrl === "/panel/sellers") {%>
+<script src="/pages/panel/sellers.js"></script>
+<%} %> <% if(pageInfo?.pathUrl === "/panel/category-color") {%>
+<script src="/pages/panel/category-color.js"></script>
+<%} %>

@@ -3,8 +3,11 @@ import { ProductController, ProductControllerEJS } from "./product.controller";
 import upload from "../../common/utils/multer";
 
 const router: Router = Router();
+
 const productController = new ProductController();
 const productControllerEjs = new ProductControllerEJS();
+
+router.get("/report/:buyAndSell", productController.findAllProductAndSumSellBuy);
 
 router.post("/form", upload.single("img"), productControllerEjs.create);
 router.post("/:id/form", upload.single("img"), productControllerEjs.update);

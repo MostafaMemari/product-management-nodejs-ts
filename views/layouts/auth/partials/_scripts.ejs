@@ -1,0 +1,11 @@
+<script src="/dist/js/app.js"></script>
+<script src="/dist/vendor/SweetAlert2/sweetalert2.js"></script>
+<script src="/pages/panel/shared.js"></script>
+<script src="/utils/funcs.js"></script>
+<script src="/utils/chart.js"></script>
+
+<% if(pageInfo?.pathUrl === "/auth/login"){ %>
+<script src="/pages/auth/login.js"></script>
+<%} %> <% if(pageInfo?.pathUrl === "/auth/register"){ %>
+<script src="/pages/auth/register.js"></script>
+<%} %>
