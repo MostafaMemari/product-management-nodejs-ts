@@ -98,7 +98,7 @@ export class ProductController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.service.find(query, req.params, colors, categories, sellers);
+      const response: any = await this.service.find(query, colors, categories, sellers);
 
       // for (const product of response.products) {
       //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
@@ -139,29 +139,6 @@ export class ProductController {
     }
   }
 
-<<<<<<< HEAD
-  // async findAllProductAndSumSellBuy(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
-  //     const colors: IColor[] = await this.colorService.find();
-  //     const categories: ICategory[] = await this.categoryService.find();
-  //     const sellers: ISeller[] = await this.sellerService.find();
-
-  //     const response: any = await this.service.find(query, colors, categories, sellers);
-
-  //     for (const product of response.products) {
-  //       const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
-  //       product.reportBuy = result;
-  //     }
-
-  //     res.status(StatusCodes.OK).json({
-  //       data: response,
-  //     });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
-=======
   async findAllProductAndSumSellBuy(req: Request, res: Response, next: NextFunction) {
     try {
       const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
@@ -179,7 +156,6 @@ export class ProductController {
       next(error);
     }
   }
->>>>>>> spaSellBuyProduct
 }
 export class ProductControllerEJS {
   private service = productService;

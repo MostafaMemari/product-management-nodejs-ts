@@ -42,6 +42,7 @@ const express_flash_1 = __importDefault(require("express-flash"));
 const express_session_1 = __importDefault(require("express-session"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const authorization_guard_1 = require("./common/guard/authorization.guard");
+// import { setDefaultData } from "./common/exception/setDefaultDataReq";
 class Application {
     constructor(PORT, DB_URL) {
         this.PORT = PORT;
@@ -82,8 +83,8 @@ class Application {
         });
     }
     createRoute() {
-        this.app.use("/auth", auth_routes_1.default);
-        this.app.use("/panel", authorization_guard_1.Authorization, panel_routes_1.default);
+        this.app.use("/", auth_routes_1.default);
+        this.app.use("/", authorization_guard_1.Authorization, panel_routes_1.default);
         this.app.use("/api/v1", app_routes_1.AllRouter);
     }
     errorHandler() {

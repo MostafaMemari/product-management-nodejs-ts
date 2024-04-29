@@ -31,7 +31,7 @@ export class RobotController {
       const sellers: ISeller[] = await this.sellerService.find();
       const params = req.params;
 
-      const response: any = await this.productService.find(query, params, colors, categories, sellers);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);

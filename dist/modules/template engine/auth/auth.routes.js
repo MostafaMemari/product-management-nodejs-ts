@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_controller_1 = require("./auth.controller");
+const redirectUser_1 = require("../../../common/guard/redirectUser");
 const router = (0, express_1.Router)();
 const authController = new auth_controller_1.AuthController();
-router.get("/login", authController.login);
-router.get("/register", authController.register);
+router.get("/login", redirectUser_1.redirectLoginUser, authController.login);
+router.get("/register", redirectUser_1.redirectLoginUser, authController.register);
 router.get("/logout", authController.logout);
 exports.default = router;

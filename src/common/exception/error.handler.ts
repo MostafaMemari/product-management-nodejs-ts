@@ -5,14 +5,18 @@ import { Request, Response, NextFunction } from "express";
 import createHttpError from "http-errors";
 
 export function ApiErrorHandler(error: HttpError, req: Request, res: Response, next: NextFunction) {
-  const errorCode: number = error.status || 500;
-  const message: string = error.message || "internal server error";
+  if (error.status === 401) {
+    res.redirect("/login");
+  }
 
-  res.status(errorCode).json({
-    status: errorCode,
-    ...error,
-    message,
-  });
+  // const errorCode: number = error.status || 500;
+  // const message: string = error.message || "internal server error";
+
+  // res.status(errorCode).json({
+  //   status: errorCode,
+  //   ...error,
+  //   message,
+  // });
 }
 export function NotFoundErrorHandler(req: Request, res: Response, next: NextFunction) {
   const errorCode: number = 404;

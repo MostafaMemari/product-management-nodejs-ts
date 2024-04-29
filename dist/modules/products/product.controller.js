@@ -93,7 +93,7 @@ class ProductController {
             const colors = await this.colorService.find();
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
-            const response = await this.service.find(query, req.params, colors, categories, sellers);
+            const response = await this.service.find(query, colors, categories, sellers);
             // for (const product of response.products) {
             //   const result = await this.buyAndSellService.sumCountAllAndMonthBuyOrSell(product._id.toString(), req.params.buyAndSell as "buy" | "sell");
             //   product.reportBuy = result;
@@ -124,6 +124,21 @@ class ProductController {
             await this.service.removeByID(productID);
             res.status(http_status_codes_1.StatusCodes.OK).json({
                 message: product_message_1.ProductMessage.Deleted,
+            });
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+    async findAllProductAndSumSellBuy(req, res, next) {
+        try {
+            const query = (0, class_transformer_1.plainToClass)(product_dto_1.ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
+            const colors = await this.colorService.find();
+            const categories = await this.categoryService.find();
+            const sellers = await this.sellerService.find();
+            const response = await this.service.findAllProductAndSumSellBuy(query, req.params, colors, categories, sellers);
+            res.status(http_status_codes_1.StatusCodes.OK).json({
+                data: response,
             });
         }
         catch (error) {

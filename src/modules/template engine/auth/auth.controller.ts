@@ -63,7 +63,7 @@ export class AuthController {
     try {
       res.clearCookie(CookieNames.AccessToken);
       req.flash("success", "خروج با موفقیت انجام شد");
-      res.redirect("/auth/login");
+      res.redirect("/login");
     } catch (error) {
       next(error);
     }

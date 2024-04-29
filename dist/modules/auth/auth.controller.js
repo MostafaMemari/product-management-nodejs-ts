@@ -24,6 +24,7 @@ class AuthController {
             res
                 .cookie(public_enum_1.CookieNames.AccessToken, token, {
                 httpOnly: true,
+                maxAge: 604800000,
                 secure: process.env.NODE_ENV === env_enum_1.NodeEnv.Development, // production => true
             })
                 .status(http_status_codes_1.StatusCodes.OK)
@@ -43,6 +44,7 @@ class AuthController {
             res
                 .cookie(public_enum_1.CookieNames.AccessToken, accessToken, {
                 httpOnly: true,
+                maxAge: 604800000,
                 secure: process.env.NODE_ENV === env_enum_1.NodeEnv.Development, // production => true
             })
                 .status(http_status_codes_1.StatusCodes.OK)

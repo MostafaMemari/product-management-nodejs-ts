@@ -23,14 +23,10 @@ export class PanelController {
   }
   async main(req: Request, res: Response, next: NextFunction) {
     try {
-      const query: ProductQueryDTO = plainToClass(ProductQueryDTO, req.query, { excludeExtraneousValues: true, exposeUnsetFields: false });
-      const colors: IColor[] = await this.colorService.find();
-      const categories: ICategory[] = await this.categoryService.find();
-      const sellers: ISeller[] = await this.sellerService.find();
-
-      const response = await this.productService.find(query, req.params, colors, categories, sellers);
-
-      res.render("", { response, colors, categories, sellers, apiUrl: process.env.API_URL });
+      res.render("./pages/panel/dashboard.ejs", {
+        pageInfo: { pathUrl: "/", pathTitle: "صفحه اصلی" },
+        apiUrl: process.env.API_URL,
+      });
     } catch (error) {
       next(error);
     }
@@ -43,7 +39,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
@@ -93,7 +89,6 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-<<<<<<< HEAD
       // const response: any = await this.productService.find(query, "buy", colors, categories, sellers);
 
       // for (const product of response.products) {
@@ -101,17 +96,12 @@ export class PanelController {
       //   product.reportBuy = result;
       // }
 
-=======
->>>>>>> spaSellBuyProduct
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
       const queryString = "?" + new URLSearchParams(queryPath).toString();
 
       res.render("./pages/panel/products/buy-product.ejs", {
-<<<<<<< HEAD
         // response,
-=======
->>>>>>> spaSellBuyProduct
         colors,
         categories,
         sellers,
@@ -129,7 +119,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
+      const response: any = await this.productService.findAllProductAndSumSellBuy(query, req.params, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);
@@ -155,7 +145,7 @@ export class PanelController {
       const categories: ICategory[] = await this.categoryService.find();
       const sellers: ISeller[] = await this.sellerService.find();
 
-      const response: any = await this.productService.find(query, req.params, colors, categories, sellers);
+      const response: any = await this.productService.find(query, colors, categories, sellers);
 
       req.query.page ? delete req.query.page : false;
       const queryPath: any = Object.entries(req.query);

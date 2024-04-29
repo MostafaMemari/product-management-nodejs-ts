@@ -55,10 +55,6 @@
     </svg>
   </div>
 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> spaSellBuyProduct
 <div class="content">
   <!-- BEGIN: Top Bar -->
   <div class="top-bar">
@@ -87,79 +83,6 @@
             <input id="input-search" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..."
             value="<%-pageInfo?.query?.search ? pageInfo?.query?.search : ""%>" />
 
-<<<<<<< HEAD
-  <div class="grid md:grid-cols-3 gap-4 mt-3">
-    <div class="flex">
-      <select
-        onchange="selectBoxColor(event)"
-        id="color-select-box"
-        data-placeholder="انتخاب رنگ"
-        data-search="true"
-        class="tail-select w-full z-[53]"
-        multiple
-      >
-        <!---->
-        <% colors.forEach(color => { %>
-        <!---->
-        <% if(pageInfo?.query?.color?.split(",").includes(color.name)){%>
-        <option selected value="<%-color.name%>"><%-color.name %></option>
-        <%} else {%>
-        <option value="<%-color.name%>"><%-color.name %></option>
-        <% } %><% }) %>
-      </select>
-    </div>
-
-    <div class="flex">
-      <select
-        onchange="selectBoxCategory(event)"
-        id="category-select-box"
-        data-placeholder="انتخاب دسته بندی"
-        data-search="true"
-        class="tail-select w-full z-[52]"
-        multiple
-      >
-        <% categories.forEach(category => { %>
-        <!---->
-        <% if(pageInfo?.query?.category?.split(",").includes(category.name)){%>
-        <option selected value="<%-category.name%>"><%-category.name %></option>
-        <%} else {%>
-        <option value="<%-category.name%>"><%-category.name %></option>
-        <% } %><% }) %>
-      </select>
-    </div>
-
-    <div class="flex">
-      <select
-        onchange="selectBoxSeller(event)"
-        id="seller-select-box"
-        data-placeholder="انتخاب فروشنده"
-        data-search="true"
-        class="tail-select w-full z-[51]"
-        multiple
-      >
-        <% sellers.forEach(seller => { %>
-        <!---->
-        <% if(pageInfo?.query?.seller?.split(",").includes(seller?.sellerTitle)){%>
-        <option selected value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
-        <%} else {%>
-        <option value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
-        <% } %><% }) %>
-      </select>
-    </div>
-  </div>
-
-  <!-- BEGIN: Data List -->
-  <div class="grid min-[2300px]:grid-cols-8 2xl:grid-cols-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-5" id="card-product"></div>
-  <!-- END: Data List -->
-
-  <!-- BEGIN: Pagination -->
-  <%-include("../../../layouts/panel/partials/_pagination.ejs" , {response , pageInfo })%>
-  <!-- END: Pagination -->
-</div>
-<script src="/pages/panel/sell-product.js"></script>
-<!-- <script src="/pages/panel/buy-sell.js"></script> -->
-<script src="/pages/panel/shared.js"></script>
-=======
             <i id="btn-search" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
           </div>
         </div>
@@ -220,4 +143,3 @@
     const pageInfo = "<%-pageInfo?.pathTitle%>";
   </script>
 </div>
->>>>>>> spaSellBuyProduct

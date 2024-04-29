@@ -7,8 +7,14 @@
 
   <ul>
 
-<!-- menu products -->
-    <% const checkUrlProducts = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell"  || pageInfo.pathUrl == "/panel/products-defects" %>
+    <!-- dashboard -->
+    <li>
+      <a href="/" class="side-menu <%-pageInfo.pathUrl == "/" && "side-menu--active" %>">
+        <div class="side-menu__icon"><i data-feather="home"></i></div><div class="side-menu__title">صفحه اصلی</div>
+      </a>
+    </li>
+    <!-- menu products -->
+<% const checkUrlProducts = pageInfo.pathUrl == "/panel/products" || pageInfo.pathUrl == "/panel/products-buy" || pageInfo.pathUrl == "/panel/products-sell"  || pageInfo.pathUrl == "/panel/products-defects" %>
       <li>
         <a href="javascript:;" class="side-menu <%- checkUrlProducts && "side-menu--active" %>">
           <div class="side-menu__icon"><i data-feather="shopping-cart"></i></div>

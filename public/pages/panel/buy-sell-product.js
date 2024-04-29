@@ -58,7 +58,7 @@ function updateResults(pageNumber = 1) {
 async function getAndShowListProducts(query = "") {
   loader.classList.remove("hidden");
   inputSearch.focus();
-  const res = await fetch(`${apiUrl}/products/report/buy/${query}`);
+  const res = await fetch(`${apiUrl}/products/report/${(operationPage == "خرید" && "buy") || (operationPage == "فروش" && "sell")}/${query}`);
   const result = await res.json();
   loader.classList.add("hidden");
 

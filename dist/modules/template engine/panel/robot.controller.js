@@ -29,7 +29,7 @@ class RobotController {
             const categories = await this.categoryService.find();
             const sellers = await this.sellerService.find();
             const params = req.params;
-            const response = await this.productService.find(query, params, colors, categories, sellers);
+            const response = await this.productService.find(query, colors, categories, sellers);
             req.query.page ? delete req.query.page : false;
             const queryPath = Object.entries(req.query);
             const queryString = "?" + new URLSearchParams(queryPath).toString();

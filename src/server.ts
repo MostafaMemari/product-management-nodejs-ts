@@ -14,10 +14,7 @@ import flash from "express-flash";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import { Authorization } from "./common/guard/authorization.guard";
-<<<<<<< HEAD
 // import { setDefaultData } from "./common/exception/setDefaultDataReq";
-=======
->>>>>>> spaSellBuyProduct
 
 export class Application {
   private app = express();
@@ -66,8 +63,8 @@ export class Application {
     });
   }
   createRoute(): void {
-    this.app.use("/auth", authRouter);
-    this.app.use("/panel", Authorization, panelRouter);
+    this.app.use("/", authRouter);
+    this.app.use("/", Authorization, panelRouter);
     this.app.use("/api/v1", AllRouter);
   }
   errorHandler(): void {
