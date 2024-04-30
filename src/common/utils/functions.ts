@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import createHttpError from "http-errors";
 import jwt from "jsonwebtoken";
 
 export function toEnglish(persianNumber: any): string {
@@ -31,5 +32,10 @@ export async function generateToken(payload: object) {
   return jwt.sign(payload, `${process.env.JWT_SECRET}`, { expiresIn: "7d" });
 }
 export async function verifyToken(token: string) {
-  return jwt.verify(token, `${process.env.JWT_SECRET}`);
+  return jwt.verify(token, `${process.env.JWT_SECRET}`, (error, decoded) => {
+    if (error) {
+      return createHttpError?.Unauthorized("لطفا وارد حساب کاربری خود شوید");
+    }
+    return decoded;
+  });
 }

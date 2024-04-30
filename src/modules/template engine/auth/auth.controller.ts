@@ -44,9 +44,9 @@ export class AuthController {
   }
   async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const token = req?.cookies?.access_token;
+      const token = req?.cookies?.accessToken;
       if (token) {
-        const data = await verifyToken(token);
+        const data: any = await verifyToken(token);
         if (typeof data === "object" && "id" in data) {
           const user = await UserModel.findById(data.id, { password: 0 }).lean();
           if (user) res.redirect("/panel/products");

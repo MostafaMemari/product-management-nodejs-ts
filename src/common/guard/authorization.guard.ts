@@ -7,12 +7,12 @@ import { IUser } from "../../modules/auth/auth.types";
 
 export async function Authorization(req: Request, res: Response, next: NextFunction) {
   try {
-    const token = req?.cookies?.access_token;
+    const token = req?.cookies?.accessToken;
     if (!token) throw createHttpError.Unauthorized(AuthorizationMessage.Login);
-    const data = await verifyToken(token);
+    const data: any = await verifyToken(token);
 
     if (typeof data === "object" && "id" in data) {
-      const user: any = await UserModel.findById(data.id, { password: 0 }).lean();
+      const user: any = await UserModel.findById(data.id).select("-password").lean();
       if (!user) throw createHttpError.Unauthorized(AuthorizationMessage.NotFoundAccount);
       if (user.role === "SUPER_ADMIN") {
         req.user = user;
@@ -21,7 +21,7 @@ export async function Authorization(req: Request, res: Response, next: NextFunct
         throw next(createHttpError.Unauthorized(AuthorizationMessage.UnAuthorized));
       }
     }
-    // throw createHttpError.Unauthorized(AuthorizationMessage.InvalidToken);
+    throw createHttpError.Unauthorized(AuthorizationMessage.InvalidToken);
   } catch (error) {
     // res.redirect("/auth/register");
     next(error);

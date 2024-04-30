@@ -14,7 +14,6 @@ import flash from "express-flash";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import { Authorization } from "./common/guard/authorization.guard";
-// import { setDefaultData } from "./common/exception/setDefaultDataReq";
 
 export class Application {
   private app = express();
@@ -39,7 +38,6 @@ export class Application {
         saveUninitialized: false,
       })
     );
-    // this.app.use(setDefaultData);
 
     this.app.use(flash());
     this.app.use(cors({ origin: "*" }));
@@ -63,9 +61,9 @@ export class Application {
     });
   }
   createRoute(): void {
+    this.app.use("/api/v1", AllRouter);
     this.app.use("/", authRouter);
     this.app.use("/", Authorization, panelRouter);
-    this.app.use("/api/v1", AllRouter);
   }
   errorHandler(): void {
     this.app.use(NotFoundErrorHandler);

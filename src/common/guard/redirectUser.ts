@@ -14,7 +14,7 @@ export async function redirectLoginUser(req: Request, res: Response, next: NextF
 
 async function isLoginUser(req: Request) {
   let isLogin = null;
-  const token = req?.cookies?.access_token;
+  const token = req?.cookies?.accessToken;
   if (!token) return (isLogin = false);
   const verifiedToken: any = verifyToken(token);
 
