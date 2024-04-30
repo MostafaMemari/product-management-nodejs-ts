@@ -15,6 +15,11 @@ const categorySelectBox = document.getElementById("category-select-box");
 const sellerSelectBox = document.getElementById("seller-select-box");
 const searchBtn = document.getElementById("btn-search");
 
+const inputLtCount = document.getElementById("input-lt-count");
+const inputGtCount = document.getElementById("input-gt-count");
+const selectCount = document.getElementById("select-count");
+const selectSort = document.getElementById("select-sort");
+
 const loader = document.getElementById("loader");
 
 inputSearch.addEventListener("change", updateResults);
@@ -24,11 +29,22 @@ categorySelectBox.addEventListener("change", updateResults);
 sellerSelectBox.addEventListener("change", updateResults);
 searchBtn.addEventListener("click", updateResults);
 
+inputLtCount.addEventListener("change", updateResults);
+inputGtCount.addEventListener("change", updateResults);
+selectCount.addEventListener("change", updateResults);
+selectSort.addEventListener("change", updateResults);
+
 function updateResults(pageNumber = 1) {
   let queryString = "";
 
   const searchValue = inputSearch.value.trim();
   const selectedLimit = selectLimit.value;
+
+  const ltCountValue = inputLtCount.value;
+  const gtCountValue = inputGtCount.value;
+  const selectSortCount = selectCount.value;
+  const selectSortUpdate = selectSort.value;
+
   const selectedColor = Array.from(colorSelectBox.selectedOptions).map((option) => option.innerHTML);
   const selectedCategory = Array.from(categorySelectBox.selectedOptions).map((option) => option.innerHTML);
   const selectedSeller = Array.from(sellerSelectBox.selectedOptions).map((option) => option.innerHTML);
@@ -47,6 +63,19 @@ function updateResults(pageNumber = 1) {
   }
   if (selectedSeller.length > 0) {
     queryString += (queryString ? "&" : "") + `seller=${selectedSeller.join(",")}`;
+  }
+
+  if (gtCountValue.length > 0) {
+    queryString += (queryString ? "&" : "") + `gtCount=${gtCountValue}`;
+  }
+  if (ltCountValue.length > 0) {
+    queryString += (queryString ? "&" : "") + `ltCount=${ltCountValue}`;
+  }
+  if (selectSortCount.length > 0) {
+    queryString += (queryString ? "&" : "") + `sortCount=${selectSortCount}`;
+  }
+  if (selectSortUpdate.length > 0) {
+    queryString += (queryString ? "&" : "") + `sort=${selectSortUpdate}`;
   }
 
   queryString += (queryString ? "&" : "") + `page=${!isNaN(pageNumber) ? pageNumber : 1}`;

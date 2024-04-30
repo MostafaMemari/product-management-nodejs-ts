@@ -294,11 +294,34 @@ class ProductService {
     const limit = parseInt(query.limit) || 10;
     const search = query.search || "";
     const skip = (page - 1) * limit;
-    const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
+    const sort: 1 | -1 = query.sort == "asc" ? 1 : query.sort == "desc" ? -1 : -1;
+    const sortCount: 1 | -1 = query.sortCount == "asc" ? 1 : query.sort == "desc" ? -1 : -1;
+
+    let sortQuery: any = "";
+
+    if (query?.sortCount == "desc" || query?.sortCount == "asc") {
+      sortQuery = { count: sortCount };
+    } else {
+      sortQuery = { updatedAt: sort };
+    }
 
     let categoryQuery: any = categoryDto.filter((category) => query?.category?.split(",").includes(category.name));
     let colorQuery: any = colorsDto.filter((color) => query?.color?.split(",").includes(color.name));
     let sellerQuery: any = sellerDto.filter((seller) => query?.seller?.split(",").includes(seller.sellerTitle));
+
+    let countQuery: Object = "";
+    let ltCount: any = Number(query?.ltCount);
+    let gtCount: any = Number(query?.gtCount);
+
+    if (ltCount && gtCount) {
+      countQuery = [{ count: { $lte: ltCount } }, { count: { $gte: gtCount } }];
+    } else if (ltCount) {
+      countQuery = [{ count: { $lte: ltCount } }];
+    } else if (gtCount) {
+      countQuery = [{ count: { $gte: gtCount } }];
+    } else {
+      countQuery = [{}];
+    }
 
     if (!!categoryQuery.length) {
       categoryQuery = [{ category: { $in: categoryQuery.map((category: any) => category._id) } }];
@@ -332,12 +355,13 @@ class ProductService {
             {
               $or: sellerQuery,
             },
+            {
+              $or: countQuery,
+            },
           ],
         },
       },
-      {
-        $sort: { updatedAt: sort == "asc" ? 1 : -1 },
-      },
+      { $sort: sortQuery },
       {
         $skip: skip,
       },
@@ -433,7 +457,7 @@ class ProductService {
     ]);
 
     const total = await ProductModel.countDocuments({
-      $and: [{ $or: [{ title: { $regex: new RegExp(search, "i") } }] }, { $or: categoryQuery }, { $or: colorQuery }, { $or: sellerQuery }],
+      $and: [{ $or: [{ title: { $regex: new RegExp(search, "i") } }] }, { $or: categoryQuery }, { $or: colorQuery }, { $or: sellerQuery }, { $or: countQuery }],
     });
 
     const response: any = {

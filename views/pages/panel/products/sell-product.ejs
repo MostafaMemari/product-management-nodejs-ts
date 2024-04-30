@@ -76,14 +76,65 @@
 
   <div class="container-xxl flex-grow-1 container-p-y" id="scroll">
     <h2 class="intro-y text-lg font-medium m-2"><%-pageInfo?.pathTitle %></h2>
-    <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
-      <div class="flex">
-        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <div class="w-full relative text-gray-700 dark:text-gray-300">
-            <input id="input-search" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..."
-            value="<%-pageInfo?.query?.search ? pageInfo?.query?.search : ""%>" />
 
-            <i id="btn-search" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
+    <div class="flex align-center justify-start gap-3">
+      <div class="flex flex-col cursor-pointer sm:flex-row">
+        <div class="flex">
+          <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <div class="w-full relative text-gray-700 dark:text-gray-300">
+              <input id="input-search" type="text" class="form-control w-full box pl-10 placeholder-theme-13" placeholder="جستجو..."
+              value="<%-pageInfo?.query?.search ? pageInfo?.query?.search : ""%>" />
+
+              <i id="btn-search" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col cursor-pointer sm:flex-row">
+        <div class="flex">
+          <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <div class="w-full relative text-gray-700 dark:text-gray-300">
+              <label for="input-lt-count">کمتر از</label>
+              <input id="input-lt-count" type="text" class="form-control w-16 box placeholder-theme-13 text-center mr-1" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col cursor-pointer sm:flex-row">
+        <div class="flex">
+          <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <div class="w-full relative text-gray-700 dark:text-gray-300">
+              <label for="input-gt-count">بیشتر از</label>
+              <input id="input-gt-count" type="text" class="form-control w-16 box placeholder-theme-13 text-center mr-1" value="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col cursor-pointer sm:flex-row">
+        <div class="flex">
+          <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <div class="w-full relative text-gray-700 dark:text-gray-300">
+              <label for="select-count">موجودی</label>
+              <select class="w-24 form-select box mt-3 sm:mt-0 mr-1" id="select-count">
+                <option hidden selected value=""></option>
+                <option value="asc">صعودی</option>
+                <option value="desc">نزولی</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col cursor-pointer sm:flex-row">
+        <div class="flex">
+          <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <div class="w-full relative text-gray-700 dark:text-gray-300">
+              <label for="select-sort">آخرین تغیرات</label>
+              <select class="w-24 form-select box mt-3 sm:mt-0 mr-1" id="select-sort">
+                <option hidden selected value=""></option>
+                <option value="asc">صعودی</option>
+                <option value="desc">نزولی</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

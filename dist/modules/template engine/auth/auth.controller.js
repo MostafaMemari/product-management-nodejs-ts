@@ -38,7 +38,7 @@ class AuthController {
     async register(req, res, next) {
         var _a;
         try {
-            const token = (_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.access_token;
+            const token = (_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.accessToken;
             if (token) {
                 const data = await (0, functions_1.verifyToken)(token);
                 if (typeof data === "object" && "id" in data) {

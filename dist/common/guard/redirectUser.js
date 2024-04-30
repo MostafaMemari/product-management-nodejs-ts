@@ -16,7 +16,7 @@ exports.redirectLoginUser = redirectLoginUser;
 async function isLoginUser(req) {
     var _a;
     let isLogin = null;
-    const token = (_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.access_token;
+    const token = (_a = req === null || req === void 0 ? void 0 : req.cookies) === null || _a === void 0 ? void 0 : _a.accessToken;
     if (!token)
         return (isLogin = false);
     const verifiedToken = (0, functions_1.verifyToken)(token);

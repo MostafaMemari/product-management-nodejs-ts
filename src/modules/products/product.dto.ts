@@ -167,4 +167,19 @@ export class ProductQueryDTO {
   @Expose()
   @IsString()
   sort: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  ltCount: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  gtCount: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  sortCount: string;
 }

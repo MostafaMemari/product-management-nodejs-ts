@@ -273,10 +273,33 @@ class ProductService {
         const limit = parseInt(query.limit) || 10;
         const search = query.search || "";
         const skip = (page - 1) * limit;
-        const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
+        const sort = query.sort == "asc" ? 1 : query.sort == "desc" ? -1 : -1;
+        const sortCount = query.sortCount == "asc" ? 1 : query.sort == "desc" ? -1 : -1;
+        let sortQuery = "";
+        if ((query === null || query === void 0 ? void 0 : query.sortCount) == "desc" || (query === null || query === void 0 ? void 0 : query.sortCount) == "asc") {
+            sortQuery = { count: sortCount };
+        }
+        else {
+            sortQuery = { updatedAt: sort };
+        }
         let categoryQuery = categoryDto.filter((category) => { var _a; return (_a = query === null || query === void 0 ? void 0 : query.category) === null || _a === void 0 ? void 0 : _a.split(",").includes(category.name); });
         let colorQuery = colorsDto.filter((color) => { var _a; return (_a = query === null || query === void 0 ? void 0 : query.color) === null || _a === void 0 ? void 0 : _a.split(",").includes(color.name); });
         let sellerQuery = sellerDto.filter((seller) => { var _a; return (_a = query === null || query === void 0 ? void 0 : query.seller) === null || _a === void 0 ? void 0 : _a.split(",").includes(seller.sellerTitle); });
+        let countQuery = "";
+        let ltCount = Number(query === null || query === void 0 ? void 0 : query.ltCount);
+        let gtCount = Number(query === null || query === void 0 ? void 0 : query.gtCount);
+        if (ltCount && gtCount) {
+            countQuery = [{ count: { $lte: ltCount } }, { count: { $gte: gtCount } }];
+        }
+        else if (ltCount) {
+            countQuery = [{ count: { $lte: ltCount } }];
+        }
+        else if (gtCount) {
+            countQuery = [{ count: { $gte: gtCount } }];
+        }
+        else {
+            countQuery = [{}];
+        }
         if (!!categoryQuery.length) {
             categoryQuery = [{ category: { $in: categoryQuery.map((category) => category._id) } }];
         }
@@ -311,12 +334,13 @@ class ProductService {
                         {
                             $or: sellerQuery,
                         },
+                        {
+                            $or: countQuery,
+                        },
                     ],
                 },
             },
-            {
-                $sort: { updatedAt: sort == "asc" ? 1 : -1 },
-            },
+            { $sort: sortQuery },
             {
                 $skip: skip,
             },
@@ -410,7 +434,7 @@ class ProductService {
             },
         ]);
         const total = await product_model_1.ProductModel.countDocuments({
-            $and: [{ $or: [{ title: { $regex: new RegExp(search, "i") } }] }, { $or: categoryQuery }, { $or: colorQuery }, { $or: sellerQuery }],
+            $and: [{ $or: [{ title: { $regex: new RegExp(search, "i") } }] }, { $or: categoryQuery }, { $or: colorQuery }, { $or: sellerQuery }, { $or: countQuery }],
         });
         const response = {
             total,

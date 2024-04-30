@@ -7,16 +7,16 @@ exports.errorHandler = exports.NotFoundErrorHandler = exports.ApiErrorHandler = 
 const class_validator_1 = require("class-validator");
 const http_errors_1 = __importDefault(require("http-errors"));
 function ApiErrorHandler(error, req, res, next) {
-    if (error.status === 401) {
-        res.redirect("/login");
-    }
-    // const errorCode: number = error.status || 500;
-    // const message: string = error.message || "internal server error";
-    // res.status(errorCode).json({
-    //   status: errorCode,
-    //   ...error,
-    //   message,
-    // });
+    // if (error.status === 401) {
+    //   res.redirect("/login");
+    // }
+    const errorCode = error.status || 500;
+    const message = error.message || "internal server error";
+    res.status(errorCode).json({
+        status: errorCode,
+        ...error,
+        message,
+    });
 }
 exports.ApiErrorHandler = ApiErrorHandler;
 function NotFoundErrorHandler(req, res, next) {

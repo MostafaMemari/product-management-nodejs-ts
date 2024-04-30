@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyToken = exports.generateToken = exports.comparePassword = exports.hashPassword = exports.stringToNumber = exports.toEnglish = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const http_errors_1 = __importDefault(require("http-errors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function toEnglish(persianNumber) {
     const pn = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
@@ -43,6 +44,11 @@ async function generateToken(payload) {
 }
 exports.generateToken = generateToken;
 async function verifyToken(token) {
-    return jsonwebtoken_1.default.verify(token, `${process.env.JWT_SECRET}`);
+    return jsonwebtoken_1.default.verify(token, `${process.env.JWT_SECRET}`, (error, decoded) => {
+        if (error) {
+            return http_errors_1.default === null || http_errors_1.default === void 0 ? void 0 : http_errors_1.default.Unauthorized("لطفا وارد حساب کاربری خود شوید");
+        }
+        return decoded;
+    });
 }
 exports.verifyToken = verifyToken;

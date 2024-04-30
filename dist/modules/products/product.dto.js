@@ -216,3 +216,21 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ProductQueryDTO.prototype, "sort", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "ltCount", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "gtCount", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Expose)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ProductQueryDTO.prototype, "sortCount", void 0);

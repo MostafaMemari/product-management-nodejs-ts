@@ -184,6 +184,61 @@
  */
 /**
  * @swagger
+ * /api/v1/products/report/{buyAndSell}:
+ *  get:
+ *    summary: get all product
+ *    tags:
+ *      - Product
+ *    parameters:
+ *      - in: path
+ *        name: buyAndSell
+ *        type: string
+ *      - in: query
+ *        name: search
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: sort
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: limit
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: category
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: color
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: seller
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: sortCount
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: gtCount
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: ltCount
+ *        schema:
+ *          type: integer
+ *    responses:
+ *      200:
+ *        description: success
+ */
+/**
+ * @swagger
  * /api/v1/products/defects:
  *  get:
  *    summary: get all product defects
