@@ -12,7 +12,6 @@ router.get("/panel/robot-history", robotController.history);
 router.get("/panel/products", panelController.products);
 router.get("/panel/products-buy", panelController.buy);
 router.get("/panel/products-sell", panelController.sell);
-router.get("/panel/products-defects", panelController.defects);
 router.get("/panel/sellers", panelController.sellers);
 router.get("/panel/category-color", panelController.categoryAndColor);
 exports.default = router;
