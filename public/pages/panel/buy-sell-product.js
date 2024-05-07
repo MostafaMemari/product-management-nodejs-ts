@@ -205,7 +205,7 @@ function createPaginationHtmlByPageInfo(pageInfo) {
   let pagination = "";
   if (page - 3 < 1) {
     page != 1 && (pagination += btnPrev);
-    if (pages < 4) {
+    if (pages <= 4) {
       for (let i = 1; i <= pages; i++) {
         pagination += `
         <li>
@@ -230,8 +230,13 @@ function createPaginationHtmlByPageInfo(pageInfo) {
     }
   } else if (Number(page) + 3 > pages && page <= pages) {
     pagination += `${btnPrev} 
-        <li><a class="pagination__link" data-page="1">1</a></li>
-        <li><a class="pagination__link"  data-page="${pages - 5}">...</a></li>
+        ${
+          pages !== 4
+            ? `<li><a class="pagination__link" data-page="1">1</a></li>
+          <li><a class="pagination__link"  data-page="${pages - 5}">...</a></li>`
+            : ""
+        }
+
         `;
 
     for (let i = pages - 3; i <= pages; i++) {
