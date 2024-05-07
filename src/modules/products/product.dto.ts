@@ -182,4 +182,9 @@ export class ProductQueryDTO {
   @Expose()
   @IsString()
   sortCount: string;
+
+  @IsDefined()
+  @Expose()
+  @IsString()
+  sortRobot: string;
 }

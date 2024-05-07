@@ -126,6 +126,33 @@ class ProductService {
   //   return response;
   // }
 
+  async findProduct(query: ProductQueryDTO): Promise<IProduct[]> {
+    const page = parseInt(query.page) - 1 || 0;
+    const limit = parseInt(query.limit) || 15;
+    const search = query.search || "";
+    const sort = query.sort == "asc" ? "asc" : "desc" || "desc";
+
+    const products: IProduct[] = await ProductModel.find({ title: { $regex: search, $options: "i" } }, { robot: 1, dkp: 1, dkpc: 1, title: 1, img: 1 })
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ "robot.isBuyBox": -1, updatedAt: -1 })
+      .lean();
+
+    const total = await ProductModel.countDocuments({
+      title: { $regex: search, $options: "i" },
+    });
+
+    const response: any = {
+      total,
+      pages: Math.ceil(total / limit),
+      page: page + 1,
+      limit,
+      products,
+    };
+
+    return response;
+  }
+
   async find(query: ProductQueryDTO, colorsDto: IColor[], categoryDto: ICategory[], sellerDto: ISeller[]): Promise<IProduct[]> {
     const page = parseInt(query.page) || 1;
     const limit = parseInt(query.limit) || 15;
@@ -283,6 +310,7 @@ class ProductService {
 
     return response;
   }
+
   async findAllProductAndSumSellBuy(
     query: ProductQueryDTO,
     params: any,

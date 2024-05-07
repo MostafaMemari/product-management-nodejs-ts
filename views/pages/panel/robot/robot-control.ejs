@@ -21,92 +21,29 @@
   <!-- END: Top Bar -->
 
   <h2 class="intro-y text-lg font-medium m-2"><%- pageInfo?.pathTitle %></h2>
+
   <div class="flex flex-col cursor-pointer justify-between sm:flex-row sm:w-full">
-    <div class="flex">
-      <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-        <div class="w-full relative text-gray-700 dark:text-gray-300">
-          <% if(pageInfo?.query?.search) { %>
+    <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+      <form id="tabulator-html-filter-form" class="xl:flex sm:ml-auto">
+        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
           <input
-            id="input-search"
-            onkeypress="inputSearchEnter(event)"
+            id="tabulator-html-filter-value"
             type="text"
-            class="form-control w-full box pl-10 placeholder-theme-13"
+            class="form-control sm:w-40 xxl:w-full mt-2 sm:mt-0"
+            name="search"
             placeholder="جستجو..."
-            value="<%-pageInfo?.query?.search%>"
+            value="<%- pageInfo.query?.search ? pageInfo.query?.search : '' %>"
           />
-          <% } else {%>
-          <input
-            id="input-search"
-            onkeypress="inputSearchEnter(event)"
-            type="text"
-            class="form-control w-full box pl-10 placeholder-theme-13"
-            placeholder="جستجو..."
-          /><% } %>
-          <i onclick="iconSearchClick(event)" class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0" data-feather="search"></i>
         </div>
-      </div>
+
+        <div class="mt-2 xl:mt-0 sm:mr-4">
+          <button id="tabulator-html-filter-go" type="submit" class="btn btn-primary w-full sm:w-16">جستجو</button>
+          <a href="/panel/robot-control" type="button" class="btn btn- w-full sm:w-16 mt-2 sm:mt-0 sm:mr-1">ریست</a>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div class="grid md:grid-cols-3 gap-4 mt-3">
-    <div class="flex">
-      <select
-        onchange="selectBoxColor(event)"
-        id="color-select-box"
-        data-placeholder="انتخاب رنگ"
-        data-search="true"
-        class="tail-select w-full z-[53]"
-        multiple
-      >
-        <!---->
-        <% colors.forEach(color => { %>
-        <!---->
-        <% if(pageInfo?.query?.color?.split(",").includes(color.name)){%>
-        <option selected value="<%-color.name%>"><%-color.name %></option>
-        <%} else {%>
-        <option value="<%-color.name%>"><%-color.name %></option>
-        <% } %><% }) %>
-      </select>
-    </div>
-
-    <div class="flex">
-      <select
-        onchange="selectBoxCategory(event)"
-        id="category-select-box"
-        data-placeholder="انتخاب دسته بندی"
-        data-search="true"
-        class="tail-select w-full z-[52]"
-        multiple
-      >
-        <% categories.forEach(category => { %>
-        <!---->
-        <% if(pageInfo?.query?.category?.split(",").includes(category.name)){%>
-        <option selected value="<%-category.name%>"><%-category.name %></option>
-        <%} else {%>
-        <option value="<%-category.name%>"><%-category.name %></option>
-        <% } %><% }) %>
-      </select>
-    </div>
-
-    <div class="flex">
-      <select
-        onchange="selectBoxSeller(event)"
-        id="seller-select-box"
-        data-placeholder="انتخاب فروشنده"
-        data-search="true"
-        class="tail-select w-full z-[51]"
-        multiple
-      >
-        <% sellers.forEach(seller => { %>
-        <!---->
-        <% if(pageInfo?.query?.seller?.split(",").includes(seller?.sellerTitle)){%>
-        <option selected value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
-        <%} else {%>
-        <option value="<%-seller.sellerTitle%>"><%-seller.sellerTitle %></option>
-        <% } %><% }) %>
-      </select>
-    </div>
-  </div>
   <!-- BEGIN: Data List -->
 
   <div class="intro-y col-span-10 overflow-auto">
@@ -135,7 +72,7 @@
           <td>
             <div class="flex">
               <div class="w-10 h-10 image-fit zoom-in rounded-full">
-                <img alt="" class="rounded-full" src="<%-product.img %>" />
+                <img alt="" class="rounded-full" src="https://bocket-product.storage.iran.liara.space<%- product.img %>" />
               </div>
             </div>
           </td>

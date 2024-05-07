@@ -109,7 +109,7 @@ async function getAndShowListProducts(query = "") {
           >
             <div class="flex flex-col items-center p-5">
               <div class="w-28 h-28 image-fit">
-                <img class="rounded-full image-fit" alt="" class="rounded-full" src="${product.img}" />
+                <img class="rounded-full image-fit" alt="" class="rounded-full" src="https://bocket-product.storage.iran.liara.space${product?.img}" />
               </div>
     
               <div class="text-center mt-3">
